@@ -12,7 +12,7 @@ struct free_frame_list
 {
 	int frame_number;
 	struct free_frame_list *next;
-}free_frame_list;
+};
 
 typedef struct free_frame_list free_frame;
 
@@ -29,7 +29,7 @@ struct used_frame_list
     int reference_bit;
 	struct used_frame_list *next;
     //struct used_frame_list *prev;
-}free_frame_list;
+};
 
 typedef struct used_frame_list used_frame;
 
