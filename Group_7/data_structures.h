@@ -48,5 +48,5 @@ typedef struct main_memory
     free_frame *ffl_tail;
 
     used_frame_list_dummy_head *ufl_dummy_head;
-    used_frame *last_used_frame;
+    used_frame *recently_used_frame;
 }main_memory;
