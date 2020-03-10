@@ -3,3 +3,7 @@
 #include <unistd.h>
 #include "functions.h"
 
+extern main_memory* initialize_main_memory(int main_memory_size, int frame_size)
+{
+    
+}
