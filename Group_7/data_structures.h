@@ -1,7 +1,7 @@
 
 typedef struct frame_table_entry
 {
-    int valid_bit;
+    int valid;
     int pid;
     int page_number;
 
@@ -28,7 +28,6 @@ struct used_frame_list
 	int frame_number;
     int reference_bit;
 	struct used_frame_list *next;
-    //struct used_frame_list *prev;
 };
 
 typedef struct used_frame_list used_frame;
@@ -50,3 +49,21 @@ typedef struct main_memory
     used_frame_list_dummy_head *ufl_dummy_head;
     used_frame *recently_used_frame;
 }main_memory;
+
+typedef struct tlb_entry
+{
+    int page_number;
+    int frame_number;
+    int valid;
+}tlb_entry;
+
+typedef struct page_table_entry
+{
+    int page_base_address;
+    int global_page;
+    int modified;
+    int referenced;
+    int cache_disabled;
+    int write;
+    
+}page_table_entry;
