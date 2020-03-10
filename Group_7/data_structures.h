@@ -1,7 +1,7 @@
 
 typedef struct frame_table_entry
 {
-    int present_bit;
+    int valid_bit;
     int pid;
     int page_number;
 

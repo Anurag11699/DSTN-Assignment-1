@@ -37,6 +37,12 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
     //initialize frame table
     main_memory_object->frame_table=(frame_table_entry *)malloc(number_of_frames*sizeof(frame_table_entry));
 
+    //all pages are invalid upon initialization
+    for(int frame_number=0;frame_number<number_of_frames;frame_number++)
+    {
+        main_memory_object->frame_table[number_of_frames].valid_bit=0;
+    }
+
     //initialize free frame list;
     main_memory_object->ffl_dummy_head = (free_frame_list_dummy_head *)malloc(sizeof(free_frame_list_dummy_head));
     main_memory_object->ffl_tail=NULL;
@@ -47,7 +53,11 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
     //add all frames to the free frame list
     for(int frame_number=0;frame_number<number_of_frames;frame_number++)
     {
-        add_free_frame(main_memory_object->ffl_dummy_head, main_memory_object->ffl_tail,frame_number);
+        if(main_memory_object->frame_table[frame_number].valid_bit==0)
+        {
+            add_free_frame(main_memory_object->ffl_dummy_head, main_memory_object->ffl_tail,frame_number);
+        }
+        
     }
 
     
