@@ -33,6 +33,7 @@ int remove_free_frame(free_frame_list_dummy_head *head, free_frame *tail)
     free_frame * temp = head->next;
     head->next=head->next->next;
     free(temp);
+    head->number_free_frames--;
 
     return frame_number;
 }
@@ -58,6 +59,29 @@ void add_used_frame(used_frame_list_dummy_head *head, used_frame *recently_used_
     recently_used_frame->next=new_frame;
     recently_used_frame=new_frame;
 
+}
+
+int remove_used_frame(used_frame_list_dummy_head *head, used_frame *recently_used_frame)
+{
+    if(head->next==NULL)
+    {
+        return -1;
+    }
+
+    while(recently_used_frame->next->reference_bit!=0)
+    {
+        recently_used_frame->next->reference_bit=0;
+        recently_used_frame=recently_used_frame->next;
+    }
+
+    int frame_number = recently_used_frame->next->frame_number;
+
+    used_frame *temp = recently_used_frame->next;
+    recently_used_frame->next=recently_used_frame->next->next;
+    free(temp);
+
+    head->number_used_frames--;
+    return frame_number;
 }
 
 /*
