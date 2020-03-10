@@ -3,6 +3,23 @@
 #include <unistd.h>
 #include "functions.h"
 
+void add_free_frame(free_frame_list_dummy_head *head, free_frame *tail, int frame_number)
+{
+    free_frame *new_frame = (free_frame *)malloc(sizeof(free_frame));
+    new_frame->frame_number=frame_number;
+    new_frame->next=NULL;
+    head->number_free_frames++;
+    if(head==NULL)
+    {
+        head->next=new_frame;
+        tail=new_frame;
+        return;
+    }
+
+    tail->next=new_frame;
+    tail=new_frame;
+}
+
 /*
 PreConditions
 Inputs: {main_memory_size in MB, frame_size in KB}
@@ -21,5 +38,18 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
     main_memory_object->frame_table=(frame_table_entry *)malloc(number_of_frames*sizeof(frame_table_entry));
 
     //initialize free frame list;
+    main_memory_object->ffl_dummy_head = (free_frame_list_dummy_head *)malloc(sizeof(free_frame_list_dummy_head));
+    main_memory_object->ffl_tail=NULL;
+    
+
+    main_memory_object->ffl_dummy_head->number_free_frames=number_of_frames; //all frames are initially free;
+
+    //add all frames to the free frame list
+    for(int frame_number=0;frame_number<number_of_frames;frame_number++)
+    {
+        add_free_frame(main_memory_object->ffl_dummy_head, main_memory_object->ffl_tail,frame_number);
+    }
+
+    
     return main_memory_object;
 }
