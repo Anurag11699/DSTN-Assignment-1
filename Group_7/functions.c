@@ -3,26 +3,29 @@
 #include <unistd.h>
 #include "functions.h"
 
-void add_free_frame(free_frame_list_dummy_head *head, free_frame *tail, int frame_number)
+void add_free_frame(free_frame_list_dummy_head *head, free_frame **tail, int frame_number)
 {
+    free_frame *temp_tail = *tail;
+
     free_frame *new_frame = (free_frame *)malloc(sizeof(free_frame));
     new_frame->frame_number=frame_number;
     new_frame->next=NULL;
     head->number_free_frames++;
-
-    if(head==NULL)
+    if(head->next==NULL)
     {
         head->next=new_frame;
-        tail=new_frame;
+        temp_tail=new_frame;
+        *tail = temp_tail;
         return;
     }
-
-    tail->next=new_frame;
-    tail=new_frame;
+    temp_tail->next=new_frame;
+    temp_tail=new_frame;
+    *tail = temp_tail;
 }
 
-int remove_free_frame(free_frame_list_dummy_head *head, free_frame *tail)
+int remove_free_frame(free_frame_list_dummy_head *head)
 {
+
     if(head->next==NULL)
     {
         return -1; //no free frame to return;
@@ -38,8 +41,10 @@ int remove_free_frame(free_frame_list_dummy_head *head, free_frame *tail)
     return frame_number;
 }
 
-void add_used_frame(used_frame_list_dummy_head *head, used_frame *recently_used_frame, int frame_number)
+void add_used_frame(used_frame_list_dummy_head *head, used_frame **recently_used_frame, int frame_number)
 {
+    used_frame *temp_recently_used_frame = *recently_used_frame;
+
     used_frame *new_frame = (used_frame *)malloc(sizeof(free_frame));
     new_frame->frame_number=frame_number;
     new_frame->reference_bit=0;
@@ -51,36 +56,42 @@ void add_used_frame(used_frame_list_dummy_head *head, used_frame *recently_used_
         head->next=new_frame;
         new_frame->next=new_frame;
 
-        recently_used_frame=new_frame;
+        temp_recently_used_frame=new_frame;
+        *recently_used_frame=temp_recently_used_frame;
         return;
     }
 
-    new_frame->next=recently_used_frame->next;
-    recently_used_frame->next=new_frame;
-    recently_used_frame=new_frame;
+    new_frame->next=temp_recently_used_frame->next;
+    temp_recently_used_frame->next=new_frame;
+    temp_recently_used_frame=new_frame;
+
+    *recently_used_frame=temp_recently_used_frame;
 
 }
 
-int remove_used_frame(used_frame_list_dummy_head *head, used_frame *recently_used_frame)
+int remove_used_frame(used_frame_list_dummy_head *head, used_frame **recently_used_frame)
 {
     if(head->next==NULL)
     {
         return -1;
     }
 
-    while(recently_used_frame->next->reference_bit!=0)
+    used_frame *temp_recently_used_frame = *recently_used_frame;
+
+    while(temp_recently_used_frame->next->reference_bit!=0)
     {
-        recently_used_frame->next->reference_bit=0;
-        recently_used_frame=recently_used_frame->next;
+        temp_recently_used_frame->next->reference_bit=0;
+        temp_recently_used_frame=temp_recently_used_frame->next;
     }
 
-    int frame_number = recently_used_frame->next->frame_number;
+    int frame_number = temp_recently_used_frame->next->frame_number;
 
-    used_frame *temp = recently_used_frame->next;
-    recently_used_frame->next=recently_used_frame->next->next;
+    used_frame *temp = temp_recently_used_frame->next;
+    temp_recently_used_frame->next=temp_recently_used_frame->next->next;
     free(temp);
 
     head->number_used_frames--;
+    *recently_used_frame=temp_recently_used_frame;
     return frame_number;
 }
 
@@ -109,6 +120,7 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
 
     //initialize free frame list;
     main_memory_object->ffl_dummy_head = (free_frame_list_dummy_head *)malloc(sizeof(free_frame_list_dummy_head));
+    main_memory_object->ffl_dummy_head->next=NULL;
     main_memory_object->ffl_tail=NULL;
     
 
@@ -119,7 +131,9 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
     {
         if(main_memory_object->frame_table[frame_number].valid_bit==0)
         {
-            add_free_frame(main_memory_object->ffl_dummy_head, main_memory_object->ffl_tail,frame_number);
+            
+            add_free_frame(main_memory_object->ffl_dummy_head, &(main_memory_object->ffl_tail),frame_number);
+            fprintf(stderr,"Tail: %d\n",main_memory_object->ffl_tail->frame_number);
         }
         
     }
