@@ -7,5 +7,5 @@ funcitons.o: functions.c
 	@echo object code generated
 	
 clean:
-	rm priority_inversion functions.o
+	rm driver functions.o
 	@echo clean complete
