@@ -20,6 +20,22 @@ void add_free_frame(free_frame_list_dummy_head *head, free_frame *tail, int fram
     tail=new_frame;
 }
 
+int remove_free_frame(free_frame_list_dummy_head *head, free_frame *tail)
+{
+    if(head->next==NULL)
+    {
+        return -1; //no free frame to return;
+    }
+
+    int frame_number = head->next->frame_number;
+    
+    free_frame * temp = head->next;
+    head->next=head->next->next;
+    free(temp);
+
+    return frame_number;
+}
+
 /*
 PreConditions
 Inputs: {main_memory_size in MB, frame_size in KB}
@@ -59,7 +75,5 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
         }
         
     }
-
-    
     return main_memory_object;
 }

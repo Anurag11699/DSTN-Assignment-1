@@ -23,9 +23,30 @@ typedef struct free_frame_list_dummy_head
 }free_frame_list_dummy_head;
 
 
+struct used_frame_list
+{
+	int frame_number;
+    int reference_bit;
+	struct used_frame_list *next;
+    //struct used_frame_list *prev;
+}free_frame_list;
+
+typedef struct used_frame_list used_frame;
+
+typedef struct used_frame_list_dummy_head
+{
+	int number_used_frames;
+	used_frame *next;
+}used_frame_list_dummy_head;
+
+
 typedef struct main_memory
 {
     frame_table_entry* frame_table;
+
     free_frame_list_dummy_head *ffl_dummy_head;
     free_frame *ffl_tail;
+
+    used_frame_list_dummy_head *ufl_dummy_head;
+    used_frame *last_used_frame;
 }main_memory;
