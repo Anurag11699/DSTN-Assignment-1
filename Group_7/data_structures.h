@@ -1,3 +1,8 @@
+//frame of size 1KB
+typedef struct frame
+{
+    char byte_array[1024];
+}frame;
 
 typedef struct frame_table_entry
 {
@@ -48,6 +53,8 @@ typedef struct main_memory
 
     used_frame_list_dummy_head *ufl_dummy_head;
     used_frame *recently_used_frame;
+
+    frame *frame_array;
 }main_memory;
 
 typedef struct tlb_entry
