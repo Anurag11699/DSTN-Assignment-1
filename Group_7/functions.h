@@ -8,3 +8,4 @@ extern int remove_used_frame(used_frame_list_dummy_head *, used_frame **);
 
 extern main_memory* initialize_main_memory(int, int);
 extern tlb* initialize_tlb(int);
+extern L1_cache* initialize_L1_cache();

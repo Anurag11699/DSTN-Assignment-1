@@ -150,3 +150,8 @@ tlb* initialize_tlb(int number_of_entries)
 
     return tlb_object;
 }
+
+L1_cache* initialize_L1_cache()
+{
+    
+}

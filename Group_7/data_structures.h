@@ -69,7 +69,31 @@ typedef struct tlb
     tlb_entry *tlb_entries;
 }tlb;
 
-typedef struct _4_way_set_associative_cache_entry
+typedef struct L1_cache_entry
+{
+    unsigned int valid_set_0:1;
+    unsigned int tag_set_0:14;
+    char data_set_0[32];
+
+    unsigned int valid_set_1:1;
+    unsigned int tag_set_1:14;
+    char data_set_1[32];
+
+    unsigned int valid_set_2:1;
+    unsigned int tag_set_2:14;
+    char data_set_2[32];
+
+    unsigned int valid_set_3:1;
+    unsigned int tag_set_3:14;
+    char data_set_3[32];
+}L1_cache_entry;
+
+typedef struct L1_cache
+{
+    L1_cache_entry *L1_cache_entries;
+}L1_cache;
+
+typedef struct L2_cache_entry
 {
     unsigned int valid_set_0:1;
     unsigned int tag_set_0;
@@ -86,13 +110,61 @@ typedef struct _4_way_set_associative_cache_entry
     unsigned int valid_set_3:1;
     unsigned int tag_set_3;
     char data_set_3[32];
-}_4_way_set_associative_cache_entry;
 
-typedef struct _4_way_set_associative_cache
+    unsigned int valid_set_4:1;
+    unsigned int tag_set_4;
+    char data_set_4[32];
+
+    unsigned int valid_set_5:1;
+    unsigned int tag_set_5;
+    char data_set_5[32];
+
+    unsigned int valid_set_6:1;
+    unsigned int tag_set_6;
+    char data_set_6[32];
+
+    unsigned int valid_set_7:1;
+    unsigned int tag_set_7;
+    char data_set_7[32];
+
+    unsigned int valid_set_8:1;
+    unsigned int tag_set_8;
+    char data_set_8[32];
+
+    unsigned int valid_set_9:1;
+    unsigned int tag_set_9;
+    char data_set_9[32];
+
+    unsigned int valid_set_10:1;
+    unsigned int tag_set_10;
+    char data_set_10[32];
+
+    unsigned int valid_set_11:1;
+    unsigned int tag_set_11;
+    char data_set_11[32];
+
+    unsigned int valid_set_12:1;
+    unsigned int tag_set_12;
+    char data_set_12[32];
+
+    unsigned int valid_set_13:1;
+    unsigned int tag_set_13;
+    char data_set_13[32];
+
+    unsigned int valid_set_14:1;
+    unsigned int tag_set_14;
+    char data_set_14[32];
+
+    unsigned int valid_set_15:1;
+    unsigned int tag_set_15;
+    char data_set_15[32];
+
+}L2_cache_entry;
+
+typedef struct L2_cache
 {
-    _4_way_set_associative_cache_entry *_4_way_set_associative_cache_entries;
-}_4_way_set_associative_cache;
-
+    L2_cache_entry *L2_cache_entries;
+}L2_cache;
 
 typedef struct page_table_entry
 {
