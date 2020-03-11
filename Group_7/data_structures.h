@@ -6,16 +6,16 @@ typedef struct frame
 
 typedef struct frame_table_entry
 {
-    int valid;
-    int pid;
-    int page_number;
+    unsigned int valid:1;
+    unsigned int pid;
+    unsigned int page_number;
 
 }frame_table_entry;
 
 
 struct free_frame_list
 {
-	int frame_number;
+	unsigned int frame_number:15;
 	struct free_frame_list *next;
 };
 
@@ -30,8 +30,8 @@ typedef struct free_frame_list_dummy_head
 
 struct used_frame_list
 {
-	int frame_number;
-    int reference_bit;
+	unsigned int frame_number:15;
+    unsigned int reference_bit:1;
 	struct used_frame_list *next;
 };
 
@@ -60,17 +60,47 @@ typedef struct main_memory
 typedef struct tlb_entry
 {
     int page_number;
-    int frame_number;
-    int valid;
+    unsigned int frame_number:15;
+    unsigned int valid:1;
 }tlb_entry;
+
+typedef struct tlb
+{
+    tlb_entry *tlb_entries;
+}tlb;
+
+typedef struct _4_way_set_associative_cache_entry
+{
+    unsigned int valid_set_0:1;
+    unsigned int tag_set_0;
+    char data_set_0[32];
+
+    unsigned int valid_set_1:1;
+    unsigned int tag_set_1;
+    char data_set_1[32];
+
+    unsigned int valid_set_2:1;
+    unsigned int tag_set_2;
+    char data_set_2[32];
+
+    unsigned int valid_set_3:1;
+    unsigned int tag_set_3;
+    char data_set_3[32];
+}_4_way_set_associative_cache_entry;
+
+typedef struct _4_way_set_associative_cache
+{
+    _4_way_set_associative_cache_entry *_4_way_set_associative_cache_entries;
+}_4_way_set_associative_cache;
+
 
 typedef struct page_table_entry
 {
     int page_base_address;
-    int global_page;
-    int modified;
-    int referenced;
-    int cache_disabled;
-    int write;
+    unsigned int global_page:1;
+    unsigned int modified:1;
+    unsigned int referenced:1;
+    unsigned int cache_disabled:1;
+    unsigned int write:1;
     
 }page_table_entry;
