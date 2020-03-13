@@ -14,6 +14,7 @@ extern int remove_used_frame(used_frame_list_dummy_head *, used_frame **);
 extern L1_cache* initialize_L1_cache();
 extern L2_cache* initialize_L2_cache();
 extern int L1_search(L1_cache*,int,int,int);
+extern int L2_search(L2_cache*,int,int,int);
 
 
 //tlb functions
@@ -21,4 +22,4 @@ extern tlb* initialize_tlb(int);
 extern void tlb_flush(tlb*, int);
 extern int tlb_search(tlb*, int, int);
 extern void L2_to_L1_tlb_transfer(tlb*, int, tlb*, int, int);
-extern int complete_tlb_search(tlb*, int, tlb*,int, int)
+extern int complete_tlb_search(tlb*, int, tlb*,int, int);
