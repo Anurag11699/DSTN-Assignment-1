@@ -1,8 +1,8 @@
 typedef struct L1_cache_way_entry
 {
-    unsigned int valid_set:1;
-    unsigned int tag_set:14;
-    char data_set[32];
+    unsigned int valid:1;
+    unsigned int tag:14;
+    char data[32];
 
 }L1_cache_way_entry;
 
@@ -20,11 +20,11 @@ typedef struct L1_cache
 
 typedef struct L2_cache_way_entry
 {
-    unsigned int valid_set_0:1;
-    unsigned int tag_set_0:14;
-    char data_set_0[32];
-    unsigned int LFU_counter_0:8;
-    unsigned int modified_set_0:1;
+    unsigned int valid:1;
+    unsigned int tag:14;
+    char data[32];
+    unsigned int LFU_counter:8;
+    unsigned int modified:1;
 
 }L2_cache_way_entry;
 
