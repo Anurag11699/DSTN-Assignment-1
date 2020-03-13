@@ -24,7 +24,6 @@ typedef struct L2_cache_way_entry
     unsigned int tag:14;
     char data[32];
     unsigned int LFU_counter:8;
-    unsigned int modified:1;
 
 }L2_cache_way_entry;
 

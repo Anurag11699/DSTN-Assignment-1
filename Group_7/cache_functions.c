@@ -41,7 +41,6 @@ L2_cache* initialize_L2_cache()
         for(j=0;j<16;j++)
         {
             L2_cache_object->L2_cache_entries[i].way[j].valid=0;
-            L2_cache_object->L2_cache_entries[i].way[j].modified=0;
         }       
     }
 
@@ -95,4 +94,45 @@ int L2_search(L2_cache* L2_cache_object, int index, int tag, int offset)
             }
         }
     }
+}
+
+void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int offset)
+{
+    int way_to_replace=-1;
+    int i;
+    for(i=0;i<16;i++)
+    {
+        if(L2_cache_object->L2_cache_entries[index].way[i].valid==0)
+        {
+            way_to_replace=i;
+            break;
+        }
+    }
+
+    if(way_to_replace!=-1)
+    {
+        L2_cache_object->L2_cache_entries[index].way[i].valid=1;
+        L2_cache_object->L2_cache_entries[index].way[i].tag=tag;
+        L2_cache_object->L2_cache_entries[index].way[i].LFU_counter=0;
+        return;
+    }
+
+    int min_counter=__INT16_MAX__;
+
+    for(i=0;i<16;i++)
+    {
+        if(L2_cache_object->L2_cache_entries[index].way[i].valid==1)
+        {
+            if(L2_cache_object->L2_cache_entries[index].way[i].LFU_counter<min_counter)
+            {
+                min_counter=L2_cache_object->L2_cache_entries[index].way[i].LFU_counter;
+                way_to_replace=i;
+            }
+        }
+    }
+
+    L2_cache_object->L2_cache_entries[index].way[i].valid=1;
+    L2_cache_object->L2_cache_entries[index].way[i].tag=tag;
+    L2_cache_object->L2_cache_entries[index].way[i].LFU_counter=0;
+    
 }
