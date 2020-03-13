@@ -33,3 +33,33 @@ int tlb_search(tlb* tlb_object, int number_of_entries, int logical_page_number)
 
     return -1;
 }
+
+void L2_to_L1_tlb_transfer(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, int number_of_entires_L2, int logical_page_number)
+{
+    tlb_entry entry_to_be_transfered;
+
+    int i;
+    for(i=0;i<number_of_entires_L2;i++)
+    {
+        if(L2_tlb->tlb_entries[i].valid==1 && L2_tlb->tlb_entries[i].logical_page_number==logical_page_number)
+        {
+            entry_to_be_transfered=L2_tlb->tlb_entries[i];
+        }
+    }
+
+    int flag=1;
+    for(i=0;i<number_of_entries_L1;i++)
+    {
+        if(L1_tlb->tlb_entries[i].valid==0)
+        {
+            L1_tlb->tlb_entries[i]=entry_to_be_transfered;
+            flag=0;
+            break;
+        }
+    }
+
+    if(flag)
+    {
+        L1_tlb->tlb_entries[i]=entry_to_be_transfered;
+    }
+}
