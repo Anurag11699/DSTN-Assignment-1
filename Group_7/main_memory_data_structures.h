@@ -59,7 +59,7 @@ typedef struct main_memory
 
 typedef struct page_table_entry
 {
-    //each page table entry is 3 bytes
+    //each page table entry is 4 bytes
     int frame_base_address:15;
     unsigned int global_page:1;
     unsigned int modified:1;
@@ -71,6 +71,6 @@ typedef struct page_table_entry
 
 typedef struct page_table
 {
-    //each page table will have 2^7 page table entries
+    //each page table will have 2^8 page table entries
     page_table_entry* page_table_entries;
 }page_table;

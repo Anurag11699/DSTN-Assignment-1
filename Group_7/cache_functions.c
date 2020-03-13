@@ -134,5 +134,71 @@ void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int o
     L2_cache_object->L2_cache_entries[index].way[i].valid=1;
     L2_cache_object->L2_cache_entries[index].way[i].tag=tag;
     L2_cache_object->L2_cache_entries[index].way[i].LFU_counter=0;
-    
+
+}
+
+void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object, int index, int tag, int offset)
+{
+    int way_to_replace=-1;
+    int i,j;
+
+    //prefer placement compared to replacement
+    for(i=0;i<4;i++)
+    {
+        if(L1_cache_object->L1_cache_entries[index].way[i].valid==0)
+        {
+            way_to_replace=i;
+            break;
+        }
+    }
+
+    if(way_to_replace!=-1)
+    {
+        L1_cache_object->L1_cache_entries[index].way[i].valid=1;
+        L1_cache_object->L1_cache_entries[index].way[i].tag=tag;
+
+        //update the LRU square matrix
+        for(i=0;i<4;i++)
+        {
+            L1_cache_object->L1_cache_entries[index].LRU_square_matrix[way_to_replace][i]=1;
+        }
+        for(i=0;i<4;i++)
+        {
+            L1_cache_object->L1_cache_entries[index].LRU_square_matrix[i][way_to_replace]=0;
+        }
+
+        return;
+    }
+
+    //no invalid entry, need to replace. Check the row entry with all zeros in LRU square matrix. There will be exactly one such entry
+
+    way_to_replace=-1;
+
+    for(i=0;i<4;i++)
+    {
+        if(L1_cache_object->L1_cache_entries[index].LRU_square_matrix[i][0]==0 && L1_cache_object->L1_cache_entries[index].LRU_square_matrix[i][1]==0 && L1_cache_object->L1_cache_entries[index].LRU_square_matrix[i][2]==0 && L1_cache_object->L1_cache_entries[index].LRU_square_matrix[i][3]==0)
+        {
+            way_to_replace=i;
+            break;
+        }
+    }
+
+    //as this is exclusive cache, we must send this entry into L2 cache
+
+    replace_L2_cache_entry(L2_cache_object, index, L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag,offset);
+
+
+    L1_cache_object->L1_cache_entries[index].way[i].valid=1;
+    L1_cache_object->L1_cache_entries[index].way[i].tag=tag;
+
+    //update the LRU square matrix 
+    for(i=0;i<4;i++)
+    {
+        L1_cache_object->L1_cache_entries[index].LRU_square_matrix[way_to_replace][i]=1;
+    }
+    for(i=0;i<4;i++)
+    {
+        L1_cache_object->L1_cache_entries[index].LRU_square_matrix[i][way_to_replace]=0;
+    }
+
 }
