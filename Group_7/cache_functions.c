@@ -47,6 +47,15 @@ L2_cache* initialize_L2_cache()
     return L2_cache_object;
 }
 
+L2_cache_write_buffer* initialize_L2_cache_write_buffer()
+{
+    //write buffer has only 8 buffers
+    L2_cache_write_buffer *L2_cache_write_buffer_object = (L2_cache_write_buffer *)malloc(sizeof(L2_cache_write_buffer));
+    L2_cache_write_buffer_object->L2_cache_write_buffer_entries = (L2_cache_write_buffer_entry *)malloc(sizeof(L2_cache_write_buffer_entry)*8);
+
+    return L2_cache_write_buffer_object;
+}
+
 int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset)
 {
     int i,j,k;
