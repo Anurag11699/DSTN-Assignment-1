@@ -18,3 +18,16 @@ void tlb_flush(tlb* tlb_object, int number_of_entries)
         tlb_object->tlb_entries[i].valid=0;
     }
 }
+
+int tlb_search(tlb* tlb_object, int number_of_entries, int logical_page_number)
+{
+    for(int i=0;i<number_of_entries;i++)
+    {
+        if(tlb_object->tlb_entries[i].valid==1 && tlb_object->tlb_entries[i].logical_page_number==logical_page_number)
+        {
+            return tlb_object->tlb_entries[i].physical_frame_number;
+        }
+    }
+
+    return -1;
+}

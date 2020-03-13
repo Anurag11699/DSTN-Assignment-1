@@ -17,3 +17,4 @@ extern L1_cache* initialize_L1_cache();
 //tlb functions
 extern tlb* initialize_tlb(int);
 extern void tlb_flush(tlb*, int);
+extern int tlb_search(tlb*, int, int);

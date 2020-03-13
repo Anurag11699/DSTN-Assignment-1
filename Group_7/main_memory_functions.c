@@ -136,7 +136,7 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
         {
             
             add_free_frame(main_memory_object->ffl_dummy_head, &(main_memory_object->ffl_tail),frame_number);
-            fprintf(stderr,"Tail: %d\n",main_memory_object->ffl_tail->frame_number);
+            //fprintf(stderr,"Tail: %d\n",main_memory_object->ffl_tail->frame_number);
         }
         
     }
