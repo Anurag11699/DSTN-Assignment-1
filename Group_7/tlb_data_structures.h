@@ -1,6 +1,6 @@
 typedef struct tlb_entry
 {
-    int logical_page_number;
+    int logical_page_number:22;
     unsigned int physical_frame_number:15;
     unsigned int valid:1;
 }tlb_entry;

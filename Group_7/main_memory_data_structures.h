@@ -1,14 +1,14 @@
 //frame of size 1KB
-typedef struct frame
-{
-    char byte_array[1024];
-}frame;
+// typedef struct frame
+// {
+//     char byte_array[1024];
+// }frame;
 
 typedef struct frame_table_entry
 {
     unsigned int valid:1;
     unsigned int pid;
-    unsigned int page_number;
+    unsigned int page_number:22;
 
 }frame_table_entry;
 
@@ -54,12 +54,13 @@ typedef struct main_memory
     used_frame_list_dummy_head *ufl_dummy_head;
     used_frame *recently_used_frame;
 
-    frame *frame_array;
+    //frame *frame_array;
 }main_memory;
 
 typedef struct page_table_entry
 {
-    int page_base_address;
+    //each page table entry is 3 bytes
+    int frame_base_address:15;
     unsigned int global_page:1;
     unsigned int modified:1;
     unsigned int referenced:1;
@@ -67,3 +68,9 @@ typedef struct page_table_entry
     unsigned int write:1;
     
 }page_table_entry;
+
+typedef struct page_table
+{
+    //each page table will have 2^7 page table entries
+    page_table_entry* page_table_entries;
+}page_table;
