@@ -142,16 +142,3 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
     }
     return main_memory_object;
 }
-
-tlb* initialize_tlb(int number_of_entries)
-{
-    tlb *tlb_object = (tlb *)malloc(sizeof(tlb));
-    tlb_object->tlb_entries=(tlb_entry *)malloc(sizeof(tlb_entry)*number_of_entries);
-
-    return tlb_object;
-}
-
-L1_cache* initialize_L1_cache()
-{
-    
-}

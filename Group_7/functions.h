@@ -1,4 +1,7 @@
-#include "data_structures.h"
+#include "main_memory_data_structures.h"
+#include "cache_data_structures.h"
+#include "tlb_data_structures.h"
+#include "general_data_structures.h"
 
 extern void add_free_frame(free_frame_list_dummy_head *, free_frame **, int);
 extern int remove_free_frame(free_frame_list_dummy_head *);
