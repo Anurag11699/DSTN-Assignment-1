@@ -63,3 +63,24 @@ void L2_to_L1_tlb_transfer(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, i
         L1_tlb->tlb_entries[i]=entry_to_be_transfered;
     }
 }
+
+int complete_tlb_search(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, int number_of_entires_L2, int logical_page_number)
+{
+    int physical_frame_number = tlb_search(L1_tlb,12,logical_page_number);
+
+    if(physical_frame_number!=-1)
+    {
+        return physical_frame_number;
+    }
+
+    physical_frame_number = tlb_search(L2_tlb,24,logical_page_number);
+
+    if(physical_frame_number!=-1)
+    {
+        L2_to_L1_tlb_transfer(L1_tlb,12,L2_tlb,24,logical_page_number);
+        physical_frame_number=tlb_search(L1_tlb,12,logical_page_number);
+        return physical_frame_number;
+    }
+
+    return -1;
+}
