@@ -91,7 +91,7 @@ int L2_search(L2_cache* L2_cache_object, int index, int tag, int offset)
         {
             for(j=0;j<16;j++)
             {
-                L2_cache_object->L2_cache_entries[index].way[j].LFU_counter=(L2_cache_object->L2_cache_entries[index].way[j].LFU_counter<<1);
+                L2_cache_object->L2_cache_entries[index].way[j].LFU_counter=(L2_cache_object->L2_cache_entries[index].way[j].LFU_counter>>1);
             }
         }
     }
