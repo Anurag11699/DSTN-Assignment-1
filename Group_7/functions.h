@@ -12,6 +12,7 @@ extern int remove_used_frame(used_frame_list_dummy_head *, used_frame **);
 
 //cache functions
 extern L1_cache* initialize_L1_cache();
+extern L2_cache* initialize_L2_cache();
 
 
 //tlb functions
