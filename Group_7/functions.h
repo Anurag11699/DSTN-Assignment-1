@@ -2,6 +2,7 @@
 #include "cache_data_structures.h"
 #include "tlb_data_structures.h"
 #include "general_data_structures.h"
+#define set_MSB_bit_8 0x80
 
 //main memory functions
 extern main_memory* initialize_main_memory(int, int, int);

@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include "functions.h"
 
+
 tlb* initialize_tlb(int number_of_entries)
 {
     tlb *tlb_object = (tlb *)malloc(sizeof(tlb));
@@ -18,15 +19,24 @@ void tlb_flush(tlb* tlb_object, int number_of_entries)
     for(int i=0;i<number_of_entries;i++)
     {
         tlb_object->tlb_entries[i].valid=0;
+        tlb_object->tlb_entries[i].LRU_counter=0;
     }
 }
 
 int tlb_search(tlb* tlb_object, int number_of_entries, int logical_page_number)
 {
-    for(int i=0;i<number_of_entries;i++)
+    //shift all the counters to the right by 1
+    int i;
+    for(i=0;i<number_of_entries;i++)
+    {
+        tlb_object->tlb_entries[i].LRU_counter<<1;
+    }
+    for(i=0;i<number_of_entries;i++)
     {
         if(tlb_object->tlb_entries[i].valid==1 && tlb_object->tlb_entries[i].logical_page_number==logical_page_number)
         {
+            //set MSB to 1 on TLB hit
+            tlb_object->tlb_entries[i].LRU_counter=(tlb_object->tlb_entries[i].LRU_counter|set_MSB_bit_8);
             return tlb_object->tlb_entries[i].physical_frame_number;
         }
     }
