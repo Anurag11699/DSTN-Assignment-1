@@ -48,6 +48,7 @@ void L2_to_L1_tlb_transfer(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, i
 {
     tlb_entry entry_to_be_transfered;
 
+    //find the entry that resulted in TLB hit in L2 TLB
     int i;
     for(i=0;i<number_of_entires_L2;i++)
     {
@@ -57,6 +58,7 @@ void L2_to_L1_tlb_transfer(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, i
         }
     }
 
+    //Check if there are any invalid entries in L1 tlb and replace it with that
     int flag=1;
     for(i=0;i<number_of_entries_L1;i++)
     {
@@ -71,7 +73,23 @@ void L2_to_L1_tlb_transfer(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, i
     if(flag)
     {
         L1_tlb->tlb_entries[i]=entry_to_be_transfered;
+        return;
     }
+
+    //if not, remove LRU tlb entry
+    int lru_tlb_entry=-1;
+    int LRU_counter_min=__INT16_MAX__;
+
+    for(i=0;i<number_of_entries_L1;i++)
+    {
+        if(L1_tlb->tlb_entries[i].LRU_counter<LRU_counter_min)
+        {
+            LRU_counter_min=L1_tlb->tlb_entries[i].LRU_counter;
+            lru_tlb_entry=i;
+        }
+    }
+
+    L1_tlb->tlb_entries[lru_tlb_entry]=entry_to_be_transfered;
 }
 
 int complete_tlb_search(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, int number_of_entires_L2, int logical_page_number)
