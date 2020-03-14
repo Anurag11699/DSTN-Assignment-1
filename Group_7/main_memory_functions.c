@@ -102,7 +102,7 @@ Inputs: {main_memory_size in MB, frame_size in KB}
 PostConditions
 Output: {pointer to intialized main memory}
 */
-main_memory* initialize_main_memory(int main_memory_size, int frame_size)
+main_memory* initialize_main_memory(int main_memory_size, int frame_size, int number_of_processes)
 {
     //find number of frames
     int number_of_frames=(main_memory_size/frame_size)*1024;
@@ -114,6 +114,9 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
 
     //initialize frame table
     main_memory_object->frame_table=(frame_table_entry *)malloc(number_of_frames*sizeof(frame_table_entry));
+
+    //initialize pcb array
+    main_memory_object->pcb_array=(pcb *)malloc(number_of_processes*sizeof(pcb));
 
     //all pages are invalid upon initialization
     for(int frame_number=0;frame_number<number_of_frames;frame_number++)
