@@ -86,12 +86,14 @@ int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset)
 int L2_search(L2_cache* L2_cache_object, int index, int tag, int offset)
 {
     int i,j,k;
+    int flag=0;
 
     for(i=0;i<16;i++)
     {
         if(L2_cache_object->L2_cache_entries[index].way[i].valid==1 && L2_cache_object->L2_cache_entries[index].way[i].tag==tag)
         {
             L2_cache_object->L2_cache_entries[index].way[i].LFU_counter++;
+            flag=1;
         }
 
         //if any one entry reaches counter limit, right shift all counter values by 1
@@ -102,7 +104,14 @@ int L2_search(L2_cache* L2_cache_object, int index, int tag, int offset)
                 L2_cache_object->L2_cache_entries[index].way[j].LFU_counter=(L2_cache_object->L2_cache_entries[index].way[j].LFU_counter>>1);
             }
         }
+
+        if(flag)
+        {
+            return 1;
+        }
     }
+
+    return -1;
 }
 
 void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int offset)

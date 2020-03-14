@@ -45,7 +45,7 @@ typedef struct used_frame_list_dummy_head
 
 typedef struct pcb
 {
-    outermost_page_base_address:14;
+    int outermost_page_base_address:14;
     FILE* fd;
     int state;
 }pcb;
