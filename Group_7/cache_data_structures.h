@@ -2,7 +2,7 @@ typedef struct L1_cache_way_entry
 {
     unsigned int valid:1;
     unsigned int tag:14;
-    char data[32];
+    //char data[32];
 
 }L1_cache_way_entry;
 
@@ -22,7 +22,7 @@ typedef struct L2_cache_way_entry
 {
     unsigned int valid:1;
     unsigned int tag:14;
-    char data[32];
+    //char data[32];
     unsigned int LFU_counter:8;
 
 }L2_cache_way_entry;
@@ -42,7 +42,7 @@ typedef struct L2_cache_write_buffer_entry
 {
     unsigned int index:6;
     unsigned int tag:14;
-    char data[32];
+    //char data[32];
 }L2_cache_write_buffer_entry;
 
 typedef struct L2_cache_write_buffer

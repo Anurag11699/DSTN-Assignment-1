@@ -56,7 +56,7 @@ L2_cache_write_buffer* initialize_L2_cache_write_buffer()
     return L2_cache_write_buffer_object;
 }
 
-int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset)
+int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset, int read_write)
 {
     int i,j,k;
 
@@ -83,7 +83,7 @@ int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset)
     return -1;
 }
 
-int L2_search(L2_cache* L2_cache_object, int index, int tag, int offset)
+int L2_search(L2_cache* L2_cache_object, int index, int tag, int offset, int read_write)
 {
     int i,j,k;
     int flag=0;

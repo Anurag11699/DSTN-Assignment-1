@@ -12,8 +12,21 @@ kernel* initialize_kernel(int max_number_of_processes)
     return kernel_object;
 }
 
-void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int virtual_address, int read)
+//return 0 if process is requesting an instruction, returns 1 if process is requesting for data
+int get_request_type(int virtual_address)
 {
+    //the virtual address of instructions begins with 1 
+    if(virtual_address&0x10000000)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int virtual_address, int read_write)
+{
+    int request_type=get_request_type(virtual_address);
     //we can get index and offest for L1 and L2 cache from the virtual address and use it for virtually tagged, physically offset. this is because (index + offset = page size)
 
     //last 5 bits of the virtual address as cache block size is 32bits
@@ -42,8 +55,24 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         L1_cache_tag=(physical_address<<(L1_cache_index_size+cache_block_offset_size));
         L2_cache_tag=(physical_address<<(L2_cache_index_size+cache_block_offset_size));
 
+        int L1_cache_hit;
+        int L2_cache_hit;
         //as cache is lookaside, we need to search both the caches in parallel.
-    }
+        if(request_type==0)
+        {
+            L1_cache_hit = L1_search(L1_instruction_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,read_write); //as it is an instruction will be read only
+        }
+        else
+        {
+            L1_cache_hit = L1_search(L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,read_write); 
+        }
+
+        L2_cache_hit = L2_search(L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,read_write); 
+
+        //if L1 cache or L2 cache was hit all good, otherwise need to request transfer of that block from main memory
+        
+        
+    }    
     else
     {
         //initiatie page walk to get the physical frame number
@@ -57,8 +86,8 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         insert_new_tlb_entry(L1_tlb,12,logical_page_number,physical_frame_number_received_from_page_walk);
 
         //restart this request
-        execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,virtual_address,read);
+        execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,virtual_address,read_write);
 
     }
-    
+
 }
