@@ -89,9 +89,9 @@ int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset, int rea
     return -1;
 }
 
-int L2_search(L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_buffer_object,int index, int tag, int offset, int read_write)
+int L2_search(L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_buffer_object,int index, int tag, int offset, int write)
 {
-    int i,j,k;
+    int i,j;
     int flag=0;
 
     for(i=0;i<16;i++)
@@ -111,9 +111,58 @@ int L2_search(L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_bu
             }
         }
 
-        //also, if it was a write request, put this block into buffer cache
+       
         if(flag)
         {
+            //also, if it was a write request, put this block into buffer cache
+            if(write==1) //read_write==1 means the entry was write
+            {
+
+            
+                //first search if the current block which was modified exists in buffer cache. If it does remove it and insert the newly updated one, else, copy this block to buffer cache
+                for(j=0;j<8;j++)
+                {
+                    if(L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid==1 && L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].index==index && L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].index== L2_cache_object->L2_cache_entries[index].way[i].tag)
+                    {
+                        //just replace the existing block in buffer cache.
+                        return 1;
+                    }
+                }
+
+                //check if any entry in buffer cache is invalid, if not, empty buffer cache and insert this into it.
+                for(j=0;j<8;j++)
+                {
+                    if(L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid==0)
+                    {
+                        L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid=1;
+                        L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].index=index;
+                        L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].tag=L2_cache_object->L2_cache_entries[index].way[i].tag;
+
+                        return 1;
+                    }
+                }
+
+                //if we reached this section means the buffer cache was full. Write all the entries from buffer cache to main memory and empty it. 
+
+                for(j=0;j<8;j++)
+                {
+                    L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid=0;
+                }
+
+                for(j=0;j<8;j++)
+                {
+                    if(L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid==0)
+                    {
+                        L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid=1;
+                        L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].index=index;
+                        L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].tag=L2_cache_object->L2_cache_entries[index].way[i].tag;
+
+                        return 1;
+                    }
+                }
+
+
+            }  
             return 1;
         }
     }
