@@ -10,6 +10,7 @@ Inputs: None, we have hardcoded the cache as it is a given hardware structure.
 
 Cache Type: 4KB, 4 way set associative L1 cache. 
 Replacement Policy: LRU Square Matrix
+Follows write through
 
 Purpose of the Function: Initialize L1 cache data structure
 
@@ -48,6 +49,7 @@ Inputs: None, we have hardcoded the cache as it is a given hardware structure.
 
 Cache Type: 32KB, 16 way set associative L2 cache. 
 Replacement Policy: LFU with aging
+Follows write buffer
 
 Purpose of the Function: Initialize L2 cache data structure
 
@@ -111,7 +113,8 @@ if cache is L1 data cache, write is 1 if process requests a write. write is 0 if
 
 Purpose of the Function: 
 Searches for the required block in the L1 cache.
-If entry is present return 1 and update the LRU counter row of that entry as all 1 and column as all 0
+If entry is present return 1 and update the LRU sqaure matrix row of that entry as all 1 and column as all 0. 
+As policy is write through, we initiate immediate write to the main memory if the request is a write
 If entry is absent return -1; 
 
 PostConditions
@@ -146,6 +149,26 @@ int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset, int wri
     return -1;
 }
 
+/*
+PreConditions
+Inputs: {pointer to L2 cache object, pointer to L2 write buffer object, index of entry, tag of entry , block offset, request is read or write}
+
+0<=index<=64 
+0<=tag<=0x3fff
+0<=offset<=32
+
+Purpose of the Function: 
+Searches for the required block in the L2 cache.
+If entry is present return 1. 
+Right shift LRU counters of all ways by 1 and set MSB of the way which was hit.
+If it was a right request copy that block and its metadata to the write buffer, do appropriate actions
+If entry is absent return -1; 
+
+PostConditions
+Output: 
+If entry is present return 1
+If entry is absent return -1;
+*/
 int L2_search(L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_buffer_object,int index, int tag, int offset, int write)
 {
     int i,j;
