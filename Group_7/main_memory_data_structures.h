@@ -43,13 +43,6 @@ typedef struct used_frame_list_dummy_head
 	used_frame *next;
 }used_frame_list_dummy_head;
 
-typedef struct pcb
-{
-    int outermost_page_base_address:14;
-    FILE* fd;
-    int state;
-}pcb;
-
 
 typedef struct main_memory
 {
@@ -60,10 +53,8 @@ typedef struct main_memory
 
     used_frame_list_dummy_head *ufl_dummy_head;
     used_frame *recently_used_frame;
-
-    pcb* pcb_array;
-
-    //frame *frame_array;
+  
+   //frame *frame_array;
 }main_memory;
 
 typedef struct page_table_entry
