@@ -3,6 +3,19 @@
 #include <unistd.h>
 #include "functions.h"
 
+
+/*
+PreConditions
+Inputs: None, we have hardcoded the cache as it is a given hardware structure. 
+
+Cache Type: 4KB, 4 way set associative L1 cache. 
+Replacement Policy: LRU Square Matrix
+
+Purpose of the Function: Initialize L1 cache data structure
+
+PostConditions
+Output: {pointer to intialized L1 cache}
+*/
 L1_cache* initialize_L1_cache()
 {
     //L1 cache has 2^5 indexes
@@ -29,6 +42,18 @@ L1_cache* initialize_L1_cache()
     return L1_cache_object;
 }
 
+/*
+PreConditions
+Inputs: None, we have hardcoded the cache as it is a given hardware structure. 
+
+Cache Type: 32KB, 16 way set associative L2 cache. 
+Replacement Policy: LFU with aging
+
+Purpose of the Function: Initialize L2 cache data structure
+
+PostConditions
+Output: {pointer to intialized L2 cache}
+*/
 L2_cache* initialize_L2_cache()
 {
     //L2 cache has 2^6 indexes
@@ -41,12 +66,24 @@ L2_cache* initialize_L2_cache()
         for(j=0;j<16;j++)
         {
             L2_cache_object->L2_cache_entries[i].way[j].valid=0;
+            L2_cache_object->L2_cache_entries[i].way[j].LFU_counter=0;
         }       
     }
 
     return L2_cache_object;
 }
 
+/*
+PreConditions
+Inputs: None, we have hardcoded the cache as it is a given hardware structure. 
+
+Number of entries in write buffer = 8.
+
+Purpose of the Function: Initialize L2 cache write buffer
+
+PostConditions
+Output: {pointer to intialized L2 cache write buffer}
+*/
 L2_cache_write_buffer* initialize_L2_cache_write_buffer()
 {
     //write buffer has only 8 buffers
@@ -62,7 +99,27 @@ L2_cache_write_buffer* initialize_L2_cache_write_buffer()
     return L2_cache_write_buffer_object;
 }
 
-int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset, int read_write)
+/*
+PreConditions
+Inputs: {pointer to L1 cache object, index of entry, tag of entry , block offset, request is read or write}
+
+0<=index<=32 
+0<=tag<=0x3fff
+0<=offset<=32
+if cache is L1 instruction cache, write always 0.
+if cache is L1 data cache, write is 1 if process requests a write. write is 0 if process requests a read. 
+
+Purpose of the Function: 
+Searches for the required block in the L1 cache.
+If entry is present return 1 and update the LRU counter row of that entry as all 1 and column as all 0
+If entry is absent return -1; 
+
+PostConditions
+Output: 
+If entry is present return 1
+If entry is absent return -1;
+*/
+int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset, int write)
 {
     int i,j,k;
 
