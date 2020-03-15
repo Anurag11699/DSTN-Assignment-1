@@ -59,22 +59,16 @@ void L2_to_L1_tlb_transfer(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, i
     }
 
     //Check if there are any invalid entries in L1 tlb and replace it with that
-    int flag=1;
+
     for(i=0;i<number_of_entries_L1;i++)
     {
         if(L1_tlb->tlb_entries[i].valid==0)
         {
             L1_tlb->tlb_entries[i]=entry_to_be_transfered;
-            flag=0;
-            break;
+            return;
         }
     }
 
-    if(flag)
-    {
-        L1_tlb->tlb_entries[i]=entry_to_be_transfered;
-        return;
-    }
 
     //if not, remove LRU tlb entry
     int lru_tlb_entry=-1;
@@ -111,4 +105,39 @@ int complete_tlb_search(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, int 
     }
 
     return -1;
+}
+
+void insert_new_tlb_entry(tlb* tlb_object, int number_of_entries, int logical_page_number, int physical_frame_number)
+{
+    //Check if there are any invalid entries in tlb and replace it with that
+    tlb_entry tlb_entry_to_add;
+    tlb_entry_to_add.logical_page_number=logical_page_number;
+    tlb_entry_to_add.physical_frame_number=physical_frame_number;
+    tlb_entry_to_add.LRU_counter=0;
+    tlb_entry_to_add.valid=1;
+
+    int i;
+    for(i=0;i<number_of_entries;i++)
+    {
+        if(tlb_object->tlb_entries[i].valid==0)
+        {
+            tlb_object->tlb_entries[i]=tlb_entry_to_add;
+            return;
+        }
+    } 
+
+    //if not, replace LRU tlb entry
+    int lru_tlb_entry=-1;
+    int LRU_counter_min=__INT16_MAX__;
+
+    for(i=0;i<number_of_entries;i++)
+    {
+        if(tlb_object->tlb_entries[i].LRU_counter<LRU_counter_min)
+        {
+            LRU_counter_min=tlb_object->tlb_entries[i].LRU_counter;
+            lru_tlb_entry=i;
+        }
+    }
+
+    tlb_object->tlb_entries[lru_tlb_entry]=tlb_entry_to_add;
 }

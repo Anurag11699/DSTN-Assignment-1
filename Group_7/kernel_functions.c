@@ -47,6 +47,14 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     else
     {
         //initiatie page walk to get the physical frame number
+        //recevie a physical frame number upon page walk and service page faults in that process
+        int physical_frame_number_received_from_page_walk;
+        physical_address=(physical_frame_number_received_from_page_walk<<10)+(virtual_address&get_frame_offset);
+
+        //insert this new mapping of logical page number to physical frame number into the L2 and L1 TLB and restart the instruction
+
+        
+
     }
     
 

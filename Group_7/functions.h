@@ -36,3 +36,4 @@ extern void tlb_flush(tlb*, int);
 extern int tlb_search(tlb*, int, int);
 extern void L2_to_L1_tlb_transfer(tlb*, int, tlb*, int, int);
 extern int complete_tlb_search(tlb*, int, tlb*,int, int);
+extern void insert_new_tlb_entry(tlb*, int, int, int);
