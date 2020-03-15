@@ -11,7 +11,7 @@
 
 //kernel functions
 extern kernel* initialize_kernel(int);
-extern void execute_process_request(kernel*, tlb*, tlb*, L1_cache*, L1_cache*, L2_cache*,main_memory*,int, int);
+extern void execute_process_request(kernel*, tlb*, tlb*, L1_cache*, L1_cache*, L2_cache*, L2_cache_write_buffer* ,main_memory*,int, int);
 
 //main memory functions
 extern main_memory* initialize_main_memory(int, int);
