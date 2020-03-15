@@ -24,5 +24,10 @@ int main()
 
    
 
+   fclose(kernel_object->pcb_array[0].fd);
+   fclose(kernel_object->pcb_array[1].fd);
+   fclose(kernel_object->pcb_array[2].fd);
+   fclose(kernel_object->pcb_array[3].fd);
+   fclose(kernel_object->pcb_array[4].fd);
 }
 

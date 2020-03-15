@@ -67,7 +67,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
             L1_cache_hit = L1_search(L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,read_write); 
         }
 
-        L2_cache_hit = L2_search(L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,read_write); 
+        L2_cache_hit = L2_search(L2_cache_32KB,L2_cache_write_buffer_8,L1_cache_index,L1_cache_tag,cache_block_offset,read_write); 
 
         //if L1 cache or L2 cache was hit all good, otherwise need to request transfer of that block from main memory
         

@@ -53,6 +53,12 @@ L2_cache_write_buffer* initialize_L2_cache_write_buffer()
     L2_cache_write_buffer *L2_cache_write_buffer_object = (L2_cache_write_buffer *)malloc(sizeof(L2_cache_write_buffer));
     L2_cache_write_buffer_object->L2_cache_write_buffer_entries = (L2_cache_write_buffer_entry *)malloc(sizeof(L2_cache_write_buffer_entry)*8);
 
+    int i;
+    for(i=0;i<8;i++)
+    {
+        L2_cache_write_buffer_object->L2_cache_write_buffer_entries[i].valid=0;
+    }
+
     return L2_cache_write_buffer_object;
 }
 
@@ -83,7 +89,7 @@ int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset, int rea
     return -1;
 }
 
-int L2_search(L2_cache* L2_cache_object, int index, int tag, int offset, int read_write)
+int L2_search(L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_buffer_object,int index, int tag, int offset, int read_write)
 {
     int i,j,k;
     int flag=0;
@@ -105,6 +111,7 @@ int L2_search(L2_cache* L2_cache_object, int index, int tag, int offset, int rea
             }
         }
 
+        //also, if it was a write request, put this block into buffer cache
         if(flag)
         {
             return 1;

@@ -42,6 +42,7 @@ typedef struct L2_cache_write_buffer_entry
 {
     unsigned int index:6;
     unsigned int tag:14;
+    unsigned int valid:1;
     //char data[32];
 }L2_cache_write_buffer_entry;
 
