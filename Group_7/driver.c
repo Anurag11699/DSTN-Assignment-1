@@ -22,5 +22,7 @@ int main()
    kernel_object->pcb_array[3].fd=fopen("M88KSIM.txt","r");
    kernel_object->pcb_array[4].fd=fopen("VORTEX.txt","r");
 
+   
+
 }
 

@@ -3,9 +3,15 @@
 #include "tlb_data_structures.h"
 #include "kernel_data_structures.h"
 #define set_MSB_bit_8 0x80
+#define get_frame_offset 0x3ff
+#define get_cache_block_offset 0x1f
+#define get_L1_cache_block_index 0x3f
+#define get_L2_cache_block_index 0x3f
+
 
 //kernel functions
 extern kernel* initialize_kernel(int);
+extern void execute_process_request(kernel*, tlb*, tlb*, L1_cache*, L1_cache*, L2_cache*,main_memory*,int, int);
 
 //main memory functions
 extern main_memory* initialize_main_memory(int, int);
