@@ -70,6 +70,33 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         L2_cache_hit = L2_search(L2_cache_32KB,L2_cache_write_buffer_8,L1_cache_index,L1_cache_tag,cache_block_offset,write); 
 
         //if L1 cache or L2 cache was hit all good, otherwise need to request transfer of that block from main memory
+
+        if(L1_cache_hit==1)
+        {
+            //cancel the request to L2 cache, and calculate the hit time
+            return; 
+        }
+        else if(L2_cache_hit==1)
+        {
+            //calculate the hit time
+            return;
+        }
+
+        //entry was not found in any cache. we must get the block from main memory and insert it into L1 cache
+
+        //write code to check if frame is in main memory and to retrieve it and put into cache
+
+        
+        //now, insert this new entry into L1 cache
+        if(request_type==0)
+        {
+            replace_L1_cache_entry(L1_instruction_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,cache_block_offset);
+        }
+        else
+        {
+            replace_L1_cache_entry(L1_data_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,cache_block_offset);
+        }
+        
         
         
     }    
