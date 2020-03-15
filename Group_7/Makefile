@@ -8,14 +8,14 @@ driver=driver
 
 #all: DSTN
 
-all: $(driver).o general_functions.o tlb_functions.o cache_functions.o main_memory_functions.o
-	$(CC)  $(driver).o general_functions.o tlb_functions.o cache_functions.o main_memory_functions.o -o $(executableName)
+all: $(driver).o kernel_functions.o tlb_functions.o cache_functions.o main_memory_functions.o
+	$(CC)  $(driver).o kernel_functions.o tlb_functions.o cache_functions.o main_memory_functions.o -o $(executableName)
 
 $(driver).o: $(driver).c
 	$(CC) $(flags) $(driver).c
 
-general_functions.o: general_functions.c
-	$(CC) $(flags) general_functions.c
+kernel_functions.o: kernel_functions.c
+	$(CC) $(flags) kernel_functions.c
 
 tlb_functions.o: tlb_functions.c
 	$(CC) $(flags) tlb_functions.c

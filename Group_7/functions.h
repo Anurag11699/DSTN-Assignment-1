@@ -1,8 +1,11 @@
 #include "main_memory_data_structures.h"
 #include "cache_data_structures.h"
 #include "tlb_data_structures.h"
-#include "general_data_structures.h"
+#include "kernel_data_structures.h"
 #define set_MSB_bit_8 0x80
+
+//kernel functions
+extern kernel* initialize_kernel();
 
 //main memory functions
 extern main_memory* initialize_main_memory(int, int, int);

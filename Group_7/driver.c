@@ -7,6 +7,7 @@
 int main()
 {
 
+   kernel* kernel_object = initialize_kernel();
    main_memory* main_memory_32MB = initialize_main_memory(32,1,5); 
    tlb* L1_tlb = initialize_tlb(12);
    tlb *L2_tlb = initialize_tlb(24);
