@@ -73,30 +73,32 @@ void add_used_frame(main_memory* main_memory_object, int frame_number)
 
 }
 
-int remove_used_frame(used_frame_list_dummy_head *head, used_frame **recently_used_frame)
+int remove_used_frame(main_memory* main_memory_object)
 {
-    if(head->next==NULL)
+    if(main_memory_object->ufl_dummy_head->next==NULL)
     {
         return -1;
     }
 
-    used_frame *temp_recently_used_frame = *recently_used_frame;
+    //used_frame *temp_recently_used_frame = *recently_used_frame;
 
-    while(temp_recently_used_frame->next->reference_bit!=0)
+    while(main_memory_object->recently_used_frame->next->reference_bit!=0)
     {
-        temp_recently_used_frame->next->reference_bit=0;
-        temp_recently_used_frame=temp_recently_used_frame->next;
+        main_memory_object->recently_used_frame->next->reference_bit=0;
+        main_memory_object->recently_used_frame=main_memory_object->recently_used_frame->next;
     }
 
-    int frame_number = temp_recently_used_frame->next->frame_number;
+    int frame_number = main_memory_object->recently_used_frame->next->frame_number;
 
-    used_frame *temp = temp_recently_used_frame->next;
-    temp_recently_used_frame->next=temp_recently_used_frame->next->next;
+    used_frame *temp = main_memory_object->recently_used_frame->next;
+    main_memory_object->recently_used_frame->next=main_memory_object->recently_used_frame->next->next;
     free(temp);
 
-    head->number_used_frames--;
-    *recently_used_frame=temp_recently_used_frame;
+    main_memory_object->ufl_dummy_head->number_used_frames--;
+    //*recently_used_frame=temp_recently_used_frame;
     return frame_number;
+
+    //need to update the page tables for the process from which this frame was removed. Will be done later in another function elsewhere. 
 }
 
 /*
@@ -125,10 +127,17 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
         main_memory_object->frame_table[number_of_frames].valid=0;
     }
 
-    //initialize free frame list;
+    //initialize free frame list
     main_memory_object->ffl_dummy_head = (free_frame_list_dummy_head *)malloc(sizeof(free_frame_list_dummy_head));
     main_memory_object->ffl_dummy_head->next=NULL;
+    main_memory_object->ffl_dummy_head->number_free_frames=0;
     main_memory_object->ffl_tail=NULL;
+
+    //initialize used frame list
+    main_memory_object->ufl_dummy_head=(used_frame_list_dummy_head *)malloc(sizeof(used_frame_list_dummy_head));
+    main_memory_object->ufl_dummy_head->next=NULL;
+    main_memory_object->ufl_dummy_head->number_used_frames=0;
+    main_memory_object->recently_used_frame=NULL;
     
 
     main_memory_object->ffl_dummy_head->number_free_frames=number_of_frames; //all frames are initially free;
