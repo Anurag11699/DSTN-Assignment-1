@@ -13,6 +13,7 @@
 extern kernel* initialize_kernel(int);
 extern void execute_process_request(kernel*, tlb*, tlb*, L1_cache*, L1_cache*, L2_cache*, L2_cache_write_buffer* ,main_memory*,int, int);
 extern int get_request_type(int);
+extern int load_new_process(kernel*,main_memory*,int, int, char*); 
 
 //main memory functions
 extern main_memory* initialize_main_memory(int, int);

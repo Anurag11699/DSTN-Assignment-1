@@ -9,7 +9,47 @@ kernel* initialize_kernel(int max_number_of_processes)
 
     //initialize pcb array
     kernel_object->pcb_array=(pcb *)malloc(max_number_of_processes*sizeof(pcb));
+    kernel_object->number_of_processes=0;
+    kernel_object->CR3_reg=-1;
+    kernel_object->current_instruction=-1;
+    kernel_object->currently_running_process_pid=-1;
+
+    int i;
+    for(i=0;i<max_number_of_processes;i++)
+    {
+        kernel_object->pcb_array[i].state=0;
+        kernel_object->pcb_array[i].fd=NULL;
+    }
     return kernel_object;
+}
+
+int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int max_number_processes, int pid, char* filename)
+{
+    //process limit reached, this process cannot be loaded yet 
+    if(kernel_object->number_of_processes>=max_number_processes)
+    {
+        return -1;
+    }
+
+    // if state==0, that means that entry in pcb array is free or the process before has been terminated
+    int i;
+    for(i=0;i<max_number_processes;i++)
+    {
+        if(kernel_object->pcb_array[i].state==0)
+        {
+            kernel_object->pcb_array[i].state=1;
+            kernel_object->pcb_array[i].pid=pid;
+            kernel_object->pcb_array[i].fd=fopen(filename,"r");
+            kernel_object->number_of_processes++;
+        }
+    }
+    
+
+
+    //prepage 2 pages
+
+   
+   return 1;
 }
 
 //return 0 if process is requesting an instruction, returns 1 if process is requesting for data
