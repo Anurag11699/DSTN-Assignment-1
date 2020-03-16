@@ -3,24 +3,27 @@
 #include <unistd.h>
 #include "functions.h"
 
-void add_free_frame(free_frame_list_dummy_head *head, free_frame **tail, int frame_number)
+void add_free_frame(main_memory* main_memory_object, int frame_number)
 {
-    free_frame *temp_tail = *tail;
+    //free_frame *temp_tail = *tail;
 
     free_frame *new_frame = (free_frame *)malloc(sizeof(free_frame));
     new_frame->frame_number=frame_number;
     new_frame->next=NULL;
-    head->number_free_frames++;
-    if(head->next==NULL)
+    main_memory_object->ffl_dummy_head->number_free_frames++;
+    //head->number_free_frames++;
+    if(main_memory_object->ffl_dummy_head->next==NULL)
     {
-        head->next=new_frame;
-        temp_tail=new_frame;
-        *tail = temp_tail;
+        main_memory_object->ffl_dummy_head->next=new_frame;
+        main_memory_object->ffl_tail=new_frame;
+        //*tail = temp_tail;
         return;
     }
-    temp_tail->next=new_frame;
-    temp_tail=new_frame;
-    *tail = temp_tail;
+    main_memory_object->ffl_tail->next=new_frame;
+    main_memory_object->ffl_tail=new_frame;
+    //temp_tail->next=new_frame;
+    //temp_tail=new_frame;
+    //*tail = temp_tail;
 }
 
 int remove_free_frame(free_frame_list_dummy_head *head)
@@ -135,8 +138,8 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
         if(main_memory_object->frame_table[frame_number].valid==0)
         {
             
-            add_free_frame(main_memory_object->ffl_dummy_head, &(main_memory_object->ffl_tail),frame_number);
-            //fprintf(stderr,"Tail: %d\n",main_memory_object->ffl_tail->frame_number);
+            add_free_frame(main_memory_object,frame_number);
+            fprintf(stderr,"Tail: %d\n",main_memory_object->ffl_tail->frame_number);
         }
         
     }
