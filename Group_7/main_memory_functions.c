@@ -101,6 +101,20 @@ int remove_used_frame(main_memory* main_memory_object)
     //need to update the page tables for the process from which this frame was removed. Will be done later in another function elsewhere. 
 }
 
+int get_frame(main_memory *main_memory_object)
+{
+    //prefer placement over replacement
+    int frame_number = remove_free_frame(main_memory_object);
+
+    if(frame_number!=-1)
+    {
+        return frame_number;
+    }
+
+    frame_number = remove_used_frame(main_memory_object);
+    return frame_number;
+}
+
 /*
 PreConditions
 Inputs: {main_memory_size in MB, frame_size in KB}
