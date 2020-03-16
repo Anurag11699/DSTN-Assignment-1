@@ -44,31 +44,32 @@ int remove_free_frame(main_memory* main_memory_object)
     return frame_number;
 }
 
-void add_used_frame(used_frame_list_dummy_head *head, used_frame **recently_used_frame, int frame_number)
+void add_used_frame(main_memory* main_memory_object, int frame_number)
 {
-    used_frame *temp_recently_used_frame = *recently_used_frame;
+    //used_frame *temp_recently_used_frame = *recently_used_frame;
 
     used_frame *new_frame = (used_frame *)malloc(sizeof(free_frame));
     new_frame->frame_number=frame_number;
     new_frame->reference_bit=0;
     new_frame->next=NULL;
-    head->number_used_frames++;
+    main_memory_object->ufl_dummy_head->number_used_frames++;
+    //head->number_used_frames++;
 
-    if(head->next==NULL)
+    if(main_memory_object->ufl_dummy_head->next==NULL)
     {
-        head->next=new_frame;
+        main_memory_object->ufl_dummy_head->next=new_frame;
         new_frame->next=new_frame;
 
-        temp_recently_used_frame=new_frame;
-        *recently_used_frame=temp_recently_used_frame;
+        main_memory_object->recently_used_frame=new_frame;
+        //*recently_used_frame=temp_recently_used_frame;
         return;
     }
 
-    new_frame->next=temp_recently_used_frame->next;
-    temp_recently_used_frame->next=new_frame;
-    temp_recently_used_frame=new_frame;
+    new_frame->next=main_memory_object->recently_used_frame->next;
+    main_memory_object->recently_used_frame->next=new_frame;
+    main_memory_object->recently_used_frame=new_frame;
 
-    *recently_used_frame=temp_recently_used_frame;
+    //*recently_used_frame=temp_recently_used_frame;
 
 }
 
