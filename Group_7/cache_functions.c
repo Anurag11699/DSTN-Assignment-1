@@ -250,6 +250,20 @@ int L2_search(L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_bu
     return -1;
 }
 
+/*
+PreConditions
+Inputs: {pointer to L2 cache object, pointer to L2 write buffer object, index of entry, tag of entry , block offset}
+
+0<=index<=64 
+0<=tag<=0x3fff
+0<=offset<=32
+
+Purpose of the Function: 
+First checks if there are any invalid block in that index to place the new block in. If not,the function replaces the LFU block in that index of the cache. The block going to be replaced can be dropped as the main memory is inclusive
+
+PostConditions
+The LFU way in the given index is replaced and its counter is set to 0
+*/
 void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int offset)
 {
     int way_to_replace=-1;
@@ -291,6 +305,20 @@ void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int o
 
 }
 
+/*
+PreConditions
+Inputs: {pointer to L2 cache object, pointer to L2 write buffer object, index of entry, tag of entry , block offset}
+
+0<=index<=32 
+0<=tag<=0x3fff
+0<=offset<=32
+
+Purpose of the Function: 
+First checks if there are any invalid block in that index to place the new block in. If not,the function replaces the LRU block in that index of the cache. The block going to be replaced in L1 cannot be simply dropped as the cache is exclusive. Hence, we must transfer the going to be replaced block to the L2 cache by calling the replace_L2_cache_entry function.
+
+PostConditions
+The LRU way in the given index is replaced.
+*/
 void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object, int index, int tag, int offset)
 {
     int way_to_replace=-1;
