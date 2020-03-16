@@ -32,6 +32,7 @@ struct used_frame_list
 {
 	unsigned int frame_number:15;
     unsigned int reference_bit:1;
+    //unsigned int pid;
 	struct used_frame_list *next;
 };
 

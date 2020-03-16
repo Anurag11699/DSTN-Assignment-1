@@ -26,20 +26,20 @@ void add_free_frame(main_memory* main_memory_object, int frame_number)
     //*tail = temp_tail;
 }
 
-int remove_free_frame(free_frame_list_dummy_head *head)
+int remove_free_frame(main_memory* main_memory_object)
 {
 
-    if(head->next==NULL)
+    if( main_memory_object->ffl_dummy_head->next==NULL)
     {
         return -1; //no free frame to return;
     }
 
-    int frame_number = head->next->frame_number;
+    int frame_number =  main_memory_object->ffl_dummy_head->next->frame_number;
     
-    free_frame * temp = head->next;
-    head->next=head->next->next;
+    free_frame * temp =  main_memory_object->ffl_dummy_head->next;
+    main_memory_object->ffl_dummy_head->next= main_memory_object->ffl_dummy_head->next->next;
     free(temp);
-    head->number_free_frames--;
+    main_memory_object->ffl_dummy_head->number_free_frames--;
 
     return frame_number;
 }
