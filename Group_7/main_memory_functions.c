@@ -120,7 +120,7 @@ int get_frame(main_memory *main_memory_object)
     return frame_number;
 }
 
-void initialize_page_table(int frame_number_occupied)
+page_table* initialize_page_table(int frame_number_occupied)
 {
     int i;
     page_table* page_table_object = (page_table*)malloc(sizeof(page_table));
@@ -134,6 +134,8 @@ void initialize_page_table(int frame_number_occupied)
         page_table_object->page_table_entries[i].referenced=0;
         page_table_object->page_table_entries[i].modified=0;
     }
+
+    return page_table_object;
 
 }
 
@@ -153,8 +155,12 @@ void update_frame_table_entry(main_memory* main_memory_object,int frame_number,i
     main_memory_object->frame_table[frame_number].page_number=page_number;
 }
 
-int page_table_walk(int logical_address)
+int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int pid, int logical_address)
 {
+    //search for the pcb array entry;
+    page_table *outer_page_table = (page_table *)kernel_object->pcb_array[pid].outermost_page_base_address;
+
+    
     return 1;
 }
 
@@ -182,8 +188,9 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
     //all pages are invalid upon initialization
     for(int frame_number=0;frame_number<number_of_frames;frame_number++)
     {
-        main_memory_object->frame_table[number_of_frames].pid=-1;
-        main_memory_object->frame_table[number_of_frames].page_number=-1;
+        main_memory_object->frame_table[frame_number].pid=-1;
+        main_memory_object->frame_table[frame_number].page_number=-1;
+        main_memory_object->frame_table[frame_number].page_table_object=NULL;
     }
 
     //initialize free frame list

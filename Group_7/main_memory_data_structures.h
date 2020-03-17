@@ -4,11 +4,33 @@
 //     char byte_array[1024];
 // }frame;
 
+typedef struct page_table_entry
+{
+    //each page table entry is 4 bytes
+    
+
+    int frame_base_address:15; //pointer to next page table or the actual frame if it is the last level
+    unsigned int global_page:1;
+    unsigned int modified:1;
+    unsigned int referenced:1;
+    unsigned int cache_disabled:1;
+    unsigned int write:1;
+    
+}page_table_entry;
+
+typedef struct page_table
+{
+    int frame_occupied:15;
+    //each page table will have 2^8 page table entries
+    page_table_entry* page_table_entries;
+}page_table;
+
 typedef struct frame_table_entry
 {
     //unsigned int valid:1;
     int page_number:22;
     int pid;
+    page_table* page_table_object; //if the frame is a page table, then this is the pointer to that page table
 
 }frame_table_entry;
 
@@ -58,23 +80,3 @@ typedef struct main_memory
    //frame *frame_array;
 }main_memory;
 
-typedef struct page_table_entry
-{
-    //each page table entry is 4 bytes
-    
-
-    int frame_base_address:15;
-    unsigned int global_page:1;
-    unsigned int modified:1;
-    unsigned int referenced:1;
-    unsigned int cache_disabled:1;
-    unsigned int write:1;
-    
-}page_table_entry;
-
-typedef struct page_table
-{
-    int frame_occupied:15;
-    //each page table will have 2^8 page table entries
-    page_table_entry* page_table_entries;
-}page_table;

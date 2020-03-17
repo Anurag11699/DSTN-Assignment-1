@@ -32,20 +32,21 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
     }
 
     // if state==0, that means that entry in pcb array is free or the process before has been terminated
-    int i;
-    for(i=0;i<max_number_processes;i++)
-    {
-        if(kernel_object->pcb_array[i].state==0)
+    //int i;
+    //for(i=0;i<max_number_processes;i++)
+    //{
+        //indexing pcb array using pid
+        if(kernel_object->pcb_array[pid].state==0)
         {
-            kernel_object->pcb_array[i].state=1;
-            kernel_object->pcb_array[i].pid=pid;
-            kernel_object->pcb_array[i].fd=fopen(filename,"r");
+            kernel_object->pcb_array[pid].state=1;
+            kernel_object->pcb_array[pid].pid=pid;
+            kernel_object->pcb_array[pid].fd=fopen(filename,"r");
             kernel_object->number_of_processes++;
-            break;
+            //break;
         }
-    }
+    //}
 
-    int pcb_array_entry=i;
+    int pcb_array_entry=pid;
     
 
 
@@ -68,6 +69,10 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
     add_used_frame(main_memory_32MB,outermost_page_table_frame_number);
 
     //make this frame the outermost page table
+    page_table* outermost_page_table = initialize_page_table(outermost_page_table_frame_number);
+    
+    //add it to the pcb of this process
+    kernel_object->pcb_array[pid].outermost_page_base_address=outermost_page_table;
 
     int request_1;
     int request_2;
