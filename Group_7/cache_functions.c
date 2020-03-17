@@ -124,7 +124,7 @@ If entry is absent return -1;
 */
 int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset, int write)
 {
-    int i,j,k;
+    int i,j;
 
     for(i=0;i<4;i++)
     {
@@ -322,7 +322,7 @@ The LRU way in the given index is replaced.
 void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object, int index, int tag, int offset)
 {
     int way_to_replace=-1;
-    int i,j;
+    int i;
 
     //prefer placement compared to replacement
     for(i=0;i<4;i++)

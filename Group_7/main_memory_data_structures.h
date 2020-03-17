@@ -8,7 +8,6 @@ typedef struct page_table_entry
 {
     //each page table entry is 4 bytes
     
-
     int frame_base_address:15; //pointer to next page table or the actual frame if it is the last level
     unsigned int global_page:1;
     unsigned int modified:1;
@@ -30,7 +29,7 @@ typedef struct frame_table_entry
     //unsigned int valid:1;
     int page_number:22;
     int pid;
-    page_table* page_table_object; //if the frame is a page table, then this is the pointer to that page table
+    page_table* pointer_to_stored_page_table; //if the frame is a page table, then this is the pointer to that page table
 
 }frame_table_entry;
 

@@ -116,9 +116,21 @@ int get_frame(main_memory *main_memory_object)
 
     frame_number = remove_used_frame(main_memory_object);
 
-    //need to invalidate this entry in 
+    //need to update the page table of the process from which this was taken from and frame table of the OS
+
+    int current_pid_of_frame = get_pid_of_frame(main_memory_object,frame_number);
+    int current_logical_page_of_frame = get_page_number_of_frame(main_memory_object,frame_number);
+
+    //invalidate the page table entry for the pid and logical page we just got
+
+
+   
+    //add to used frame list
+    add_used_frame(main_memory_object,frame_number);
+    
     return frame_number;
 }
+
 
 page_table* initialize_page_table(int frame_number_occupied)
 {
@@ -149,16 +161,122 @@ int get_page_number_of_frame(main_memory* main_memory_object,int frame_number)
     return main_memory_object->frame_table[frame_number].page_number;
 }
 
-void update_frame_table_entry(main_memory* main_memory_object,int frame_number,int pid,int page_number)
+page_table* get_page_table_pointer_of_frame(main_memory* main_memory_object, int frame_number)
+{
+    return main_memory_object->frame_table[frame_number].pointer_to_stored_page_table;
+}
+
+void update_frame_table_entry(main_memory* main_memory_object,int frame_number,int pid,int page_number,page_table* page_table_object)
 {
     main_memory_object->frame_table[frame_number].pid=pid;
     main_memory_object->frame_table[frame_number].page_number=page_number;
+    main_memory_object->frame_table[frame_number].pointer_to_stored_page_table=page_table_object;
+}
+
+int check_frame_ownership(main_memory* main_memory_object,int pid,int frame_number)
+{
+    if(main_memory_object->frame_table[frame_number].pid==pid)
+    {
+        return 1;
+    }
+    
+    return -1;
 }
 
 int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int pid, int logical_address)
 {
-    //search for the pcb array entry;
-    page_table *outer_page_table = (page_table *)kernel_object->pcb_array[pid].outermost_page_base_address;
+    //32 bit Virtual Address split as:  6 | 8 | 8 | 10 . Hence 3 level paging is required
+
+    //get frame of outermost page table
+    int outer_page_table_frame_number = kernel_object->pcb_array[pid].outer_page_base_address;
+
+    //check if you own frame, otherwise load new frame for the outermost page table
+
+    int own_outer_page_table = check_frame_ownership(main_memory_object,pid,outer_page_table_frame_number);
+
+    if(own_outer_page_table==-1)
+    {
+        outer_page_table_frame_number = get_frame(main_memory_object);
+
+        //make this frame the outermost page table
+        page_table* outermost_page_table = initialize_page_table(outer_page_table_frame_number);
+
+        //update the frame table for the frame we got
+        update_frame_table_entry(main_memory_object,outer_page_table_frame_number,pid,-1,outermost_page_table); //-1 for logical page as it is a page table. send the pointer to outermost page table as this frame is a page table
+        
+        //add it to the pcb of this process
+        kernel_object->pcb_array[pid].outer_page_base_address=outer_page_table_frame_number;
+    }
+
+    page_table* outer_page_table = get_page_table_pointer_of_frame(main_memory_object,outer_page_table_frame_number);
+
+    int outer_page_table_offset = get_outer_page_table_offset(logical_address); //first 6 bits are the offset in the outermost page table
+
+    //go to the middle level of paging
+    
+    int middle_page_table_frame_number = outer_page_table->page_table_entries[outer_page_table_offset].frame_base_address;
+
+    int own_middle_page_table = check_frame_ownership(main_memory_object,pid,middle_page_table_frame_number);
+
+    if(own_middle_page_table==-1)
+    {
+        middle_page_table_frame_number = get_frame(main_memory_object);
+
+        //make this frame the middle page table
+        page_table* middle_page_table = initialize_page_table(middle_page_table_frame_number);
+
+        //update frame table entry
+        //update the frame table for the frame we got
+        update_frame_table_entry(main_memory_object,middle_page_table_frame_number,pid,-1,middle_page_table); //-1 for logical page as it is a page table. send the pointer to middle page table as this frame is a page table
+
+    }
+
+    page_table* middle_page_table = get_page_table_pointer_of_frame(main_memory_object,middle_page_table_frame_number);
+
+    int middle_page_table_offset = get_middle_page_table_offset(logical_address);
+
+    //go to inner page table
+
+    int inner_page_table_frame_number = middle_page_table->page_table_entries[middle_page_table_offset].frame_base_address;
+
+    int own_inner_page_table = check_frame_ownership(main_memory_object,pid,inner_page_table_frame_number);
+
+    if(own_inner_page_table==-1)
+    {
+        inner_page_table_frame_number=get_frame(main_memory_object);
+
+        //make this frame the inner page table
+        page_table* inner_page_table = initialize_page_table(inner_page_table_frame_number);
+
+        //update frame table entry
+        //update the frame table for the frame we got
+        update_frame_table_entry(main_memory_object,inner_page_table_frame_number,pid,-1,inner_page_table); //-1 for logical page as it is a page table. send the pointer to inner page table as this frame is a page table
+    }
+
+    page_table* inner_page_table = get_page_table_pointer_of_frame(main_memory_object,inner_page_table_frame_number);
+
+    int inner_page_table_offset = get_inner_page_table_offset(logical_address);
+
+    //get the frame we needed to store this logical address
+    int needed_frame_number = inner_page_table->page_table_entries[inner_page_table_offset].frame_base_address;
+
+    int own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
+
+    //get the logical page number
+    int logical_page_number = get_logical_page_number(logical_address);
+
+    if(own_needed_frame==-1)
+    {
+        //insert this entry into the frame table and the page table of this process
+        needed_frame_number = get_frame(main_memory_object);
+
+        //insert entry into page table
+        inner_page_table->page_table_entries[inner_page_table_offset].frame_base_address=needed_frame_number;
+        inner_page_table->page_table_entries[inner_page_table_offset].referenced=1;
+
+        //update frame table
+        update_frame_table_entry(main_memory_object,needed_frame_number,pid,logical_page_number,NULL); //pointer to page table is null as this page wont contain page table
+    }
 
     
     return 1;
@@ -190,7 +308,7 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
     {
         main_memory_object->frame_table[frame_number].pid=-1;
         main_memory_object->frame_table[frame_number].page_number=-1;
-        main_memory_object->frame_table[frame_number].page_table_object=NULL;
+        main_memory_object->frame_table[frame_number].pointer_to_stored_page_table=NULL;
     }
 
     //initialize free frame list

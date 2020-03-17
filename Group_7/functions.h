@@ -7,6 +7,10 @@
 #define get_cache_block_offset 0x1f
 #define get_L1_cache_block_index 0x3f
 #define get_L2_cache_block_index 0x3f
+#define get_outer_page_table_offset(x) (x>>26)
+#define get_middle_page_table_offset(x) ((x>>18)&0xff)
+#define get_inner_page_table_offset(x) ((x>>10)&0xff)
+#define get_logical_page_number(x) (x<<10)
 
 
 //kernel functions
@@ -22,9 +26,11 @@ extern int remove_free_frame(main_memory *);
 extern void add_used_frame(main_memory*, int);
 extern int remove_used_frame(main_memory*);
 extern int get_frame(main_memory*);
-extern void update_frame_table_entry(main_memory*,int,int,int);
+extern void update_frame_table_entry(main_memory*,int,int,int,page_table*);
 extern int get_pid_of_frame(main_memory*,int);
 extern int get_page_number_of_frame(main_memory*, int);
+page_table* get_page_table_pointer_of_frame(main_memory*,int);
+extern int check_frame_ownership(main_memory*,int,int);
 extern page_table* initialize_page_table(int);
 extern int page_table_walk(kernel* ,main_memory*,int,int);
 

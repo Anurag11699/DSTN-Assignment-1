@@ -2,7 +2,7 @@
 typedef struct pcb
 {   
     unsigned int pid;
-    void *outermost_page_base_address;
+    int outer_page_base_address:15;
     FILE* fd;
     int state;
 }pcb;

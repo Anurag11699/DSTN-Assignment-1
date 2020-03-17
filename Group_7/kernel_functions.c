@@ -48,39 +48,17 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
 
     int pcb_array_entry=pid;
     
-
-
-    //prepage 2 pages for the first 2 logical addresses the process requests
-    int outermost_page_table_frame_number = get_frame(main_memory_32MB);
-
-    //need to update the page table of the process from which this was taken from and frame table of the OS
-
-    int current_pid_of_frame = get_pid_of_frame(main_memory_32MB,outermost_page_table_frame_number);
-    int current_logical_page_of_frame = get_page_number_of_frame(main_memory_32MB,outermost_page_table_frame_number);
-
-    //invalidate the page table entry for the pid and logical page we just got
-
-
-    //update the frame table for the frame we got
-    update_frame_table_entry(main_memory_32MB,outermost_page_table_frame_number,pid,-1); //-1 for logical page as it is a page table 
-
-
-    //add to used frame list
-    add_used_frame(main_memory_32MB,outermost_page_table_frame_number);
-
-    //make this frame the outermost page table
-    page_table* outermost_page_table = initialize_page_table(outermost_page_table_frame_number);
-    
-    //add it to the pcb of this process
-    kernel_object->pcb_array[pid].outermost_page_base_address=outermost_page_table;
-
     int request_1;
     int request_2;
 
-    fscanf(kernel_object->pcb_array[pcb_array_entry].pid,"%x",&request_1);
-    fscanf(kernel_object->pcb_array[pcb_array_entry].pid,"%x",&request_2);
+    fscanf(kernel_object->pcb_array[pcb_array_entry].fd,"%x",&request_1);
+    fscanf(kernel_object->pcb_array[pcb_array_entry].fd,"%x",&request_2);
 
+    //prepage 2 pages for the first 2 logical addresses the process requests
     //do page table walk for request1 and request2 to load these pages
+
+    page_table_walk(kernel_object,main_memory_32MB,pid,request_1);
+    page_table_walk(kernel_object,main_memory_32MB,pid,request_2);
 
    return 1;
 }
@@ -140,7 +118,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
             L1_cache_hit = L1_search(L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,write); 
         }
 
-        L2_cache_hit = L2_search(L2_cache_32KB,L2_cache_write_buffer_8,L1_cache_index,L1_cache_tag,cache_block_offset,write); 
+        L2_cache_hit = L2_search(L2_cache_32KB,L2_cache_write_buffer_8,L2_cache_index,L2_cache_tag,cache_block_offset,write); 
 
         //if L1 cache or L2 cache was hit all good, otherwise need to request transfer of that block from main memory
 
