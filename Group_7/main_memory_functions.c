@@ -104,6 +104,23 @@ int remove_used_frame(main_memory* main_memory_object)
     //need to update the page tables for the process from which this frame was removed. Will be done later in another function elsewhere. 
 }
 
+void set_reference_bit(main_memory* main_memory_object,int frame_number)
+{
+    if(main_memory_object->ufl_dummy_head->next==NULL)
+    {
+        return;
+    }
+
+    used_frame* walker = main_memory_object->ufl_dummy_head->next;
+
+    while(walker->frame_number!=frame_number)
+    {
+        walker=walker->next;
+    }
+    walker->reference_bit=1;
+    return;
+}
+
 int get_frame(main_memory *main_memory_object)
 {
     //prefer placement over replacement

@@ -18,6 +18,7 @@ extern kernel* initialize_kernel(int);
 extern void execute_process_request(kernel*, tlb*, tlb*, L1_cache*, L1_cache*, L2_cache*, L2_cache_write_buffer* ,main_memory*,int, int);
 extern int get_request_type(int);
 extern int load_new_process(kernel*,main_memory*,int, int, char*); 
+extern void terminate_process(kernel*, main_memory*, int);
 
 //main memory functions
 extern main_memory* initialize_main_memory(int, int);
@@ -25,6 +26,7 @@ extern void add_free_frame(main_memory*, int);
 extern int remove_free_frame(main_memory *);
 extern void add_used_frame(main_memory*, int);
 extern int remove_used_frame(main_memory*);
+extern void set_reference_bit(main_memory*,int);
 extern int get_frame(main_memory*);
 extern void update_frame_table_entry(main_memory*,int,int,int,page_table*);
 extern int get_pid_of_frame(main_memory*,int);
@@ -33,6 +35,7 @@ page_table* get_page_table_pointer_of_frame(main_memory*,int);
 extern int check_frame_ownership(main_memory*,int,int);
 extern page_table* initialize_page_table(int);
 extern int page_table_walk(kernel* ,main_memory*,int,int);
+
 
 //cache functions
 extern L1_cache* initialize_L1_cache();
