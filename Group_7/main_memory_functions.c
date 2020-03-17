@@ -331,9 +331,11 @@ Output: {pointer to intialized main memory}
 main_memory* initialize_main_memory(int main_memory_size, int frame_size)
 {
     //find number of frames
+    
     int number_of_frames=(main_memory_size/frame_size)*1024;
 
     main_memory* main_memory_object = (main_memory *)malloc(sizeof(main_memory));
+    main_memory_object->number_of_frames=number_of_frames;
 
     //initialize the frames
     //main_memory_object->frame_array=(frame *)malloc(number_of_frames*sizeof(frame));

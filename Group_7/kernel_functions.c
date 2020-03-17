@@ -63,6 +63,27 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
    return 1;
 }
 
+void terminate_process(kernel* kernel_object, main_memory* main_memory_object, int pid)
+{
+    int i;
+
+    //release all the pages held by the process
+    for(i=0;i<main_memory_object->number_of_frames;i++)
+    {
+        if(main_memory_object->frame_table[i].pid==pid)
+        {
+            transfer_to_free_freame_list(main_memory_object,i);
+        }
+    }
+
+    //close the file descriptor of the process
+    fclose(kernel_object->pcb_array[pid].fd);
+
+    //set state of the process to terminated == 0
+    kernel_object->pcb_array[pid].state=0;
+    
+}
+
 //return 0 if process is requesting an instruction, returns 1 if process is requesting for data
 int get_request_type(int virtual_address)
 {

@@ -69,6 +69,7 @@ typedef struct used_frame_list_dummy_head
 
 typedef struct main_memory
 {
+    unsigned int number_of_frames;
     frame_table_entry* frame_table;
 
     free_frame_list_dummy_head *ffl_dummy_head;
