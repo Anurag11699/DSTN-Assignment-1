@@ -46,7 +46,7 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
     
 
 
-    //prepage 2 pages
+    //prepage 2 pages for the first 2 logical addresses the process requests
 
    
    return 1;

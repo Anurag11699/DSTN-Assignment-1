@@ -22,6 +22,8 @@ extern int remove_free_frame(main_memory *);
 extern void add_used_frame(main_memory*, int);
 extern int remove_used_frame(main_memory*);
 extern int get_frame(main_memory*);
+extern void initialize_page_table(int);
+
 
 //cache functions
 extern L1_cache* initialize_L1_cache();

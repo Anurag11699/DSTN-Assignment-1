@@ -6,9 +6,9 @@
 
 typedef struct frame_table_entry
 {
-    unsigned int valid:1;
-    unsigned int pid;
+    //unsigned int valid:1;
     unsigned int page_number:22;
+    unsigned int pid;
 
 }frame_table_entry;
 
@@ -61,6 +61,8 @@ typedef struct main_memory
 typedef struct page_table_entry
 {
     //each page table entry is 4 bytes
+    
+
     int frame_base_address:15;
     unsigned int global_page:1;
     unsigned int modified:1;
@@ -72,6 +74,7 @@ typedef struct page_table_entry
 
 typedef struct page_table
 {
+    int frame_occupied:15;
     //each page table will have 2^8 page table entries
     page_table_entry* page_table_entries;
 }page_table;

@@ -112,8 +112,30 @@ int get_frame(main_memory *main_memory_object)
     }
 
     frame_number = remove_used_frame(main_memory_object);
+
+    //need to invalidate this entry in 
     return frame_number;
 }
+
+void initialize_page_table(int frame_number_occupied)
+{
+    int i;
+    page_table* page_table_object = (page_table*)malloc(sizeof(page_table));
+    page_table_object->frame_occupied=frame_number_occupied;
+    page_table_object->page_table_entries = (page_table_entry*)malloc(sizeof(page_table_entry)*256); //there are 2^8 entries in each page table
+
+    for(i=0;i<256;i++)
+    {
+        page_table_object->page_table_entries[i].cache_disabled=1;
+        page_table_object->page_table_entries[i].frame_base_address=-1;
+        page_table_object->page_table_entries[i].referenced=0;
+        page_table_object->page_table_entries[i].modified=0;
+    }
+
+}
+
+
+
 
 /*
 PreConditions
@@ -138,7 +160,7 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
     //all pages are invalid upon initialization
     for(int frame_number=0;frame_number<number_of_frames;frame_number++)
     {
-        main_memory_object->frame_table[number_of_frames].valid=0;
+        main_memory_object->frame_table[number_of_frames].pid=-1;
     }
 
     //initialize free frame list
@@ -159,7 +181,7 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
     //add all frames to the free frame list
     for(int frame_number=0;frame_number<number_of_frames;frame_number++)
     {
-        if(main_memory_object->frame_table[frame_number].valid==0)
+        if(main_memory_object->frame_table[frame_number].pid==-1)
         {
             
             add_free_frame(main_memory_object,frame_number);
