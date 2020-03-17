@@ -7,6 +7,9 @@ void add_free_frame(main_memory* main_memory_object, int frame_number)
 {
     //free_frame *temp_tail = *tail;
 
+    main_memory_object->frame_table[frame_number].pid=-1;
+    main_memory_object->frame_table[frame_number].page_number=-1;
+
     free_frame *new_frame = (free_frame *)malloc(sizeof(free_frame));
     new_frame->frame_number=frame_number;
     new_frame->next=NULL;
@@ -134,7 +137,26 @@ void initialize_page_table(int frame_number_occupied)
 
 }
 
+int get_pid_of_frame(main_memory* main_memory_object,int frame_number)
+{
+    return main_memory_object->frame_table[frame_number].pid;
+}
 
+int get_page_number_of_frame(main_memory* main_memory_object,int frame_number)
+{
+    return main_memory_object->frame_table[frame_number].page_number;
+}
+
+void update_frame_table_entry(main_memory* main_memory_object,int frame_number,int pid,int page_number)
+{
+    main_memory_object->frame_table[frame_number].pid=pid;
+    main_memory_object->frame_table[frame_number].page_number=page_number;
+}
+
+int page_table_walk(int logical_address)
+{
+    return 1;
+}
 
 
 /*
@@ -161,6 +183,7 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
     for(int frame_number=0;frame_number<number_of_frames;frame_number++)
     {
         main_memory_object->frame_table[number_of_frames].pid=-1;
+        main_memory_object->frame_table[number_of_frames].page_number=-1;
     }
 
     //initialize free frame list

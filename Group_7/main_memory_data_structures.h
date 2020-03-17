@@ -7,8 +7,8 @@
 typedef struct frame_table_entry
 {
     //unsigned int valid:1;
-    unsigned int page_number:22;
-    unsigned int pid;
+    int page_number:22;
+    int pid;
 
 }frame_table_entry;
 

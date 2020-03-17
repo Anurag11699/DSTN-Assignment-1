@@ -41,14 +41,42 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
             kernel_object->pcb_array[i].pid=pid;
             kernel_object->pcb_array[i].fd=fopen(filename,"r");
             kernel_object->number_of_processes++;
+            break;
         }
     }
+
+    int pcb_array_entry=i;
     
 
 
     //prepage 2 pages for the first 2 logical addresses the process requests
+    int outermost_page_table_frame_number = get_frame(main_memory_32MB);
 
-   
+    //need to update the page table of the process from which this was taken from and frame table of the OS
+
+    int current_pid_of_frame = get_pid_of_frame(main_memory_32MB,outermost_page_table_frame_number);
+    int current_logical_page_of_frame = get_page_number_of_frame(main_memory_32MB,outermost_page_table_frame_number);
+
+    //invalidate the page table entry for the pid and logical page we just got
+
+
+    //update the frame table for the frame we got
+    update_frame_table_entry(main_memory_32MB,outermost_page_table_frame_number,pid,-1); //-1 for logical page as it is a page table 
+
+
+    //add to used frame list
+    add_used_frame(main_memory_32MB,outermost_page_table_frame_number);
+
+    //make this frame the outermost page table
+
+    int request_1;
+    int request_2;
+
+    fscanf(kernel_object->pcb_array[pcb_array_entry].pid,"%x",&request_1);
+    fscanf(kernel_object->pcb_array[pcb_array_entry].pid,"%x",&request_2);
+
+    //do page table walk for request1 and request2 to load these pages
+
    return 1;
 }
 
