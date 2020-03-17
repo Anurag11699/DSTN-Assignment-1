@@ -14,6 +14,7 @@ typedef struct page_table_entry
     unsigned int referenced:1;
     unsigned int cache_disabled:1;
     unsigned int write:1;
+    unsigned int valid:1;
     
 }page_table_entry;
 

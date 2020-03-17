@@ -145,6 +145,7 @@ page_table* initialize_page_table(int frame_number_occupied)
         page_table_object->page_table_entries[i].frame_base_address=-1;
         page_table_object->page_table_entries[i].referenced=0;
         page_table_object->page_table_entries[i].modified=0;
+        page_table_object->page_table_entries[i].valid=0;
     }
 
     return page_table_object;
@@ -218,7 +219,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
     int own_middle_page_table = check_frame_ownership(main_memory_object,pid,middle_page_table_frame_number);
 
-    if(own_middle_page_table==-1)
+    if(own_middle_page_table==-1 || outer_page_table->page_table_entries[outer_page_table_offset].valid==0)
     {
         middle_page_table_frame_number = get_frame(main_memory_object);
 
@@ -241,7 +242,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
     int own_inner_page_table = check_frame_ownership(main_memory_object,pid,inner_page_table_frame_number);
 
-    if(own_inner_page_table==-1)
+    if(own_inner_page_table==-1 || middle_page_table->page_table_entries[middle_page_table_offset].valid==0)
     {
         inner_page_table_frame_number=get_frame(main_memory_object);
 
@@ -265,7 +266,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     //get the logical page number
     int logical_page_number = get_logical_page_number(logical_address);
 
-    if(own_needed_frame==-1)
+    if(own_needed_frame==-1 || inner_page_table->page_table_entries[inner_page_table_offset].valid==0)
     {
         //insert this entry into the frame table and the page table of this process
         needed_frame_number = get_frame(main_memory_object);
