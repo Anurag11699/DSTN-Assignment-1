@@ -78,12 +78,13 @@ void add_used_frame(main_memory* main_memory_object, int frame_number)
 
 int remove_used_frame(main_memory* main_memory_object)
 {
-    if(main_memory_object->ufl_dummy_head->next==NULL)
+    
+    if(main_memory_object->ufl_dummy_head->next==NULL || main_memory_object->ufl_dummy_head->number_used_frames==0)
     {
         return -1;
     }
 
-    //used_frame *temp_recently_used_frame = *recently_used_frame;
+   fprintf(stderr,"IN REMOVE USED FRAME\n");
 
     while(main_memory_object->recently_used_frame->next->reference_bit!=0)
     {
@@ -99,6 +100,7 @@ int remove_used_frame(main_memory* main_memory_object)
 
     main_memory_object->ufl_dummy_head->number_used_frames--;
     //*recently_used_frame=temp_recently_used_frame;
+    
     return frame_number;
 
     //need to update the page tables for the process from which this frame was removed. Will be done later in another function elsewhere. 
@@ -109,7 +111,7 @@ void transfer_to_free_frame_list(main_memory* main_memory_object, int frame_numb
     used_frame *walker = main_memory_object->ufl_dummy_head->next;
     used_frame *start = walker;
 
-    while(walker->next != start)
+    while(walker!=NULL && walker->next != start)
     {
         if(walker->next->frame_number==frame_number)
         {
@@ -120,6 +122,7 @@ void transfer_to_free_frame_list(main_memory* main_memory_object, int frame_numb
 
             add_free_frame(main_memory_object,frame_number);
         }
+        walker=walker->next;
     }
 
 }
@@ -148,6 +151,7 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object)
 
     if(frame_number!=-1)
     {
+        add_used_frame(main_memory_object,frame_number);
         return frame_number;
     }
 
@@ -377,14 +381,21 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     set_reference_bit(main_memory_object,needed_frame_number);
 
     fprintf(output_fd,"\n\n");
-    fprintf(output_fd,"Print Outer Page Table\n");
-    print_page_table(outer_page_table);
+    // fprintf(output_fd,"Print Outer Page Table\n");
+    // print_page_table(outer_page_table);
 
-    fprintf(output_fd,"Print Middle Page Table\n");
-    print_page_table(middle_page_table);
+    // fprintf(output_fd,"Print Middle Page Table\n");
+    // print_page_table(middle_page_table);
 
-    fprintf(output_fd,"Print Inner Page Table\n");
-    print_page_table(inner_page_table);
+    // fprintf(output_fd,"Print Inner Page Table\n");
+    // print_page_table(inner_page_table);
+
+    //print_frame_table(main_memory_object);
+
+    print_ufl(main_memory_object);
+    remove_used_frame(main_memory_object);
+    fprintf(stderr,"AFTER\n");
+    print_ufl(main_memory_object);
 
     return needed_frame_number;
 }
@@ -525,7 +536,7 @@ main_memory* initialize_main_memory(int main_memory_size, int frame_size)
         {
             
             add_free_frame(main_memory_object,frame_number);
-            fprintf(stderr,"Tail: %d\n",main_memory_object->ffl_tail->frame_number);
+            //fprintf(stderr,"Tail: %d\n",main_memory_object->ffl_tail->frame_number);
         }
         
     }
@@ -550,4 +561,54 @@ void print_page_table(page_table* page_table_object)
     }
 
     fprintf(output_fd,"\n\n");
+}
+
+void print_frame_table(main_memory* main_memory_object)
+{
+    fprintf(output_fd,"Printing OS Frame Table\n");
+
+    int number_of_frames = main_memory_object->number_of_frames;
+
+    for(int i=0;i<number_of_frames;i++)
+    {
+        fprintf(output_fd,"Frame Number: %d | Page Number: %d | PID: %d | Modified: %d | PageTable Pointer: %p\n",i,main_memory_object->frame_table[i].page_number,main_memory_object->frame_table[i].pid, main_memory_object->frame_table[i].modified, main_memory_object->frame_table[i].pointer_to_stored_page_table);
+    }
+
+    fprintf(output_fd,"\n\n");
+}
+
+void print_ffl(main_memory *main_memory_object)
+{
+    fprintf(output_fd,"Printing Free Frame List\nNumber of Free Frames are: %d\n",main_memory_object->ffl_dummy_head->number_free_frames);
+    free_frame *walker;
+    walker = main_memory_object->ffl_dummy_head->next;
+    while(walker->next!=NULL)
+    {
+        fprintf(output_fd,"{Frame Number: %d}-->",walker->frame_number);
+        walker=walker->next;
+    }
+
+    fprintf(output_fd,"\n");
+}
+
+void print_ufl(main_memory *main_memory_object)
+{
+    fprintf(output_fd,"Printing Used Frame List\nNumber of Used Frames are: %d\n",main_memory_object->ufl_dummy_head->number_used_frames);
+    used_frame *walker;
+    
+    walker = main_memory_object->ufl_dummy_head->next;
+    used_frame *temp=walker;
+    if(walker!=NULL)
+        fprintf(output_fd,"Recently Used Frame: {Frame Number: %d, Reference Bit: %d}\n",main_memory_object->recently_used_frame->frame_number,main_memory_object->recently_used_frame->reference_bit);
+    while(walker!=NULL && walker->next!=temp)
+    {
+        fprintf(output_fd,"{Frame Number: %d, Reference Bit: %d}-->",walker->frame_number, walker->reference_bit);
+        walker=walker->next;
+    }
+    if(walker!=NULL)
+    {
+        fprintf(output_fd,"{Frame Number: %d, Reference Bit: %d}-->",walker->frame_number, walker->reference_bit);
+    }
+
+    fprintf(output_fd,"\n");
 }
