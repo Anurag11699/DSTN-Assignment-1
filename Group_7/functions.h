@@ -10,7 +10,7 @@
 #define get_outer_page_table_offset(x) (x>>26)
 #define get_middle_page_table_offset(x) ((x>>18)&0xff)
 #define get_inner_page_table_offset(x) ((x>>10)&0xff)
-#define get_logical_page_number(x) (x<<10)
+#define get_logical_page_number(x) (x>>10)
 
 FILE* output_fd;
 
