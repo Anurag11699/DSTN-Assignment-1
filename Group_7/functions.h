@@ -20,6 +20,7 @@ extern int get_request_type(int);
 extern int load_new_process(kernel*,main_memory*,int, int, char*); 
 extern void terminate_process(kernel*, main_memory*, int);
 
+
 //main memory functions
 extern main_memory* initialize_main_memory(int, int);
 extern void add_free_frame(main_memory*, int);
@@ -36,6 +37,7 @@ page_table* get_page_table_pointer_of_frame(main_memory*,int);
 extern int check_frame_ownership(main_memory*,int,int);
 extern page_table* initialize_page_table(int);
 extern int page_table_walk(kernel* ,main_memory*,int,int);
+extern void invalidate_page_table_entry(kernel*, main_memory*, int, int);
 
 
 //cache functions

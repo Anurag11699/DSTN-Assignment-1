@@ -245,6 +245,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         //add it to the pcb of this process
         kernel_object->pcb_array[pid].outer_page_base_address=outer_page_table_frame_number;
     }
+    set_reference_bit(main_memory_object,outer_page_table_frame_number);
 
     page_table* outer_page_table = get_page_table_pointer_of_frame(main_memory_object,outer_page_table_frame_number);
 
@@ -269,6 +270,8 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
     }
 
+    set_reference_bit(main_memory_object,middle_page_table_frame_number);
+
     page_table* middle_page_table = get_page_table_pointer_of_frame(main_memory_object,middle_page_table_frame_number);
 
     int middle_page_table_offset = get_middle_page_table_offset(logical_address);
@@ -290,6 +293,8 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         //update the frame table for the frame we got
         update_frame_table_entry(main_memory_object,inner_page_table_frame_number,pid,-1,inner_page_table); //-1 for logical page as it is a page table. send the pointer to inner page table as this frame is a page table
     }
+
+    set_reference_bit(main_memory_object,inner_page_table_frame_number);
 
     page_table* inner_page_table = get_page_table_pointer_of_frame(main_memory_object,inner_page_table_frame_number);
 
@@ -316,8 +321,89 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         update_frame_table_entry(main_memory_object,needed_frame_number,pid,logical_page_number,NULL); //pointer to page table is null as this page wont contain page table
     }
 
+    set_reference_bit(main_memory_object,needed_frame_number);
+
     
     return 1;
+}
+
+void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory_object, int pid, int logical_address)
+{
+    //32 bit Virtual Address split as:  6 | 8 | 8 | 10 . Hence 3 level paging is required
+
+    //get frame of outermost page table
+    int outer_page_table_frame_number = kernel_object->pcb_array[pid].outer_page_base_address;
+
+    //check if you own frame, otherwise load new frame for the outermost page table
+
+    int own_outer_page_table = check_frame_ownership(main_memory_object,pid,outer_page_table_frame_number);
+
+    if(own_outer_page_table==-1)
+    {
+        return;
+    }
+    //set_reference_bit(main_memory_object,outer_page_table_frame_number);
+
+    page_table* outer_page_table = get_page_table_pointer_of_frame(main_memory_object,outer_page_table_frame_number);
+
+    int outer_page_table_offset = get_outer_page_table_offset(logical_address); //first 6 bits are the offset in the outermost page table
+
+    //go to the middle level of paging
+    
+    int middle_page_table_frame_number = outer_page_table->page_table_entries[outer_page_table_offset].frame_base_address;
+
+    int own_middle_page_table = check_frame_ownership(main_memory_object,pid,middle_page_table_frame_number);
+
+    //we cant reach the next level of paging, hence return
+    if(own_middle_page_table==-1 || outer_page_table->page_table_entries[outer_page_table_offset].valid==0)
+    {
+        return;
+
+    }
+
+    //set_reference_bit(main_memory_object,middle_page_table_frame_number);
+
+    page_table* middle_page_table = get_page_table_pointer_of_frame(main_memory_object,middle_page_table_frame_number);
+
+    int middle_page_table_offset = get_middle_page_table_offset(logical_address);
+
+    //go to inner page table
+
+    int inner_page_table_frame_number = middle_page_table->page_table_entries[middle_page_table_offset].frame_base_address;
+
+    int own_inner_page_table = check_frame_ownership(main_memory_object,pid,inner_page_table_frame_number);
+
+    //we cant reach the next level of paging , hence return
+    if(own_inner_page_table==-1 || middle_page_table->page_table_entries[middle_page_table_offset].valid==0)
+    {
+        return;
+    }
+
+    //set_reference_bit(main_memory_object,inner_page_table_frame_number);
+
+    page_table* inner_page_table = get_page_table_pointer_of_frame(main_memory_object,inner_page_table_frame_number);
+
+    int inner_page_table_offset = get_inner_page_table_offset(logical_address);
+
+    //get the frame we needed to store this logical address
+    int needed_frame_number = inner_page_table->page_table_entries[inner_page_table_offset].frame_base_address;
+
+    int own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
+
+    //get the logical page number
+    int logical_page_number = get_logical_page_number(logical_address);
+
+    //anyway the entry that we wanted to invalidate, is invalid or the frame it points to is not ours
+    if(own_needed_frame==-1 || inner_page_table->page_table_entries[inner_page_table_offset].valid==0)
+    {
+        return;
+    }
+
+    //invalidate the entry
+    inner_page_table->page_table_entries[inner_page_table_offset].valid=0;
+
+    //set_reference_bit(main_memory_object,needed_frame_number);
+
 }
 
 
