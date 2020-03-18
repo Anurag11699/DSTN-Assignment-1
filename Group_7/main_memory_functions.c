@@ -104,7 +104,7 @@ int remove_used_frame(main_memory* main_memory_object)
     //need to update the page tables for the process from which this frame was removed. Will be done later in another function elsewhere. 
 }
 
-void transfer_to_free_freame_list(main_memory* main_memory_object, int frame_number)
+void transfer_to_free_frame_list(main_memory* main_memory_object, int frame_number)
 {
     used_frame *walker = main_memory_object->ufl_dummy_head->next;
     used_frame *start = walker;

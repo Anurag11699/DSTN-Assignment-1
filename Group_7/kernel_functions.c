@@ -72,7 +72,7 @@ void terminate_process(kernel* kernel_object, main_memory* main_memory_object, i
     {
         if(main_memory_object->frame_table[i].pid==pid)
         {
-            transfer_to_free_freame_list(main_memory_object,i);
+            transfer_to_free_frame_list(main_memory_object,i);
         }
     }
 

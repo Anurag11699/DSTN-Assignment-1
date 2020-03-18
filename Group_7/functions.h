@@ -29,7 +29,7 @@ extern void add_free_frame(main_memory*, int);
 extern int remove_free_frame(main_memory *);
 extern void add_used_frame(main_memory*, int);
 extern int remove_used_frame(main_memory*);
-extern void transfer_to_free_freame_list(main_memory*, int);
+extern void transfer_to_free_frame_list(main_memory*, int);
 extern void set_reference_bit(main_memory*,int);
 extern int get_frame(main_memory*);
 extern void update_frame_table_entry(main_memory*,int,int,int,page_table*);
