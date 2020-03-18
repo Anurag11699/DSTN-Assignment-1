@@ -150,7 +150,14 @@ void insert_new_tlb_entry(tlb* tlb_object, int logical_page_number, int physical
     tlb_object->tlb_entries[lru_tlb_entry]=tlb_entry_to_add;
 }
 
-void print_tlb(tlb* tlb_object, int number_of_entries)
+void print_tlb(tlb* tlb_object)
 {
+    int number_of_entries = tlb_object->number_of_entries;
 
+    for(int i=0;i<number_of_entries;i++)
+    {
+        fprintf(output_fd,"Logical Page Number: %d | Physical Frame Number: %d | Valid: %d | LRU Counter: %d\n", tlb_object->tlb_entries[i].logical_page_number,tlb_object->tlb_entries[i].physical_frame_number, tlb_object->tlb_entries[i].valid, tlb_object->tlb_entries[i].LRU_counter);
+    }
+
+    fprintf(output_fd,"\n\n");
 }

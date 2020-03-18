@@ -68,5 +68,5 @@ extern int complete_tlb_search(tlb*, tlb*, int);
 extern void insert_new_tlb_entry(tlb*, int, int);
 
 //tlb printing functions
-extern void print_tlb(tlb*, int);
+extern void print_tlb(tlb*);
 
