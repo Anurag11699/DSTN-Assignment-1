@@ -122,7 +122,7 @@ Output:
 If entry is present return 1
 If entry is absent return -1;
 */
-int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset, int write)
+int L1_search(main_memory* main_memory_object,L1_cache* L1_cache_object, int index, int tag, int offset, int frame_number, int write)
 {
     int i,j;
 
@@ -140,6 +140,12 @@ int L1_search(L1_cache* L1_cache_object, int index, int tag, int offset, int wri
             for(j=0;j<4;j++)
             {
                 L1_cache_object->L1_cache_entries[index].LRU_square_matrix[j][i]=0;
+            }
+
+            if(write==1)
+            {
+                //mark frame as modified
+                mark_frame_modified(main_memory_object,frame_number);
             }
 
             return 1;
@@ -169,7 +175,7 @@ Output:
 If entry is present return 1
 If entry is absent return -1;
 */
-int L2_search(L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_buffer_object,int index, int tag, int offset, int write)
+int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_buffer_object,int index, int tag, int offset, int frame_number, int write)
 {
     int i,j;
     int flag=0;
@@ -195,7 +201,7 @@ int L2_search(L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_bu
         if(flag)
         {
             //also, if it was a write request, put this block into buffer cache
-            if(write==1) //read_write==1 means the entry was write
+            if(write==1) //write==1 means the entry was write
             {
 
             
@@ -217,6 +223,7 @@ int L2_search(L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_bu
                         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid=1;
                         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].index=index;
                         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].tag=L2_cache_object->L2_cache_entries[index].way[i].tag;
+                        L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].corresponding_frame_number=frame_number;
 
                         return 1;
                     }
@@ -226,7 +233,11 @@ int L2_search(L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_bu
 
                 for(j=0;j<8;j++)
                 {
+                    //need to mark this frame as dirty
+                    mark_frame_modified(main_memory_object,L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].corresponding_frame_number);
+                    
                     L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid=0;
+                    
                 }
 
                 for(j=0;j<8;j++)
@@ -236,6 +247,7 @@ int L2_search(L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_bu
                         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid=1;
                         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].index=index;
                         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].tag=L2_cache_object->L2_cache_entries[index].way[i].tag;
+                        L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].corresponding_frame_number=frame_number;
 
                         return 1;
                     }

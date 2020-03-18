@@ -57,8 +57,10 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
     //prepage 2 pages for the first 2 logical addresses the process requests
     //do page table walk for request1 and request2 to load these pages
 
-    page_table_walk(kernel_object,main_memory_32MB,pid,request_1);
-    page_table_walk(kernel_object,main_memory_32MB,pid,request_2);
+    int frame_number_1 = page_table_walk(kernel_object,main_memory_32MB,pid,request_1);
+    int frame_number_2 = page_table_walk(kernel_object,main_memory_32MB,pid,request_2);
+
+    //should we put these into tlb?
 
    return 1;
 }
@@ -96,7 +98,7 @@ int get_request_type(int virtual_address)
     return 1;
 }
 
-void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int virtual_address, int write)
+void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int pid,int virtual_address, int write)
 {
     int request_type=get_request_type(virtual_address);
     //we can get index and offest for L1 and L2 cache from the virtual address and use it for virtually tagged, physically offset. this is because (index + offset = page size)
@@ -132,14 +134,14 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         //as cache is lookaside, we need to search both the caches in parallel.
         if(request_type==0)
         {
-            L1_cache_hit = L1_search(L1_instruction_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,write); //as it is an instruction will be read only
+            L1_cache_hit = L1_search(main_memory_32MB,L1_instruction_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,physical_frame_number,write); //as it is an instruction will be read only
         }
         else
         {
-            L1_cache_hit = L1_search(L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,write); 
+            L1_cache_hit = L1_search(main_memory_32MB,L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,physical_frame_number,write); 
         }
 
-        L2_cache_hit = L2_search(L2_cache_32KB,L2_cache_write_buffer_8,L2_cache_index,L2_cache_tag,cache_block_offset,write); 
+        L2_cache_hit = L2_search(main_memory_32MB,L2_cache_32KB,L2_cache_write_buffer_8,L2_cache_index,L2_cache_tag,cache_block_offset,physical_frame_number,write); 
 
         //if L1 cache or L2 cache was hit all good, otherwise need to request transfer of that block from main memory
 
@@ -156,6 +158,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         //entry was not found in any cache. we must get the block from main memory and insert it into L1 cache
 
+        
         //write code to check if frame is in main memory and to retrieve it and put into cache
 
         
@@ -176,7 +179,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     {
         //initiatie page walk to get the physical frame number
         //recevie a physical frame number upon page walk and service page faults in that process
-        int physical_frame_number_received_from_page_walk;
+        int physical_frame_number_received_from_page_walk = page_table_walk(kernel_object,main_memory_32MB,pid,virtual_address);
         physical_address=(physical_frame_number_received_from_page_walk<<10)+(virtual_address&get_frame_offset);
 
         //insert this new mapping of logical page number to physical frame number into the L2 and L1 TLB and restart the instruction
@@ -185,7 +188,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         insert_new_tlb_entry(L1_tlb,12,logical_page_number,physical_frame_number_received_from_page_walk);
 
         //restart this request
-        execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,virtual_address,write);
+        execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,pid,virtual_address,write);
 
     }
 

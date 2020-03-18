@@ -30,6 +30,7 @@ typedef struct frame_table_entry
     //unsigned int valid:1;
     int page_number:22;
     int pid;
+    unsigned int modified:1;
     page_table* pointer_to_stored_page_table; //if the frame is a page table, then this is the pointer to that page table
 
 }frame_table_entry;
