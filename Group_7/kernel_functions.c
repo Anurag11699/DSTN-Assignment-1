@@ -60,7 +60,7 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
 
     fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_1,request_1);
 
-    fprintf(stderr,"CHECK IN LOAD_NEW_PROCESS\n");
+    //fprintf(stderr,"CHECK IN LOAD_NEW_PROCESS\n");
     int frame_number_1 = page_table_walk(kernel_object,main_memory_32MB,pid,request_1);
 
     fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_1,request_1);
