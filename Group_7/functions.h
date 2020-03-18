@@ -61,8 +61,12 @@ extern void replace_L1_cache_entry(L1_cache*, L2_cache*, int, int, int);
 
 //tlb functions
 extern tlb* initialize_tlb(int);
-extern void tlb_flush(tlb*, int);
-extern int tlb_search(tlb*, int, int);
-extern void L2_to_L1_tlb_transfer(tlb*, int, tlb*, int, int);
-extern int complete_tlb_search(tlb*, int, tlb*,int, int);
-extern void insert_new_tlb_entry(tlb*, int, int, int);
+extern void tlb_flush(tlb*);
+extern int tlb_search(tlb*, int);
+extern void L2_to_L1_tlb_transfer(tlb*, tlb*, int);
+extern int complete_tlb_search(tlb*, tlb*, int);
+extern void insert_new_tlb_entry(tlb*, int, int);
+
+//tlb printing functions
+extern void print_tlb(tlb*, int);
+

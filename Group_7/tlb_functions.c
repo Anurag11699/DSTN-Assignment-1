@@ -7,15 +7,17 @@
 tlb* initialize_tlb(int number_of_entries)
 {
     tlb *tlb_object = (tlb *)malloc(sizeof(tlb));
+    tlb_object->number_of_entries=number_of_entries;
     tlb_object->tlb_entries=(tlb_entry *)malloc(sizeof(tlb_entry)*number_of_entries);
 
-    tlb_flush(tlb_object,number_of_entries);
+    tlb_flush(tlb_object);
 
     return tlb_object;
 }
 
-void tlb_flush(tlb* tlb_object, int number_of_entries)
+void tlb_flush(tlb* tlb_object)
 {
+    int number_of_entries = tlb_object->number_of_entries;
     for(int i=0;i<number_of_entries;i++)
     {
         tlb_object->tlb_entries[i].valid=0;
@@ -23,8 +25,9 @@ void tlb_flush(tlb* tlb_object, int number_of_entries)
     }
 }
 
-int tlb_search(tlb* tlb_object, int number_of_entries, int logical_page_number)
+int tlb_search(tlb* tlb_object, int logical_page_number)
 {
+    int number_of_entries = tlb_object->number_of_entries;
     //shift all the counters to the right by 1
     int i;
     for(i=0;i<number_of_entries;i++)
@@ -44,8 +47,10 @@ int tlb_search(tlb* tlb_object, int number_of_entries, int logical_page_number)
     return -1;
 }
 
-void L2_to_L1_tlb_transfer(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, int number_of_entires_L2, int logical_page_number)
+void L2_to_L1_tlb_transfer(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number)
 {
+    int number_of_entries_L1 = L1_tlb->number_of_entries;
+    int number_of_entires_L2 = L2_tlb->number_of_entries;
     tlb_entry entry_to_be_transfered;
 
     //find the entry that resulted in TLB hit in L2 TLB
@@ -86,29 +91,32 @@ void L2_to_L1_tlb_transfer(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, i
     L1_tlb->tlb_entries[lru_tlb_entry]=entry_to_be_transfered;
 }
 
-int complete_tlb_search(tlb *L1_tlb, int number_of_entries_L1, tlb *L2_tlb, int number_of_entires_L2, int logical_page_number)
+int complete_tlb_search(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number)
 {
-    int physical_frame_number = tlb_search(L1_tlb,12,logical_page_number);
+    int number_of_entries_L1 = L1_tlb->number_of_entries;
+    int number_of_entires_L2 = L2_tlb->number_of_entries;
+    int physical_frame_number = tlb_search(L1_tlb,logical_page_number);
 
     if(physical_frame_number!=-1)
     {
         return physical_frame_number;
     }
 
-    physical_frame_number = tlb_search(L2_tlb,24,logical_page_number);
+    physical_frame_number = tlb_search(L2_tlb,logical_page_number);
 
     if(physical_frame_number!=-1)
     {
-        L2_to_L1_tlb_transfer(L1_tlb,12,L2_tlb,24,logical_page_number);
-        physical_frame_number=tlb_search(L1_tlb,12,logical_page_number);
+        L2_to_L1_tlb_transfer(L1_tlb,L2_tlb,logical_page_number);
+        physical_frame_number=tlb_search(L1_tlb,logical_page_number);
         return physical_frame_number;
     }
 
     return -1;
 }
 
-void insert_new_tlb_entry(tlb* tlb_object, int number_of_entries, int logical_page_number, int physical_frame_number)
+void insert_new_tlb_entry(tlb* tlb_object, int logical_page_number, int physical_frame_number)
 {
+    int number_of_entries = tlb_object->number_of_entries;
     //Check if there are any invalid entries in tlb and replace it with that
     tlb_entry tlb_entry_to_add;
     tlb_entry_to_add.logical_page_number=logical_page_number;
@@ -140,4 +148,9 @@ void insert_new_tlb_entry(tlb* tlb_object, int number_of_entries, int logical_pa
     }
 
     tlb_object->tlb_entries[lru_tlb_entry]=tlb_entry_to_add;
+}
+
+void print_tlb(tlb* tlb_object, int number_of_entries)
+{
+
 }
