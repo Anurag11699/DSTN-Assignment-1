@@ -25,6 +25,7 @@ kernel* initialize_kernel(int max_number_of_processes)
 
 int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int max_number_processes, int pid, char* filename)
 {
+    
     //process limit reached, this process cannot be loaded yet 
     if(kernel_object->number_of_processes>=max_number_processes)
     {
@@ -57,7 +58,12 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
     //prepage 2 pages for the first 2 logical addresses the process requests
     //do page table walk for request1 and request2 to load these pages
 
+    fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_1,request_1);
+
+    fprintf(stderr,"CHECK IN LOAD_NEW_PROCESS\n");
     int frame_number_1 = page_table_walk(kernel_object,main_memory_32MB,pid,request_1);
+
+    fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_1,request_1);
     int frame_number_2 = page_table_walk(kernel_object,main_memory_32MB,pid,request_2);
 
     //should we put these into tlb?

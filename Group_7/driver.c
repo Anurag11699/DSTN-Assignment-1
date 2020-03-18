@@ -20,6 +20,8 @@ int main()
 
    load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,0,"APSI.txt");
 
+   fclose(output_fd);
+
    
 }
 
