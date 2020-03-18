@@ -64,13 +64,16 @@ void add_used_frame(main_memory* main_memory_object, int frame_number)
         new_frame->next=new_frame;
 
         main_memory_object->recently_used_frame=new_frame;
-        //*recently_used_frame=temp_recently_used_frame;
+        
+        main_memory_object->ufl_dummy_head->next=main_memory_object->recently_used_frame;
         return;
     }
 
     new_frame->next=main_memory_object->recently_used_frame->next;
     main_memory_object->recently_used_frame->next=new_frame;
     main_memory_object->recently_used_frame=new_frame;
+
+    main_memory_object->ufl_dummy_head->next=main_memory_object->recently_used_frame;
 
     //*recently_used_frame=temp_recently_used_frame;
 
@@ -84,7 +87,7 @@ int remove_used_frame(main_memory* main_memory_object)
         return -1;
     }
 
-   fprintf(stderr,"IN REMOVE USED FRAME\n");
+   //fprintf(stderr,"IN REMOVE USED FRAME\n");
 
     while(main_memory_object->recently_used_frame->next->reference_bit!=0)
     {
@@ -94,16 +97,17 @@ int remove_used_frame(main_memory* main_memory_object)
 
     int frame_number = main_memory_object->recently_used_frame->next->frame_number;
 
+
     used_frame *temp = main_memory_object->recently_used_frame->next;
     main_memory_object->recently_used_frame->next=main_memory_object->recently_used_frame->next->next;
     free(temp);
 
     main_memory_object->ufl_dummy_head->number_used_frames--;
-    //*recently_used_frame=temp_recently_used_frame;
+
+    main_memory_object->ufl_dummy_head->next=main_memory_object->recently_used_frame;
     
     return frame_number;
 
-    //need to update the page tables for the process from which this frame was removed. Will be done later in another function elsewhere. 
 }
 
 void transfer_to_free_frame_list(main_memory* main_memory_object, int frame_number)
@@ -161,6 +165,9 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object)
 
     int current_pid_of_frame = get_pid_of_frame(main_memory_object,frame_number);
     int current_logical_page_of_frame = get_page_number_of_frame(main_memory_object,frame_number);
+
+    //invalidate the frame table entry for this frame
+    main_memory_object->frame_table[frame_number].pid=-1;
 
     //invalidate the page table entry for the pid and logical page we just got
 
@@ -262,6 +269,8 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
     set_reference_bit(main_memory_object,outer_page_table_frame_number);
 
+    
+
     page_table* outer_page_table = get_page_table_pointer_of_frame(main_memory_object,outer_page_table_frame_number);
 
     int outer_page_table_offset = get_outer_page_table_offset(logical_address); //first 6 bits are the offset in the outermost page table
@@ -350,6 +359,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
     int own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
 
+  
     //get the logical page number
     int logical_page_number = get_logical_page_number(logical_address);
 
@@ -392,10 +402,6 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
     //print_frame_table(main_memory_object);
 
-    print_ufl(main_memory_object);
-    remove_used_frame(main_memory_object);
-    fprintf(stderr,"AFTER\n");
-    print_ufl(main_memory_object);
 
     return needed_frame_number;
 }
