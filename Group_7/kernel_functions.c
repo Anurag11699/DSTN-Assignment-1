@@ -106,6 +106,7 @@ int get_request_type(int virtual_address)
 
 void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int pid,int virtual_address, int write)
 {
+    fprintf(output_fd,"Executing Process Request for PID: %d | Logical Address: %x or %d\n",pid,virtual_address,virtual_address);
     int request_type=get_request_type(virtual_address);
     //we can get index and offest for L1 and L2 cache from the virtual address and use it for virtually tagged, physically offset. this is because (index + offset = page size)
 
@@ -123,9 +124,9 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     int L2_cache_tag;
 
     int logical_page_number = (virtual_address>>10); //as page size is 10bits, hence 10bit offset
-    int physical_frame_number = complete_tlb_search(L1_tlb,12,L2_tlb,24,logical_page_number);
+    int physical_frame_number = complete_tlb_search(L1_tlb,L2_tlb,logical_page_number);
 
-    //tlb hit, get direct physical address
+    //tlb hit, get direct physical frame number
     int physical_address;
     if(physical_frame_number!=-1)
     {
@@ -190,8 +191,8 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         //insert this new mapping of logical page number to physical frame number into the L2 and L1 TLB and restart the instruction
 
-        insert_new_tlb_entry(L2_tlb,24,logical_page_number,physical_frame_number_received_from_page_walk);
-        insert_new_tlb_entry(L1_tlb,12,logical_page_number,physical_frame_number_received_from_page_walk);
+        insert_new_tlb_entry(L2_tlb,logical_page_number,physical_frame_number_received_from_page_walk);
+        insert_new_tlb_entry(L1_tlb,logical_page_number,physical_frame_number_received_from_page_walk);
 
         //restart this request
         execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,pid,virtual_address,write);
