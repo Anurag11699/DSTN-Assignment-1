@@ -12,6 +12,8 @@
 #define get_inner_page_table_offset(x) ((x>>10)&0xff)
 #define get_logical_page_number(x) (x<<10)
 
+FILE* output_fd;
+
 
 //kernel functions
 extern kernel* initialize_kernel(int);
@@ -38,6 +40,9 @@ extern int check_frame_ownership(main_memory*,int,int);
 extern page_table* initialize_page_table(int);
 extern int page_table_walk(kernel* ,main_memory*,int,int);
 extern void invalidate_page_table_entry(kernel*, main_memory*, int, int);
+
+//main memory printing functions
+extern void print_page_table(page_table*,FILE*);
 
 
 //cache functions

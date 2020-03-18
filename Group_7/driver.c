@@ -16,20 +16,10 @@ int main()
    L2_cache* L2_cache_32KB = initialize_L2_cache();
    L2_cache_write_buffer* L2_cache_write_buffer_8 = initialize_L2_cache_write_buffer();
 
-   
+   output_fd=fopen("OUTPUT.txt","w");
 
-   // kernel_object->pcb_array[0].fd=fopen("APSI.txt","r");
-   // kernel_object->pcb_array[1].fd=fopen("CC1.txt","r");
-   // kernel_object->pcb_array[2].fd=fopen("LI.txt","r");
-   // kernel_object->pcb_array[3].fd=fopen("M88KSIM.txt","r");
-   // kernel_object->pcb_array[4].fd=fopen("VORTEX.txt","r");
+   load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,0,"APSI.txt");
 
    
-
-   // fclose(kernel_object->pcb_array[0].fd);
-   // fclose(kernel_object->pcb_array[1].fd);
-   // fclose(kernel_object->pcb_array[2].fd);
-   // fclose(kernel_object->pcb_array[3].fd);
-   // fclose(kernel_object->pcb_array[4].fd);
 }
 
