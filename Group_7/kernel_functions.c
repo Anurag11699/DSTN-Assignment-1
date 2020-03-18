@@ -128,6 +128,12 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
     //tlb hit, get direct physical frame number
     int physical_address;
+
+    fprintf(output_fd,"Printing L1 tlb\n");
+    print_tlb(L1_tlb);
+    fprintf(output_fd,"Printing L2 tlb\n");
+    print_tlb(L2_tlb);
+
     if(physical_frame_number!=-1)
     {
         physical_address=(physical_frame_number<<10)+(virtual_address&get_frame_offset);
@@ -167,6 +173,11 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         
         //write code to check if frame is in main memory and to retrieve it and put into cache
+        // int own_frame_needed = check_frame_ownership(main_memory_32MB,pid,physical_frame_number);
+        // if(own_frame_needed!=1)
+        // {
+
+        // }
 
         
         //now, insert this new entry into L1 cache

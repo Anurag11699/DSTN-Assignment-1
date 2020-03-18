@@ -33,6 +33,48 @@ Needed Frame Number: 6 | Own it: 1
 
 
 Executing Process Request for PID: 0 | Logical Address: 7fff8000 or 2147450880
+Printing L1 tlb
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+
+
+Printing L2 tlb
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+
+
 Starting page walk of PID: 0 | Request: 7fff8000 | Request: 2147450880
 Outer Page Table Frame Number: 0 | Own it: 1
 Outer Page Table Frame Number: 0 | Own it: 1
@@ -49,3 +91,45 @@ Needed Frame Number: 3 | Own it: 1
 
 
 Executing Process Request for PID: 0 | Logical Address: 7fff8000 or 2147450880
+Printing L1 tlb
+Logical Page Number: 2097120 | Physical Frame Number: 3 | Valid: 1 | LRU Counter: 128
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+
+
+Printing L2 tlb
+Logical Page Number: 2097120 | Physical Frame Number: 3 | Valid: 1 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+
+
