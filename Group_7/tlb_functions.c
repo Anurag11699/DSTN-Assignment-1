@@ -32,7 +32,7 @@ int tlb_search(tlb* tlb_object, int logical_page_number)
     int i;
     for(i=0;i<number_of_entries;i++)
     {
-        tlb_object->tlb_entries[i].LRU_counter=(tlb_object->tlb_entries[i].LRU_counter<<1);
+        tlb_object->tlb_entries[i].LRU_counter=(tlb_object->tlb_entries[i].LRU_counter>>1);
     }
     for(i=0;i<number_of_entries;i++)
     {

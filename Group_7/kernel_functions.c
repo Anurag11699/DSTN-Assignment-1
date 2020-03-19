@@ -104,10 +104,13 @@ int get_request_type(int virtual_address)
     return 1;
 }
 
-void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int pid,int virtual_address, int write)
+void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int pid,unsigned int virtual_address, int write)
 {
     fprintf(output_fd,"Executing Process Request for PID: %d | Logical Address: %x or %d\n",pid,virtual_address,virtual_address);
+
+    //request type = 0 if read, request type = 1 if write
     int request_type=get_request_type(virtual_address);
+    fprintf(output_fd,"Request Type %d\n",request_type);
     //we can get index and offest for L1 and L2 cache from the virtual address and use it for virtually tagged, physically offset. this is because (index + offset = page size)
 
     //last 5 bits of the virtual address as cache block size is 32bits
@@ -115,7 +118,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     int cache_block_offset = (virtual_address & get_cache_block_offset);
 
     int L1_cache_index_size=5;
-    int L2_cache_index_size=5;
+    int L2_cache_index_size=6;
     int L1_cache_index = ((virtual_address>>cache_block_offset_size)&get_L1_cache_block_index);
     int L2_cache_index = ((virtual_address>>cache_block_offset_size)&get_L2_cache_block_index);
     
@@ -127,20 +130,25 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     int physical_frame_number = complete_tlb_search(L1_tlb,L2_tlb,logical_page_number);
 
     //tlb hit, get direct physical frame number
-    int physical_address;
-
-    fprintf(output_fd,"Printing L1 tlb\n");
-    print_tlb(L1_tlb);
-    fprintf(output_fd,"Printing L2 tlb\n");
-    print_tlb(L2_tlb);
+    unsigned int physical_address;
+    fprintf(output_fd,"Logical Page Number: %x or %d\n",logical_page_number,logical_page_number);
+    // fprintf(output_fd,"Printing L1 tlb\n");
+    // print_tlb(L1_tlb);
+    // fprintf(output_fd,"Printing L2 tlb\n");
+    // print_tlb(L2_tlb);
 
     if(physical_frame_number!=-1)
     {
+        fprintf(output_fd,"TLB HIT\n");
         physical_address=(physical_frame_number<<10)+(virtual_address&get_frame_offset);
 
+        fprintf(output_fd,"Physical Frame Number: %d | Frame Offset: %d | Physical Address: %d\n",physical_frame_number,(virtual_address&get_frame_offset),physical_address);
+
         //use this physical addresss to search in cache;
-        L1_cache_tag=(physical_address<<(L1_cache_index_size+cache_block_offset_size));
-        L2_cache_tag=(physical_address<<(L2_cache_index_size+cache_block_offset_size));
+        L1_cache_tag=(physical_address>>(L1_cache_index_size+cache_block_offset_size));
+        L2_cache_tag=(physical_address>>(L2_cache_index_size+cache_block_offset_size));
+
+        fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
 
         int L1_cache_hit;
         int L2_cache_hit;
@@ -158,14 +166,19 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         //if L1 cache or L2 cache was hit all good, otherwise need to request transfer of that block from main memory
 
+        fprintf(output_fd,"Print L1 instruction cache\n");    
+        print_L1_cache(L1_instruction_cache_4KB);
+
         if(L1_cache_hit==1)
         {
             //cancel the request to L2 cache, and calculate the hit time
+            fprintf(output_fd,"L1 Cache HIT\n");
             return; 
         }
         else if(L2_cache_hit==1)
         {
             //calculate the hit time
+            fprintf(output_fd,"L2 Cache HIT\n");
             return;
         }
 
@@ -183,12 +196,16 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         //now, insert this new entry into L1 cache
         if(request_type==0)
         {
+            fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
             replace_L1_cache_entry(L1_instruction_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,cache_block_offset);
         }
         else
         {
             replace_L1_cache_entry(L1_data_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,cache_block_offset);
         }
+
+        fprintf(output_fd,"Print L1 instruction cache after Replacing\n");    
+        print_L1_cache(L1_instruction_cache_4KB);
         
         
         

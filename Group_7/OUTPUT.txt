@@ -33,48 +33,8 @@ Needed Frame Number: 6 | Own it: 1
 
 
 Executing Process Request for PID: 0 | Logical Address: 7fff8000 or 2147450880
-Printing L1 tlb
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-
-
-Printing L2 tlb
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-
-
+Request Type 0
+Logical Page Number: 1fffe0 or 2097120
 Starting page walk of PID: 0 | Request: 7fff8000 | Request: 2147450880
 Outer Page Table Frame Number: 0 | Own it: 1
 Outer Page Table Frame Number: 0 | Own it: 1
@@ -91,45 +51,3234 @@ Needed Frame Number: 3 | Own it: 1
 
 
 Executing Process Request for PID: 0 | Logical Address: 7fff8000 or 2147450880
-Printing L1 tlb
-Logical Page Number: 2097120 | Physical Frame Number: 3 | Valid: 1 | LRU Counter: 128
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Request Type 0
+Logical Page Number: 1fffe0 or 2097120
+TLB HIT
+Physical Frame Number: 3 | Frame Offset: 0 | Physical Address: 3072
+L1 Cache Index: 0 | L1 cache Tag: 3
+Print L1 instruction cache
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+L1 Cache Index: 0 | L1 cache Tag: 3
+CHECK 1: 3 | 2: 3
+Print L1 instruction cache after Replacing
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+Executing Process Request for PID: 0 | Logical Address: 1092ec14 or 278064148
+Request Type 0
+Logical Page Number: 424bb or 271547
+Starting page walk of PID: 0 | Request: 1092ec14 | Request: 278064148
+Outer Page Table Frame Number: 0 | Own it: 1
+Outer Page Table Frame Number: 0 | Own it: 1
+Outer Page Table Offset: 4
+Middle Page Table Frame Number: 4 | Own it: 1
+Middle Page Table Frame Number: 4 | Own it: 1
+Middle Page Table Offset: 36
+Inner Page Table Frame Number: 5 | Own it: 1
+Inner Page Table Frame Number: 5 | Own it: 1
+Inner Page Table Offset: 187
+Logical Page Number: 271547
+Needed Frame Number: 6 | Own it: 1
+Needed Frame Number: 6 | Own it: 1
 
 
-Printing L2 tlb
-Logical Page Number: 2097120 | Physical Frame Number: 3 | Valid: 1 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
-Logical Page Number: 0 | Physical Frame Number: 0 | Valid: 0 | LRU Counter: 0
+Executing Process Request for PID: 0 | Logical Address: 1092ec14 or 278064148
+Request Type 0
+Logical Page Number: 424bb or 271547
+TLB HIT
+Physical Frame Number: 6 | Frame Offset: 20 | Physical Address: 6164
+L1 Cache Index: 0 | L1 cache Tag: 6
+Print L1 instruction cache
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
 
+L1 Cache Index: 0 | L1 cache Tag: 6
+CHECK 1: 6 | 2: 6
+Print L1 instruction cache after Replacing
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 0 1 1 
+1 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+Executing Process Request for PID: 0 | Logical Address: 7fff7fe0 or 2147450848
+Request Type 0
+Logical Page Number: 1fffdf or 2097119
+Starting page walk of PID: 0 | Request: 7fff7fe0 | Request: 2147450848
+Outer Page Table Frame Number: 0 | Own it: 1
+Outer Page Table Frame Number: 0 | Own it: 1
+Outer Page Table Offset: 31
+Middle Page Table Frame Number: 1 | Own it: 1
+Middle Page Table Frame Number: 1 | Own it: 1
+Middle Page Table Offset: 255
+Inner Page Table Frame Number: 2 | Own it: 1
+Inner Page Table Frame Number: 2 | Own it: 1
+Inner Page Table Offset: 223
+Logical Page Number: 2097119
+Needed Frame Number: -1 | Own it: -1
+Needed Frame Number: 7 | Own it: 1
+
+
+Executing Process Request for PID: 0 | Logical Address: 7fff7fe0 or 2147450848
+Request Type 0
+Logical Page Number: 1fffdf or 2097119
+TLB HIT
+Physical Frame Number: 7 | Frame Offset: 992 | Physical Address: 8160
+L1 Cache Index: 31 | L1 cache Tag: 7
+Print L1 instruction cache
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 0 1 1 
+1 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+L1 Cache Index: 31 | L1 cache Tag: 7
+CHECK 1: 7 | 2: 7
+Print L1 instruction cache after Replacing
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 0 1 1 
+1 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+Executing Process Request for PID: 0 | Logical Address: 7fff7fc8 or 2147450824
+Request Type 0
+Logical Page Number: 1fffdf or 2097119
+TLB HIT
+Physical Frame Number: 7 | Frame Offset: 968 | Physical Address: 8136
+L1 Cache Index: 30 | L1 cache Tag: 7
+Print L1 instruction cache
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 0 1 1 
+1 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+L1 Cache Index: 30 | L1 cache Tag: 7
+CHECK 1: 7 | 2: 7
+Print L1 instruction cache after Replacing
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 0 1 1 
+1 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+Executing Process Request for PID: 0 | Logical Address: 7fff7fcc or 2147450828
+Request Type 0
+Logical Page Number: 1fffdf or 2097119
+TLB HIT
+Physical Frame Number: 7 | Frame Offset: 972 | Physical Address: 8140
+L1 Cache Index: 30 | L1 cache Tag: 7
+Print L1 instruction cache
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 0 1 1 
+1 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+L1 Cache HIT
+Executing Process Request for PID: 0 | Logical Address: 7fff8004 or 2147450884
+Request Type 0
+Logical Page Number: 1fffe0 or 2097120
+TLB HIT
+Physical Frame Number: 3 | Frame Offset: 4 | Physical Address: 3076
+L1 Cache Index: 0 | L1 cache Tag: 3
+Print L1 instruction cache
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 1 1 1 
+0 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+L1 Cache HIT
+Executing Process Request for PID: 0 | Logical Address: 7fff7fac or 2147450796
+Request Type 0
+Logical Page Number: 1fffdf or 2097119
+TLB HIT
+Physical Frame Number: 7 | Frame Offset: 940 | Physical Address: 8108
+L1 Cache Index: 29 | L1 cache Tag: 7
+Print L1 instruction cache
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 1 1 1 
+0 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+L1 Cache Index: 29 | L1 cache Tag: 7
+CHECK 1: 7 | 2: 7
+Print L1 instruction cache after Replacing
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 1 1 1 
+0 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+Executing Process Request for PID: 0 | Logical Address: 7fff7fb0 or 2147450800
+Request Type 0
+Logical Page Number: 1fffdf or 2097119
+TLB HIT
+Physical Frame Number: 7 | Frame Offset: 944 | Physical Address: 8112
+L1 Cache Index: 29 | L1 cache Tag: 7
+Print L1 instruction cache
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 1 1 1 
+0 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+L1 Cache HIT
+Executing Process Request for PID: 0 | Logical Address: 7fff7fa8 or 2147450792
+Request Type 0
+Logical Page Number: 1fffdf or 2097119
+TLB HIT
+Physical Frame Number: 7 | Frame Offset: 936 | Physical Address: 8104
+L1 Cache Index: 29 | L1 cache Tag: 7
+Print L1 instruction cache
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 1 1 1 
+0 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+L1 Cache HIT
+Executing Process Request for PID: 0 | Logical Address: 7fff8094 or 2147451028
+Request Type 0
+Logical Page Number: 1fffe0 or 2097120
+TLB HIT
+Physical Frame Number: 3 | Frame Offset: 148 | Physical Address: 3220
+L1 Cache Index: 4 | L1 cache Tag: 3
+Print L1 instruction cache
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 1 1 1 
+0 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+
+L1 Cache Index: 4 | L1 cache Tag: 3
+CHECK 1: 3 | 2: 3
+Print L1 instruction cache after Replacing
+Printing L1 Cache
+INDEX: 0	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 6 | Valid: 1	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 0
+0 1 1 1 
+0 0 1 1 
+0 0 0 0 
+0 0 0 0 
+INDEX: 1	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 1
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 2	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 2
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 3	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 3
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 4	Way: 0 | Tag: 3 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 4
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 5	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 5
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 6	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 6
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 7	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 7
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 8	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 8
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 9	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 9
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 10	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 10
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 11	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 11
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 12	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 12
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 13	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 13
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 14	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 14
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 15	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 15
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 16	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 16
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 17	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 17
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 18	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 18
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 19	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 19
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 20	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 20
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 21	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 21
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 22	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 22
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 23	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 23
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 24	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 24
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 25	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 25
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 26	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 26
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 27	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 27
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 28	Way: 0 | Tag: 0 | Valid: 0	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 28
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 29	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 29
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 30	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 30
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
+INDEX: 31	Way: 0 | Tag: 7 | Valid: 1	||Way: 1 | Tag: 0 | Valid: 0	||Way: 2 | Tag: 0 | Valid: 0	||Way: 3 | Tag: 0 | Valid: 0	||
+LRU Sqaure Matrix of Index 31
+0 1 1 1 
+0 0 0 0 
+0 0 0 0 
+0 0 0 0 
 
