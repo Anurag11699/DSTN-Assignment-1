@@ -107,6 +107,13 @@ int get_request_type(int virtual_address)
     return 1;
 }
 
+void context_switch(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, int pid)
+{
+    kernel_object->currently_running_process_pid=pid;
+    tlb_flush(L1_tlb);
+    tlb_flush(L2_tlb);
+}
+
 void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int pid,unsigned int virtual_address, int write)
 {
     fprintf(output_fd,"\n\nExecuting Process Request for PID: %d | Logical Address: %x or %d\n",pid,virtual_address,virtual_address);
@@ -230,5 +237,6 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,pid,virtual_address,write);
 
     }
+
 
 }
