@@ -22,7 +22,7 @@ int main()
    fseek(kernel_object->pcb_array[0].fd,0,SEEK_SET);
    unsigned int process_request;
 
-   for (int i = 0; i < 10; i++)
+   for (int i = 0; i < 2000; i++)
    {
       fscanf(kernel_object->pcb_array[0].fd,"%x",&process_request);
       execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,0,process_request,0);
