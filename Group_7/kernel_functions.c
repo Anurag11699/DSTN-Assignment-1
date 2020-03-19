@@ -19,6 +19,7 @@ kernel* initialize_kernel(int max_number_of_processes)
     {
         kernel_object->pcb_array[i].state=0;
         kernel_object->pcb_array[i].fd=NULL;
+        kernel_object->pcb_array[i].outer_page_base_address=-1;
     }
     return kernel_object;
 }
@@ -64,7 +65,7 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
     //int frame_number_1;
     page_table_walk(kernel_object,main_memory_32MB,pid,request_1);
 
-    fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_1,request_1);
+    fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_2,request_2);
     //int frame_number_2;
     page_table_walk(kernel_object,main_memory_32MB,pid,request_2);
 
@@ -98,7 +99,7 @@ void terminate_process(kernel* kernel_object, main_memory* main_memory_object, i
 int get_request_type(int virtual_address)
 {
     //the virtual address of instructions begins with 1 
-    if(virtual_address&0x10000000)
+    if(virtual_address>>28 == 0x1)
     {
         return 0;
     }
