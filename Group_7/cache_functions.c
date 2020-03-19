@@ -348,9 +348,10 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
 
     if(way_to_replace!=-1)
     {
-        L1_cache_object->L1_cache_entries[index].way[i].valid=1;
-        L1_cache_object->L1_cache_entries[index].way[i].tag=tag;
+        L1_cache_object->L1_cache_entries[index].way[way_to_replace].valid=1;
+        L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag=tag;
 
+        fprintf(output_fd,"CHECK 1: %d | 2: %d\n",tag,L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag);
         //update the LRU square matrix
         for(i=0;i<4;i++)
         {
@@ -395,4 +396,30 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
         L1_cache_object->L1_cache_entries[index].LRU_square_matrix[i][way_to_replace]=0;
     }
 
+}
+
+void print_L1_cache(L1_cache* L1_cache_object)
+{
+    fprintf(output_fd,"Printing L1 Cache\n");
+    int i,j,k;
+
+    for(i=0;i<32;i++)
+    {
+        fprintf(output_fd,"INDEX: %d\t",i);
+        for(j=0;j<4;j++)
+        {
+            fprintf(output_fd,"Way: %d | Tag: %d | Valid: %d\t||",j,L1_cache_object->L1_cache_entries[i].way[j].tag,L1_cache_object->L1_cache_entries[i].way[j].valid);
+        }
+
+        fprintf(output_fd,"\nLRU Sqaure Matrix of Index %d\n",i);
+        for(j=0;j<4;j++)
+        {
+            for(k=0;k<4;k++)
+            {
+                fprintf(output_fd,"%d ",L1_cache_object->L1_cache_entries[i].LRU_square_matrix[j][k]);
+            }
+            fprintf(output_fd,"\n");
+        }
+    }
+    fprintf(output_fd,"\n");
 }

@@ -20,9 +20,15 @@ int main()
 
    load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,0,"APSI.txt");
    fseek(kernel_object->pcb_array[0].fd,0,SEEK_SET);
-   int process_request;
-   fscanf(kernel_object->pcb_array[0].fd,"%x",&process_request);
-   execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,0,process_request,0);
+   unsigned int process_request;
+
+   for (int i = 0; i < 10; i++)
+   {
+      fscanf(kernel_object->pcb_array[0].fd,"%x",&process_request);
+      execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,0,process_request,0);
+   }
+   
+      
 
    fclose(output_fd);
 
