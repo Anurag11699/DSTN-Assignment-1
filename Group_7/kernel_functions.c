@@ -61,10 +61,12 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
     fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_1,request_1);
 
     //fprintf(stderr,"CHECK IN LOAD_NEW_PROCESS\n");
-    int frame_number_1 = page_table_walk(kernel_object,main_memory_32MB,pid,request_1);
+    //int frame_number_1;
+    page_table_walk(kernel_object,main_memory_32MB,pid,request_1);
 
     fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_1,request_1);
-    int frame_number_2 = page_table_walk(kernel_object,main_memory_32MB,pid,request_2);
+    //int frame_number_2;
+    page_table_walk(kernel_object,main_memory_32MB,pid,request_2);
 
     //should we put these into tlb?
 
@@ -106,7 +108,7 @@ int get_request_type(int virtual_address)
 
 void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int pid,unsigned int virtual_address, int write)
 {
-    fprintf(output_fd,"Executing Process Request for PID: %d | Logical Address: %x or %d\n",pid,virtual_address,virtual_address);
+    fprintf(output_fd,"\n\nExecuting Process Request for PID: %d | Logical Address: %x or %d\n",pid,virtual_address,virtual_address);
 
     //request type = 0 if read, request type = 1 if write
     int request_type=get_request_type(virtual_address);
@@ -167,7 +169,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         //if L1 cache or L2 cache was hit all good, otherwise need to request transfer of that block from main memory
 
         fprintf(output_fd,"Print L1 instruction cache\n");    
-        print_L1_cache(L1_instruction_cache_4KB);
+        //print_L1_cache(L1_instruction_cache_4KB);
 
         if(L1_cache_hit==1)
         {
@@ -194,9 +196,10 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         
         //now, insert this new entry into L1 cache
+        fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
         if(request_type==0)
         {
-            fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
+            
             replace_L1_cache_entry(L1_instruction_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,cache_block_offset);
         }
         else
@@ -205,7 +208,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         }
 
         fprintf(output_fd,"Print L1 instruction cache after Replacing\n");    
-        print_L1_cache(L1_instruction_cache_4KB);
+        //print_L1_cache(L1_instruction_cache_4KB);
         
         
         

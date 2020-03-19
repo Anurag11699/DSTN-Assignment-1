@@ -52,7 +52,7 @@ extern void print_ufl(main_memory*);
 //cache functions
 extern L1_cache* initialize_L1_cache();
 extern L2_cache* initialize_L2_cache();
-extern L2_cache_write_buffer* initialize_L2_cache_write_buffer();
+extern L2_cache_write_buffer* initialize_L2_cache_write_buffer(int);
 extern int L1_search(main_memory*,L1_cache*,int,int,int,int,int);
 extern int L2_search(main_memory*,L2_cache*,L2_cache_write_buffer*,int,int,int,int,int);
 extern void replace_L2_cache_entry(L2_cache *,int,int,int);
