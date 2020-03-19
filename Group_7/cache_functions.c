@@ -86,14 +86,16 @@ Purpose of the Function: Initialize L2 cache write buffer
 PostConditions
 Output: {pointer to intialized L2 cache write buffer}
 */
-L2_cache_write_buffer* initialize_L2_cache_write_buffer()
+L2_cache_write_buffer* initialize_L2_cache_write_buffer(int number_of_entries)
 {
     //write buffer has only 8 buffers
+
     L2_cache_write_buffer *L2_cache_write_buffer_object = (L2_cache_write_buffer *)malloc(sizeof(L2_cache_write_buffer));
-    L2_cache_write_buffer_object->L2_cache_write_buffer_entries = (L2_cache_write_buffer_entry *)malloc(sizeof(L2_cache_write_buffer_entry)*8);
+    L2_cache_write_buffer_object->number_of_entries=number_of_entries;
+    L2_cache_write_buffer_object->L2_cache_write_buffer_entries = (L2_cache_write_buffer_entry *)malloc(sizeof(L2_cache_write_buffer_entry)*number_of_entries);
 
     int i;
-    for(i=0;i<8;i++)
+    for(i=0;i<number_of_entries;i++)
     {
         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[i].valid=0;
     }
@@ -203,12 +205,13 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
             //also, if it was a write request, put this block into buffer cache
             if(write==1) //write==1 means the entry was write
             {
+                //print_L2_buffer_cache(L2_cache_write_buffer_object);
 
-            
+                int L2_cache_write_buffer_num_entries = L2_cache_write_buffer_object->number_of_entries;
                 //first search if the current block which was modified exists in buffer cache. If it does remove it and insert the newly updated one, else, copy this block to buffer cache
-                for(j=0;j<8;j++)
+                for(j=0;j<L2_cache_write_buffer_num_entries;j++)
                 {
-                    if(L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid==1 && L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].index==index && L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].index== L2_cache_object->L2_cache_entries[index].way[i].tag)
+                    if(L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid==1 && L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].index==index && L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].tag== L2_cache_object->L2_cache_entries[index].way[i].tag)
                     {
                         //just replace the existing block in buffer cache.
                         return 1;
@@ -216,7 +219,7 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
                 }
 
                 //check if any entry in buffer cache is invalid, if not, empty buffer cache and insert this into it.
-                for(j=0;j<8;j++)
+                for(j=0;j<L2_cache_write_buffer_num_entries;j++)
                 {
                     if(L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid==0)
                     {
@@ -231,7 +234,7 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
 
                 //if we reached this section means the buffer cache was full. Write all the entries from buffer cache to main memory and empty it. 
 
-                for(j=0;j<8;j++)
+                for(j=0;j<L2_cache_write_buffer_num_entries;j++)
                 {
                     //need to mark this frame as dirty
                     mark_frame_modified(main_memory_object,L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].corresponding_frame_number);
@@ -240,7 +243,7 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
                     
                 }
 
-                for(j=0;j<8;j++)
+                for(j=0;j<L2_cache_write_buffer_num_entries;j++)
                 {
                     if(L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid==0)
                     {
@@ -278,6 +281,8 @@ The LFU way in the given index is replaced and its counter is set to 0
 */
 void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int offset)
 {
+    print_L2_cache(L2_cache_object);
+
     int way_to_replace=-1;
     int i;
     for(i=0;i<16;i++)
@@ -380,6 +385,8 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
 
     //as this is exclusive cache, we must send this entry into L2 cache
 
+    fprintf(output_fd,"Replacing in L2 cache, Index: %d | Tag: %d\n ",index,L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag);
+
     replace_L2_cache_entry(L2_cache_object, index, L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag,offset);
 
 
@@ -420,6 +427,37 @@ void print_L1_cache(L1_cache* L1_cache_object)
             }
             fprintf(output_fd,"\n");
         }
+    }
+    fprintf(output_fd,"\n");
+}
+
+void print_L2_cache(L2_cache* L2_cache_object)
+{
+    fprintf(output_fd,"Printing L2 Cache\n");
+    int i,j;
+
+    for(i=0;i<64;i++)
+    {
+        fprintf(output_fd,"INDEX: %d\t",i);
+        for(j=0;j<16;j++)
+        {
+            fprintf(output_fd,"Way: %d | Tag: %d | Valid: %d | LFU Counter: %d || ",j,L2_cache_object->L2_cache_entries[i].way[j].tag,L2_cache_object->L2_cache_entries[i].way[j].valid,L2_cache_object->L2_cache_entries[i].way[j].LFU_counter);
+        }
+
+        fprintf(output_fd,"\n");
+    }
+    
+}
+
+void print_L2_buffer_cache(L2_cache_write_buffer* L2_cache_write_buffer_object)
+{
+    fprintf(output_fd,"Printing L2 Cache Write Buffer\n");
+
+    int number_of_entries = L2_cache_write_buffer_object->number_of_entries;
+
+    for(int i=0;i<number_of_entries;i++)
+    {
+        fprintf(output_fd,"Entry #%d | Index: %d | Tag: %d | Valid: %d |\n",i,L2_cache_write_buffer_object->L2_cache_write_buffer_entries[i].index,L2_cache_write_buffer_object->L2_cache_write_buffer_entries[i].tag,L2_cache_write_buffer_object->L2_cache_write_buffer_entries[i].valid);
     }
     fprintf(output_fd,"\n");
 }

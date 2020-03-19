@@ -93,8 +93,8 @@ void L2_to_L1_tlb_transfer(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number)
 
 int complete_tlb_search(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number)
 {
-    int number_of_entries_L1 = L1_tlb->number_of_entries;
-    int number_of_entires_L2 = L2_tlb->number_of_entries;
+    //int number_of_entries_L1 = L1_tlb->number_of_entries;
+    //int number_of_entires_L2 = L2_tlb->number_of_entries;
     int physical_frame_number = tlb_search(L1_tlb,logical_page_number);
 
     if(physical_frame_number!=-1)
