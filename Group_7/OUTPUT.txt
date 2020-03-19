@@ -1,0 +1,170 @@
+PID: 0 | Request: 7fff8000 or 2147450880
+
+Starting page walk of PID: 0 | Request: 7fff8000 | Request: 2147450880
+Outer Page Table Frame Number: -1 | Own it: -1
+Outer Page Table Frame Number: 0 | Own it: 1
+Outer Page Table Offset: 31
+Middle Page Table Frame Number: -1 | Own it: -1
+Middle Page Table Frame Number: 1 | Own it: 1
+Middle Page Table Offset: 255
+Inner Page Table Frame Number: -1 | Own it: -1
+Inner Page Table Frame Number: 2 | Own it: 1
+Inner Page Table Offset: 224
+Logical Page Number: 2097120
+Needed Frame Number: -1 | Own it: -1
+Needed Frame Number: 3 | Own it: 1
+
+
+PID: 0 | Request: 1092ec14 or 278064148
+
+Starting page walk of PID: 0 | Request: 1092ec14 | Request: 278064148
+Outer Page Table Frame Number: 0 | Own it: 1
+Outer Page Table Frame Number: 0 | Own it: 1
+Outer Page Table Offset: 4
+Middle Page Table Frame Number: -1 | Own it: -1
+Middle Page Table Frame Number: 4 | Own it: 1
+Middle Page Table Offset: 36
+Inner Page Table Frame Number: -1 | Own it: -1
+Inner Page Table Frame Number: 5 | Own it: 1
+Inner Page Table Offset: 187
+Logical Page Number: 271547
+Needed Frame Number: -1 | Own it: -1
+Needed Frame Number: 6 | Own it: 1
+
+
+PID: 1 | Request: 7fff8000 or 2147450880
+
+Starting page walk of PID: 1 | Request: 7fff8000 | Request: 2147450880
+Outer Page Table Frame Number: -1 | Own it: -1
+Outer Page Table Frame Number: 7 | Own it: 1
+Outer Page Table Offset: 31
+Middle Page Table Frame Number: -1 | Own it: -1
+Middle Page Table Frame Number: 8 | Own it: 1
+Middle Page Table Offset: 255
+Inner Page Table Frame Number: -1 | Own it: -1
+Inner Page Table Frame Number: 9 | Own it: 1
+Inner Page Table Offset: 224
+Logical Page Number: 2097120
+Needed Frame Number: -1 | Own it: -1
+Needed Frame Number: 10 | Own it: 1
+
+
+PID: 1 | Request: 1002fdb4 or 268631476
+
+Starting page walk of PID: 1 | Request: 1002fdb4 | Request: 268631476
+Outer Page Table Frame Number: 7 | Own it: 1
+Outer Page Table Frame Number: 7 | Own it: 1
+Outer Page Table Offset: 4
+Middle Page Table Frame Number: -1 | Own it: -1
+Middle Page Table Frame Number: 11 | Own it: 1
+Middle Page Table Offset: 0
+Inner Page Table Frame Number: -1 | Own it: -1
+Inner Page Table Frame Number: 12 | Own it: 1
+Inner Page Table Offset: 191
+Logical Page Number: 262335
+Needed Frame Number: -1 | Own it: -1
+Needed Frame Number: 13 | Own it: 1
+
+
+PID: 2 | Request: 7fff8000 or 2147450880
+
+Starting page walk of PID: 2 | Request: 7fff8000 | Request: 2147450880
+Outer Page Table Frame Number: -1 | Own it: -1
+Outer Page Table Frame Number: 14 | Own it: 1
+Outer Page Table Offset: 31
+Middle Page Table Frame Number: -1 | Own it: -1
+Middle Page Table Frame Number: 15 | Own it: 1
+Middle Page Table Offset: 255
+Inner Page Table Frame Number: -1 | Own it: -1
+Inner Page Table Frame Number: 16 | Own it: 1
+Inner Page Table Offset: 224
+Logical Page Number: 2097120
+Needed Frame Number: -1 | Own it: -1
+Needed Frame Number: 17 | Own it: 1
+
+
+PID: 2 | Request: 10004864 or 268453988
+
+Starting page walk of PID: 2 | Request: 10004864 | Request: 268453988
+Outer Page Table Frame Number: 14 | Own it: 1
+Outer Page Table Frame Number: 14 | Own it: 1
+Outer Page Table Offset: 4
+Middle Page Table Frame Number: -1 | Own it: -1
+Middle Page Table Frame Number: 18 | Own it: 1
+Middle Page Table Offset: 0
+Inner Page Table Frame Number: -1 | Own it: -1
+Inner Page Table Frame Number: 19 | Own it: 1
+Inner Page Table Offset: 18
+Logical Page Number: 262162
+Needed Frame Number: -1 | Own it: -1
+Needed Frame Number: 20 | Own it: 1
+
+
+PID: 3 | Request: 7fff8000 or 2147450880
+
+Starting page walk of PID: 3 | Request: 7fff8000 | Request: 2147450880
+Outer Page Table Frame Number: -1 | Own it: -1
+Outer Page Table Frame Number: 21 | Own it: 1
+Outer Page Table Offset: 31
+Middle Page Table Frame Number: -1 | Own it: -1
+Middle Page Table Frame Number: 22 | Own it: 1
+Middle Page Table Offset: 255
+Inner Page Table Frame Number: -1 | Own it: -1
+Inner Page Table Frame Number: 23 | Own it: 1
+Inner Page Table Offset: 224
+Logical Page Number: 2097120
+Needed Frame Number: -1 | Own it: -1
+Needed Frame Number: 24 | Own it: 1
+
+
+PID: 3 | Request: 1000d214 or 268489236
+
+Starting page walk of PID: 3 | Request: 1000d214 | Request: 268489236
+Outer Page Table Frame Number: 21 | Own it: 1
+Outer Page Table Frame Number: 21 | Own it: 1
+Outer Page Table Offset: 4
+Middle Page Table Frame Number: -1 | Own it: -1
+Middle Page Table Frame Number: 25 | Own it: 1
+Middle Page Table Offset: 0
+Inner Page Table Frame Number: -1 | Own it: -1
+Inner Page Table Frame Number: 26 | Own it: 1
+Inner Page Table Offset: 52
+Logical Page Number: 262196
+Needed Frame Number: -1 | Own it: -1
+Needed Frame Number: 27 | Own it: 1
+
+
+PID: 4 | Request: 7fff8000 or 2147450880
+
+Starting page walk of PID: 4 | Request: 7fff8000 | Request: 2147450880
+Outer Page Table Frame Number: -1 | Own it: -1
+Outer Page Table Frame Number: 28 | Own it: 1
+Outer Page Table Offset: 31
+Middle Page Table Frame Number: -1 | Own it: -1
+Middle Page Table Frame Number: 29 | Own it: 1
+Middle Page Table Offset: 255
+Inner Page Table Frame Number: -1 | Own it: -1
+Inner Page Table Frame Number: 30 | Own it: 1
+Inner Page Table Offset: 224
+Logical Page Number: 2097120
+Needed Frame Number: -1 | Own it: -1
+Needed Frame Number: 31 | Own it: 1
+
+
+PID: 4 | Request: 1001d894 or 268556436
+
+Starting page walk of PID: 4 | Request: 1001d894 | Request: 268556436
+Outer Page Table Frame Number: 28 | Own it: 1
+Outer Page Table Frame Number: 28 | Own it: 1
+Outer Page Table Offset: 4
+Middle Page Table Frame Number: -1 | Own it: -1
+Middle Page Table Frame Number: 32 | Own it: 1
+Middle Page Table Offset: 0
+Inner Page Table Frame Number: -1 | Own it: -1
+Inner Page Table Frame Number: 33 | Own it: 1
+Inner Page Table Offset: 118
+Logical Page Number: 262262
+Needed Frame Number: -1 | Own it: -1
+Needed Frame Number: 34 | Own it: 1
+
+
