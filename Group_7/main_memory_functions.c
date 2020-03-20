@@ -424,6 +424,7 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
 
     if(own_outer_page_table==-1)
     {
+        kernel_object->pcb_array[pid].outer_page_base_address=-1;
         return;
     }
     //set_reference_bit(main_memory_object,outer_page_table_frame_number);
@@ -441,6 +442,8 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
     //we cant reach the next level of paging, hence return
     if(own_middle_page_table==-1 || outer_page_table->page_table_entries[outer_page_table_offset].valid==0)
     {
+        //invalidate the entry in case we dont own the frame
+        outer_page_table->page_table_entries[outer_page_table_offset].valid=0;
         return;
 
     }
@@ -460,6 +463,8 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
     //we cant reach the next level of paging , hence return
     if(own_inner_page_table==-1 || middle_page_table->page_table_entries[middle_page_table_offset].valid==0)
     {
+        //invalidate the entry in case we dont own the frame
+        middle_page_table->page_table_entries[middle_page_table_offset].valid=0;
         return;
     }
 
@@ -478,6 +483,8 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
     //anyway the entry that we wanted to invalidate, is invalid or the frame it points to is not ours
     if(own_needed_frame==-1 || inner_page_table->page_table_entries[inner_page_table_offset].valid==0)
     {
+        //invalidate the entry in case we dont own the frame
+        inner_page_table->page_table_entries[inner_page_table_offset].valid=0;
         return;
     }
 
