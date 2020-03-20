@@ -43,6 +43,12 @@ int main()
    int number_of_processes_ready=0;
    int pid_array[5]={0};
 
+   // while(1)
+   // {
+   //    fprintf(stderr,"%d\n",get_frame(kernel_object,main_memory_32MB));
+   // }
+
+   // return 0;
    
    output_fd=fopen("OUTPUT.txt","w");
 

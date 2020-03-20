@@ -159,6 +159,8 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object)
         return frame_number;
     }
 
+    fprintf(output_fd,"REMOVING USED FRAME\n");
+
     frame_number = remove_used_frame(main_memory_object);
 
     //need to update the page table of the process from which this was taken from and frame table of the OS
