@@ -96,7 +96,7 @@ int main()
             pid_array[executing_pid_index]=pid_array[executing_pid_index+1];
          }
          number_of_processes_ready--;
-         return 0;
+         
 
          if(number_of_processes_ready==0)
          {
