@@ -26,6 +26,7 @@ int rand75()
 int main()
 {
    int max_number_of_processes=5;
+   int j;
    kernel* kernel_object = initialize_kernel(max_number_of_processes);
    main_memory* main_memory_32MB = initialize_main_memory(32,1); 
    tlb* L1_tlb = initialize_tlb(12);
@@ -37,8 +38,10 @@ int main()
 
    long long int number_of_requests_processed=0;
    unsigned int process_request;
-   int executing_pid=0;
+   int executing_pid_index=0;
    int process_switch_instruction_count=200;
+   int number_of_processes_ready=0;
+   int pid_array[5]={0};
 
    
    output_fd=fopen("OUTPUT.txt","w");
@@ -47,19 +50,29 @@ int main()
    //loading all proccesses
    load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,0,"APSI.txt");
    fseek(kernel_object->pcb_array[0].fd,0,SEEK_SET);
+   pid_array[0]=0;
+   number_of_processes_ready++;
 
    load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,1,"CC1.txt");
    fseek(kernel_object->pcb_array[1].fd,0,SEEK_SET);
+   pid_array[1]=1;
+   number_of_processes_ready++;
 
 
    load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,2,"LI.txt");
    fseek(kernel_object->pcb_array[2].fd,0,SEEK_SET);
+   pid_array[2]=2;
+   number_of_processes_ready++;
 
    load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,3,"M88KSIM.txt");
    fseek(kernel_object->pcb_array[3].fd,0,SEEK_SET);
+   pid_array[3]=3;
+   number_of_processes_ready++;
 
    load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,4,"VORTEX.txt");
    fseek(kernel_object->pcb_array[4].fd,0,SEEK_SET);
+   pid_array[4]=4;
+   number_of_processes_ready++;
 
    int is_eof;
    int read_write;
@@ -68,16 +81,29 @@ int main()
    {
       if(number_of_requests_processed%process_switch_instruction_count==0)
       {
-         executing_pid=(executing_pid+1)%(max_number_of_processes);
-         context_switch(kernel_object,L1_tlb,L2_tlb,executing_pid);
+         executing_pid_index=(executing_pid_index+1)%(number_of_processes_ready);
+         context_switch(kernel_object,L1_tlb,L2_tlb,pid_array[executing_pid_index]);
       }
 
-      is_eof=fscanf(kernel_object->pcb_array[executing_pid].fd,"%x",&process_request);
+      is_eof=fscanf(kernel_object->pcb_array[pid_array[executing_pid_index]].fd,"%x",&process_request);
 
       if(is_eof==EOF)
       {
-         terminate_process(kernel_object,main_memory_32MB,executing_pid);
+         terminate_process(kernel_object,main_memory_32MB,pid_array[executing_pid_index]);
+         //remove element of array pointed to by executing_pid_index
+         for(j=executing_pid_index;j<number_of_processes_ready-1;j++)
+         {
+            pid_array[executing_pid_index]=pid_array[executing_pid_index+1];
+         }
+         number_of_processes_ready--;
          return 0;
+
+         if(number_of_processes_ready==0)
+         {
+            fprintf(stderr,"Simulation Over\n");
+            return 0;
+         }
+        
       }
 
       //if the process is requesting for an instruction, it can be Read Only
@@ -90,7 +116,7 @@ int main()
          read_write=abs(1-rand75()); //this will produce 75% data requests as read and 25% data requests as write
       }
       
-      execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,executing_pid,process_request,read_write);
+      execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,pid_array[executing_pid_index],process_request,read_write);
 
       number_of_requests_processed++;
    }
