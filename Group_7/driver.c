@@ -38,7 +38,7 @@ int main()
 
    long long int number_of_requests_processed=0;
    unsigned int process_request;
-   int executing_pid_index=0;
+   int executing_pid_index=-1;
    int process_switch_instruction_count=200;
    int number_of_processes_ready=0;
    int pid_array[5]={0};
@@ -89,13 +89,18 @@ int main()
 
       if(is_eof==EOF)
       {
+         //terminate the process who has no more requests to process
          terminate_process(kernel_object,main_memory_32MB,pid_array[executing_pid_index]);
+
          //remove element of array pointed to by executing_pid_index
+         fprintf(stderr,"Process %d Over\n",pid_array[executing_pid_index]);
+         sleep(1);
          for(j=executing_pid_index;j<number_of_processes_ready-1;j++)
          {
-            pid_array[executing_pid_index]=pid_array[executing_pid_index+1];
+            pid_array[j]=pid_array[j+1];
          }
          number_of_processes_ready--;
+         executing_pid_index=0;
          
 
          if(number_of_processes_ready==0)
@@ -103,6 +108,7 @@ int main()
             fprintf(stderr,"Simulation Over\n");
             return 0;
          }
+         continue;
         
       }
 
@@ -116,9 +122,12 @@ int main()
          read_write=abs(1-rand75()); //this will produce 75% data requests as read and 25% data requests as write
       }
       
+      fprintf(stderr,"Executing PID: %d\n",pid_array[executing_pid_index]);
+
       execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,pid_array[executing_pid_index],process_request,read_write);
 
       number_of_requests_processed++;
+      //sleep(1);
    }
    
       
