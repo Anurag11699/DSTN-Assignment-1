@@ -40,7 +40,7 @@ PreConditions
 Inputs:{pointer to main memory object}
 
 
-Purpose of the Function: Remove a free frame entry from the head of the free frame list and return the frame number
+Purpose of the Function: Remove a free frame entry from the head of the free frame list and return the frame number. Decrements the number of free frames.
 
 PostConditions
 Updated free frame list upon removing entry
@@ -66,10 +66,19 @@ int remove_free_frame(main_memory* main_memory_object)
     return frame_number;
 }
 
+/*
+PreConditions
+Inputs:{pointer to main memory object, frame number which we need to add to the used frame list}
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+
+Purpose of the Function: Add the {frame number, reference bit} to linked list of used frames(fifo queue) and increment number of used frames. Make the currently added frame as the recently used frame
+
+PostConditions
+Updated used frame list with new entry
+*/
 void add_used_frame(main_memory* main_memory_object, int frame_number)
 {
-    //used_frame *temp_recently_used_frame = *recently_used_frame;
-
+    
     used_frame *new_frame = (used_frame *)malloc(sizeof(free_frame));
     new_frame->frame_number=frame_number;
     new_frame->reference_bit=0;
@@ -94,10 +103,20 @@ void add_used_frame(main_memory* main_memory_object, int frame_number)
 
     main_memory_object->ufl_dummy_head->next=main_memory_object->recently_used_frame;
 
-    //*recently_used_frame=temp_recently_used_frame;
-
 }
 
+/*
+PreConditions
+Inputs:{pointer to main memory object}
+
+Purpose of the Function: 
+
+PostConditions
+Updated free frame list upon removing entry
+Return Value: 
+frame number of the removed frame if the free frame list was not empty. {0<=frame number<number of frames in main memory}
+-1, if free frame list was empty
+*/
 int remove_used_frame(main_memory* main_memory_object)
 {
     
