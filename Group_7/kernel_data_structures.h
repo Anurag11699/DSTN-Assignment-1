@@ -1,3 +1,5 @@
+#ifndef KERNEL_DATA_STRUCTURES_H
+#define KERNEL_DATA_STRUCTURES_H
 
 typedef struct pcb
 {   
@@ -16,3 +18,5 @@ typedef struct kernel
 
     pcb* pcb_array;
 }kernel;
+
+#endif /*KERNEL_DATA_STRUCTURES_H*/

@@ -1,3 +1,6 @@
+#ifndef CACHE_DATA_STRUCTURES_H
+#define CACHE_DATA_STRUCTURES_H
+
 typedef struct L1_cache_way_entry
 {
     unsigned int valid:1;
@@ -54,3 +57,4 @@ typedef struct L2_cache_write_buffer
 }L2_cache_write_buffer;
 
 
+#endif /*CACHE_DATA_STRUCTURES_H*/

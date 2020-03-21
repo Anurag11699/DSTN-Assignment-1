@@ -1,8 +1,5 @@
-//frame of size 1KB
-// typedef struct frame
-// {
-//     char byte_array[1024];
-// }frame;
+#ifndef MAIN_MEMORY_DATA_STRUCTURES_H
+#define MAIN_MEMORY_DATA_STRUCTURES_H
 
 typedef struct page_table_entry
 {
@@ -82,3 +79,5 @@ typedef struct main_memory
    //frame *frame_array;
 }main_memory;
 
+
+#endif /*MAIN_MEMORY_DATA_STRUCTURES_H*/

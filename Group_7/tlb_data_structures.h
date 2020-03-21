@@ -1,3 +1,6 @@
+#ifndef TLB_DATA_STRUCTURES_H
+#define TLB_DATA_STRUCTURES_H
+
 typedef struct tlb_entry
 {
     int logical_page_number:22;
@@ -12,3 +15,4 @@ typedef struct tlb
     tlb_entry *tlb_entries;
 }tlb;
 
+#endif /*TLB_DATA_STRUCTURES_H*/

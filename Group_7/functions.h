@@ -1,3 +1,6 @@
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
+
 //data structures
 #include "main_memory_data_structures.h"
 #include "cache_data_structures.h"
@@ -83,3 +86,4 @@ extern void insert_new_tlb_entry(tlb*, int, int);
 //tlb printing functions
 extern void print_tlb(tlb*);
 
+#endif /*FUNCTIONS_H*/
