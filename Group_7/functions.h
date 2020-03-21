@@ -1,7 +1,10 @@
+//data structures
 #include "main_memory_data_structures.h"
 #include "cache_data_structures.h"
 #include "tlb_data_structures.h"
 #include "kernel_data_structures.h"
+
+//macros
 #define set_MSB_bit_8 0x80
 #define get_frame_offset 0x3ff
 #define get_cache_block_offset 0x1f
@@ -12,7 +15,10 @@
 #define get_inner_page_table_offset(x) ((x>>10)&0xff)
 #define get_logical_page_number(x) (x>>10)
 
+//global variables
 FILE* output_fd;
+long int total_time_taken;
+int L1_tlb_hit_time;
 
 
 //kernel functions
@@ -25,7 +31,7 @@ extern void context_switch(kernel*, tlb*,tlb*,int);
 
 
 //main memory functions
-extern main_memory* initialize_main_memory(int, int);
+extern main_memory* initialize_main_memory(float, float);
 extern void add_free_frame(main_memory*, int);
 extern int remove_free_frame(main_memory *);
 extern void add_used_frame(main_memory*, int);

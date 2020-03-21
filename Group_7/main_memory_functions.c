@@ -161,8 +161,9 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object)
 
     fprintf(output_fd,"REMOVING USED FRAME\n");
 
+    print_ufl(main_memory_object);
     frame_number = remove_used_frame(main_memory_object);
-
+    print_ufl(main_memory_object);
     //need to update the page table of the process from which this was taken from and frame table of the OS
 
     int current_pid_of_frame = get_pid_of_frame(main_memory_object,frame_number);
@@ -408,6 +409,15 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     return needed_frame_number;
 }
 
+/*
+PreConditions
+Inputs: {pointer to kernel object, pointer to main memory object, pid of processes whose page we need }
+
+Purpose of the Function: Initialze Main Memory Data Structure and all the components in the Main Memory like the frame table, free frame list, used frame list (with second chance)
+
+PostConditions
+Output: {pointer to intialized main memory}
+*/
 void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory_object, int pid, int logical_page)
 {
     if(pid<0 || logical_page<0)
@@ -419,6 +429,13 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
 
     //get frame of outermost page table
     int outer_page_table_frame_number = kernel_object->pcb_array[pid].outer_page_base_address;
+
+    //we dont own the outer page itself, hence return
+    if (outer_page_table_frame_number==-1)
+    {
+        return;
+    }
+    
 
     //check if you own frame, otherwise load new frame for the outermost page table
 
@@ -502,14 +519,18 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
 PreConditions
 Inputs: {main_memory_size in MB, frame_size in KB}
 
+Purpose of the Function: Initialze Main Memory Data Structure and all the components in the Main Memory like the frame table, free frame list, used frame list (with second chance)
+
 PostConditions
 Output: {pointer to intialized main memory}
 */
-main_memory* initialize_main_memory(int main_memory_size, int frame_size)
+main_memory* initialize_main_memory(float main_memory_size, float frame_size)
 {
     //find number of frames
     
     int number_of_frames=(main_memory_size/frame_size)*1024;
+
+    fprintf(output_fd,"Number of Frames: %d\n",number_of_frames);
 
     main_memory* main_memory_object = (main_memory *)malloc(sizeof(main_memory));
     main_memory_object->number_of_frames=number_of_frames;

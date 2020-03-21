@@ -25,10 +25,12 @@ int rand75()
 
 int main()
 {
+   output_fd=fopen("OUTPUT.txt","w"); 
    int max_number_of_processes=5;
    int j;
    kernel* kernel_object = initialize_kernel(max_number_of_processes);
-   main_memory* main_memory_32MB = initialize_main_memory(32,1); 
+   main_memory* main_memory_32MB = initialize_main_memory(0.05,1); 
+   
    tlb* L1_tlb = initialize_tlb(12);
    tlb *L2_tlb = initialize_tlb(24);
    L1_cache* L1_instruction_cache_4KB = initialize_L1_cache();
@@ -48,9 +50,9 @@ int main()
    //    fprintf(stderr,"%d\n",get_frame(kernel_object,main_memory_32MB));
    // }
 
-   // return 0;
+   //return 0;
    
-   output_fd=fopen("OUTPUT.txt","w");
+  
 
 
    //loading all proccesses
