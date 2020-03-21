@@ -27,9 +27,12 @@ int main()
 {
    output_fd=fopen("OUTPUT.txt","w"); 
    int max_number_of_processes=5;
+   
+   //initialize totoal time taken as 0
+   total_time_taken=0;
    int j;
    kernel* kernel_object = initialize_kernel(max_number_of_processes);
-   main_memory* main_memory_32MB = initialize_main_memory(0.05,1); 
+   main_memory* main_memory_32MB = initialize_main_memory(32,1); 
    
    tlb* L1_tlb = initialize_tlb(12);
    tlb *L2_tlb = initialize_tlb(24);
@@ -38,7 +41,7 @@ int main()
    L2_cache* L2_cache_32KB = initialize_L2_cache();
    L2_cache_write_buffer* L2_cache_write_buffer_8 = initialize_L2_cache_write_buffer(8);
 
-   long long int number_of_requests_processed=0;
+   long int number_of_requests_processed=0;
    unsigned int process_request;
    int executing_pid_index=-1;
    int process_switch_instruction_count=200;
@@ -135,7 +138,6 @@ int main()
       execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,pid_array[executing_pid_index],process_request,read_write);
 
       number_of_requests_processed++;
-      //sleep(1);
    }
    
       

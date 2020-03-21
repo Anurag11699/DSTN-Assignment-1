@@ -3,6 +3,7 @@
 #include "cache_data_structures.h"
 #include "tlb_data_structures.h"
 #include "kernel_data_structures.h"
+#include "configuration_file.h"
 
 //macros
 #define set_MSB_bit_8 0x80
@@ -18,7 +19,7 @@
 //global variables
 FILE* output_fd;
 long int total_time_taken;
-int L1_tlb_hit_time;
+
 
 
 //kernel functions

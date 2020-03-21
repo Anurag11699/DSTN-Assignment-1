@@ -3,9 +3,18 @@
 #include <unistd.h>
 #include "functions.h"
 
+/*
+PreConditions
+Inputs:{pointer to main memory object, frame number which we need to add to free frame list}
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+
+Purpose of the Function: Add the frame number to the tail of the linked list of free frames and increment number of free frames
+
+PostConditions
+Updated free frame list with new entry
+*/
 void add_free_frame(main_memory* main_memory_object, int frame_number)
 {
-    //free_frame *temp_tail = *tail;
 
     main_memory_object->frame_table[frame_number].pid=-1;
     main_memory_object->frame_table[frame_number].page_number=-1;
@@ -14,21 +23,31 @@ void add_free_frame(main_memory* main_memory_object, int frame_number)
     new_frame->frame_number=frame_number;
     new_frame->next=NULL;
     main_memory_object->ffl_dummy_head->number_free_frames++;
-    //head->number_free_frames++;
+
     if(main_memory_object->ffl_dummy_head->next==NULL)
     {
         main_memory_object->ffl_dummy_head->next=new_frame;
         main_memory_object->ffl_tail=new_frame;
-        //*tail = temp_tail;
         return;
     }
+
     main_memory_object->ffl_tail->next=new_frame;
     main_memory_object->ffl_tail=new_frame;
-    //temp_tail->next=new_frame;
-    //temp_tail=new_frame;
-    //*tail = temp_tail;
 }
 
+/*
+PreConditions
+Inputs:{pointer to main memory object}
+
+
+Purpose of the Function: Remove a free frame entry from the head of the free frame list and return the frame number
+
+PostConditions
+Updated free frame list upon removing entry
+Return Value: 
+frame number of the removed frame if the free frame list was not empty. {0<=frame number<number of frames in main memory}
+-1, if free frame list was empty
+*/
 int remove_free_frame(main_memory* main_memory_object)
 {
 
@@ -411,12 +430,12 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
 /*
 PreConditions
-Inputs: {pointer to kernel object, pointer to main memory object, pid of processes whose page we need }
+Inputs: {pointer to kernel object, pointer to main memory object, pid of processes whose page we need to invalidate , the logical page we need to invalidate }
 
-Purpose of the Function: Initialze Main Memory Data Structure and all the components in the Main Memory like the frame table, free frame list, used frame list (with second chance)
+Purpose of the Function: Invalidate the page table entry of the given process and logcial page number
 
 PostConditions
-Output: {pointer to intialized main memory}
+In the page table of the process whose pid we got, we have invalidated the entry for the given logical page
 */
 void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory_object, int pid, int logical_page)
 {
