@@ -126,8 +126,19 @@ void terminate_process(kernel* kernel_object, main_memory* main_memory_object, i
     
 }
 
-//return 0 if process is requesting an instruction, returns 1 if process is requesting for data
 
+/*
+PreConditions
+Inputs:{virtual address}
+0<=virtual address<2^32
+
+Purpose of the Function: This function classifies the type of request that the process asks for as instruction request or data request
+
+PostConditions
+Return Value:
+0, if process requests for instruction
+1, if process requests for data
+*/
 int get_request_type(int virtual_address)
 {
     //the virtual address of instructions begins with 1 
@@ -139,6 +150,15 @@ int get_request_type(int virtual_address)
     return 1;
 }
 
+/*
+PreConditions
+Inputs: {pointer to kernel object, pointer to L1 tlb object, pointer to L2 tlb object, pid of process that has switched out, pid of process that is switched in}
+
+Purpose of the Function: This function is used to change the execting process. The state of the process switched out is changed to ready and the state of the process switched is changed to executing. Also, both the L1 and L2 tlbs are flushed upon context switch.
+
+PostConditions
+Updated kernel and tlb objects
+*/
 void context_switch(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, int oldpid, int newpid)
 {
     kernel_object->currently_running_process_pid=newpid;
@@ -153,6 +173,16 @@ void context_switch(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, int oldpid,
     tlb_flush(L2_tlb);
 }
 
+
+/*
+PreConditions
+Inputs: {pointer to kernel object, pointer to L1 tlb , pointer to L2 tlb ,pointer to L1 instruction cache object, pointer to L1 data cache, pointer to L2 cache,pointer to L2 cache write buffer, pointer to main memory ,pid of process whose request it is}
+
+Purpose of the Function: This is the function used to execute the process request. First both tlb's are checked, if the entry for logical page is not found in tlb, page walk for the logical page is initiated and the instruction is restarted. Upon tlb hit, we get the physical address and use it to access the cache for the required data needed.
+
+PostConditions
+Updated all memory levels accordingly 
+*/
 void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int pid,unsigned int virtual_address, int write)
 {
     fprintf(output_fd,"\n\nExecuting Process Request for PID: %d | Logical Address: %x or %d\n",pid,virtual_address,virtual_address);
