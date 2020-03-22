@@ -71,7 +71,7 @@ int tlb_search(tlb* tlb_object, int logical_page_number)
         if(tlb_object->tlb_entries[i].valid==1 && tlb_object->tlb_entries[i].logical_page_number==logical_page_number)
         {
             //set MSB to 1 on TLB hit
-            tlb_object->tlb_entries[i].LRU_counter=(tlb_object->tlb_entries[i].LRU_counter|set_MSB_bit_8);
+            tlb_object->tlb_entries[i].LRU_counter=set_MSB_bit_8(tlb_object->tlb_entries[i].LRU_counter);
             return tlb_object->tlb_entries[i].physical_frame_number;
         }
     }

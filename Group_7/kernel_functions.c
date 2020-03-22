@@ -3,7 +3,15 @@
 #include <unistd.h>
 #include "functions.h"
 
+/*
+PreConditions
+Inputs: {maximum size of the process ready queue}
 
+Purpose of the Function: Initialze Kernel Data Structure and its components
+
+PostConditions
+Output: {pointer to intialized kernel object}
+*/
 kernel* initialize_kernel(int max_number_of_processes)
 {
     kernel* kernel_object = (kernel *)malloc(sizeof(kernel));
@@ -25,7 +33,21 @@ kernel* initialize_kernel(int max_number_of_processes)
     return kernel_object;
 }
 
-int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int max_number_processes, int pid, char* filename)
+
+/*
+PreConditions
+Inputs: {pointer to kernel object, pointer to main memory object, maximum number of processes, pid of process, filename containing processes memory access requests}
+
+Purpose of the Function: This function is used to load a new process into the system. The pcb array entry corresponding to this processes pid are filled. Also the first two pages of the process are pre paged using the page_walk function
+
+PostConditions
+Updated kernel and main memory objects
+Output
+Return Value:
+1, if process was successfully loaded
+-1, otherwise
+*/
+int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int max_number_processes, int pid, char* filename)
 {
     
     //process limit reached, this process cannot be loaded yet 
@@ -62,16 +84,18 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
 
     //fprintf(stderr,"CHECK IN LOAD_NEW_PROCESS\n");
     //int frame_number_1;
-    page_table_walk(kernel_object,main_memory_32MB,pid,request_1);
+    page_table_walk(kernel_object,main_memory_object,pid,request_1);
 
     fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_2,request_2);
     //int frame_number_2;
-    page_table_walk(kernel_object,main_memory_32MB,pid,request_2);
+    page_table_walk(kernel_object,main_memory_object,pid,request_2);
 
     //should we put these into tlb?
 
    return 1;
 }
+
+
 
 void terminate_process(kernel* kernel_object, main_memory* main_memory_object, int pid)
 {
@@ -115,7 +139,7 @@ void context_switch(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, int oldpid,
 
     //state of the process switched in now set to executing
     kernel_object->pcb_array[newpid].state=2;
-    
+
     tlb_flush(L1_tlb);
     tlb_flush(L2_tlb);
 }
@@ -131,18 +155,18 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
     //last 5 bits of the virtual address as cache block size is 32bits
     int cache_block_offset_size=5;
-    int cache_block_offset = (virtual_address & get_cache_block_offset);
+    int cache_block_offset = get_cache_block_offset(virtual_address);
 
     int L1_cache_index_size=5;
     int L2_cache_index_size=6;
-    int L1_cache_index = ((virtual_address>>cache_block_offset_size)&get_L1_cache_block_index);
-    int L2_cache_index = ((virtual_address>>cache_block_offset_size)&get_L2_cache_block_index);
+    int L1_cache_index = get_L1_cache_block_index(virtual_address,cache_block_offset_size);
+    int L2_cache_index = get_L2_cache_block_index(virtual_address,cache_block_offset_size);
     
     //we can get cache_tags only after getting physical address
     int L1_cache_tag;
     int L2_cache_tag;
 
-    int logical_page_number = (virtual_address>>10); //as page size is 10bits, hence 10bit offset
+    int logical_page_number = get_logical_page_number(virtual_address); //as page size is 10bits, hence 10bit offset
     int physical_frame_number = complete_tlb_search(L1_tlb,L2_tlb,logical_page_number);
 
     //tlb hit, get direct physical frame number
@@ -156,13 +180,15 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     if(physical_frame_number!=-1)
     {
         fprintf(output_fd,"TLB HIT\n");
-        physical_address=(physical_frame_number<<10)+(virtual_address&get_frame_offset);
+        physical_address= get_physical_address(physical_frame_number,virtual_address);
 
         fprintf(output_fd,"Physical Frame Number: %d | Frame Offset: %d | Physical Address: %d\n",physical_frame_number,(virtual_address&get_frame_offset),physical_address);
 
-        //use this physical addresss to search in cache;
-        L1_cache_tag=(physical_address>>(L1_cache_index_size+cache_block_offset_size));
-        L2_cache_tag=(physical_address>>(L2_cache_index_size+cache_block_offset_size));
+        //use this physical addresss to search in cache
+
+        //get the L1 and L2 cache tags from the physical address
+        L1_cache_tag= get_L1_cache_tag(physical_address,L1_cache_index_size,cache_block_offset_size);
+        L2_cache_tag= get_L2_cache_tag(physical_address,L2_cache_index_size,cache_block_offset_size);
 
         fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
 
@@ -232,7 +258,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         //initiatie page walk to get the physical frame number
         //recevie a physical frame number upon page walk and service page faults in that process
         int physical_frame_number_received_from_page_walk = page_table_walk(kernel_object,main_memory_32MB,pid,virtual_address);
-        physical_address=(physical_frame_number_received_from_page_walk<<10)+(virtual_address&get_frame_offset);
+        physical_address=get_physical_address(physical_frame_number,virtual_address);
 
         //insert this new mapping of logical page number to physical frame number into the L2 and L1 TLB and restart the instruction
 
