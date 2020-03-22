@@ -382,6 +382,18 @@ int check_frame_ownership(main_memory* main_memory_object,int pid,int frame_numb
     return -1;
 }
 
+
+/*
+PreConditions
+Inputs: {pointer to kernel object, pointer to main memory object, pid, logical address process is requesting for }
+0<=logical address< 2^32
+
+Purpose of the Function: Starts from the outermost page table stored in the pcb array entry of the process in the kernel object. Goes through 3 levels of paging. If any page table is missing in the page walk, the function gets a frame for that page table an initializes the page table in that frame. In the end the function gets a frame to store the logical page of the function and stores its enty in the innermost page table.
+
+PostConditions
+Return Value:
+Frame number assigned to the logical page requested by process
+*/
 int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int pid, int logical_address)
 {
     fprintf(output_fd,"Starting page walk of PID: %d | Request: %x | Request: %d\n",pid,logical_address,logical_address);
@@ -742,6 +754,8 @@ void print_page_table(page_table* page_table_object)
     fprintf(output_fd,"\n\n");
 }
 
+
+/*auxillary function to print the frame table, useful for debugging*/
 void print_frame_table(main_memory* main_memory_object)
 {
     fprintf(output_fd,"Printing OS Frame Table\n");
@@ -756,6 +770,7 @@ void print_frame_table(main_memory* main_memory_object)
     fprintf(output_fd,"\n\n");
 }
 
+/*auxillary function to print the free frame list, useful for debugging*/
 void print_ffl(main_memory *main_memory_object)
 {
     fprintf(output_fd,"Printing Free Frame List\nNumber of Free Frames are: %d\n",main_memory_object->ffl_dummy_head->number_free_frames);
@@ -770,6 +785,7 @@ void print_ffl(main_memory *main_memory_object)
     fprintf(output_fd,"\n");
 }
 
+/*auxillary function to print the used frame list, useful for debugging*/
 void print_ufl(main_memory *main_memory_object)
 {
     fprintf(output_fd,"Printing Used Frame List\nNumber of Used Frames are: %d\n",main_memory_object->ufl_dummy_head->number_used_frames);
