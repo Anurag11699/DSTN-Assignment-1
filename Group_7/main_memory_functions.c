@@ -109,13 +109,13 @@ void add_used_frame(main_memory* main_memory_object, int frame_number)
 PreConditions
 Inputs:{pointer to main memory object}
 
-Purpose of the Function: 
+Purpose of the Function: The functions traverses the used frame list starting from the element after the recently used frame. This element is the frame which was used first (as it is a fifo circular queue). If the reference bit is set to 1, make it 0 and continue until you find an entry whose reference bit is 0. (giving second chance to a frame). This frame is removed from the list and returned. The recently used frame is updated appropriately
 
 PostConditions
-Updated free frame list upon removing entry
+Updated used frame list upon removing entry
 Return Value: 
-frame number of the removed frame if the free frame list was not empty. {0<=frame number<number of frames in main memory}
--1, if free frame list was empty
+frame number of the removed frame if the used frame list was not empty. {0<=frame number<number of frames in main memory}
+-1, if the used frame list was empty
 */
 int remove_used_frame(main_memory* main_memory_object)
 {
@@ -148,6 +148,18 @@ int remove_used_frame(main_memory* main_memory_object)
 
 }
 
+
+/*
+PreConditions
+Inputs:{pointer to main memory object, frame number which we needs to be transfered from used frame list to free frame list}
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+frame number entry is present in used frame list
+
+Purpose of the Function: Traverse the used frame list and remove the entry corresponding to frame_number. Also add this frame_number to the free frame list.
+
+PostConditions
+Updated used frame list and free frame list
+*/
 void transfer_to_free_frame_list(main_memory* main_memory_object, int frame_number)
 {
     used_frame *walker = main_memory_object->ufl_dummy_head->next;
@@ -169,6 +181,18 @@ void transfer_to_free_frame_list(main_memory* main_memory_object, int frame_numb
 
 }
 
+
+/*
+PreConditions
+Inputs:{pointer to main memory object, frame number whose reference bit must be set in the used frame list}
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+frame number entry is present in used frame list
+
+Purpose of the Function: Traverse the used frame list and set the reference bit of that entry to 1.
+
+PostConditions
+Updated used frame list.
+*/
 void set_reference_bit(main_memory* main_memory_object,int frame_number)
 {
     if(main_memory_object->ufl_dummy_head->next==NULL)
@@ -186,6 +210,17 @@ void set_reference_bit(main_memory* main_memory_object,int frame_number)
     return;
 }
 
+
+/*
+PreConditions
+Inputs:{pointer to the kernel object,pointer to main memory object}
+
+Purpose of the Function: This function is called by a process to get a frame for itself when needed. The function first tries to get a frame from the free frame list(using get_free_frame method)(as placement is preferred over replacement). If we correctly received the frame from the free frame list, the function returns the frame number. If the free frame list is empty, the last used frame is extracted from the used frame list (using get_used_frame method). Upon receiving the used frame we must find out the pid of the proccess currently using the frame and the logical page of that process which was using it. Using this information we can invalidate the entry for this frame in the page table of that process (using invalidate_page_table_entry method)
+
+PostConditions
+Return Value: 
+frame number of the removed frame. {0<=frame number<number of frames in main memory}
+*/
 int get_frame(kernel* kernel_object,main_memory *main_memory_object)
 {
     //prefer placement over replacement
@@ -221,6 +256,15 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object)
 }
 
 
+/*
+PreConditions
+Inputs: {frame number that this page table will occupy}
+
+Purpose of the Function: This function intializes a page table
+
+PostConditions
+Output: {pointer to intialized page table}
+*/
 page_table* initialize_page_table(int frame_number_occupied)
 {
     int i;
@@ -241,21 +285,69 @@ page_table* initialize_page_table(int frame_number_occupied)
 
 }
 
+
+/*
+PreConditions
+Inputs: {pointer to main memory object, frame number}
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+
+Purpose of the Function: This function is used to just access the OS frame table using the frame number as its index and return the pid of the process using that frame
+
+PostConditions
+Output:{pid of process which has acquired that frame}
+*/
 int get_pid_of_frame(main_memory* main_memory_object,int frame_number)
 {
     return main_memory_object->frame_table[frame_number].pid;
 }
 
+
+
+/*
+PreConditions
+Inputs: {pointer to main memory object, frame number}
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+
+Purpose of the Function: This function is used to just access the OS frame table using the frame number as its index and return the logical page of the process using that frame holds
+
+PostConditions
+Output:{logical page of the process using that frame holds}
+if the frame is a page table, returns -1
+*/
 int get_page_number_of_frame(main_memory* main_memory_object,int frame_number)
 {
     return main_memory_object->frame_table[frame_number].page_number;
 }
 
+
+/*
+PreConditions
+Inputs: {pointer to main memory object, frame number}
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+
+Purpose of the Function: This function is used to just access the OS frame table using the frame number as its index and return the pointer to the page table which the frame holds, if any.
+
+PostConditions
+Output:{If the frame is a page table, returns pointer to page table. else returns NULL}
+*/
 page_table* get_page_table_pointer_of_frame(main_memory* main_memory_object, int frame_number)
 {
     return main_memory_object->frame_table[frame_number].pointer_to_stored_page_table;
 }
 
+
+
+
+/*
+PreConditions
+Inputs: {pointer to main memory object, frame number, pid, page_number, pointer to page table object}
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+
+Purpose of the Function: This function is used to set the frame table entry indexed by the frame number
+
+PostConditions
+Updated OS frame table
+*/
 void update_frame_table_entry(main_memory* main_memory_object,int frame_number,int pid,int page_number,page_table* page_table_object)
 {
     main_memory_object->frame_table[frame_number].pid=pid;
@@ -263,6 +355,19 @@ void update_frame_table_entry(main_memory* main_memory_object,int frame_number,i
     main_memory_object->frame_table[frame_number].pointer_to_stored_page_table=page_table_object;
 }
 
+
+/*
+PreConditions
+Inputs: {pointer to main memory object, pid, frame number}
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+
+Purpose of the Function: Checks if the pid stored in the frame table entry matches the pid in the argument of the function. If it matches, the frame is owned by that process
+
+PostConditions
+Return Value:
+1 if frame is owned by the process whose pid is given in the function argument
+-1, otherwise
+*/
 int check_frame_ownership(main_memory* main_memory_object,int pid,int frame_number)
 {
     if(frame_number<0)
@@ -454,7 +559,7 @@ Inputs: {pointer to kernel object, pointer to main memory object, pid of process
 Purpose of the Function: Invalidate the page table entry of the given process and logcial page number
 
 PostConditions
-In the page table of the process whose pid we got, we have invalidated the entry for the given logical page
+In the page table of the process whose pid we got, we have invalidated the entry for the given logical page.
 */
 void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory_object, int pid, int logical_page)
 {
