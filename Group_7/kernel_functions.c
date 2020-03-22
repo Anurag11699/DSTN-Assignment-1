@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include "functions.h"
 
+
 kernel* initialize_kernel(int max_number_of_processes)
 {
     kernel* kernel_object = (kernel *)malloc(sizeof(kernel));
@@ -34,19 +35,17 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_32MB, int ma
     }
 
     // if state==0, that means that entry in pcb array is free or the process before has been terminated
-    //int i;
-    //for(i=0;i<max_number_processes;i++)
-    //{
-        //indexing pcb array using pid
-        if(kernel_object->pcb_array[pid].state==0)
-        {
-            kernel_object->pcb_array[pid].state=1;
-            kernel_object->pcb_array[pid].pid=pid;
-            kernel_object->pcb_array[pid].fd=fopen(filename,"r");
-            kernel_object->number_of_processes++;
-            //break;
-        }
-    //}
+   
+    //indexing pcb array using pid
+    if(kernel_object->pcb_array[pid].state==0)
+    {
+        kernel_object->pcb_array[pid].state=1; //make the state ready to run
+        kernel_object->pcb_array[pid].pid=pid;
+        kernel_object->pcb_array[pid].fd=fopen(filename,"r");
+        kernel_object->number_of_processes++;
+        //break;
+    }
+    
 
     int pcb_array_entry=pid;
     
@@ -107,9 +106,16 @@ int get_request_type(int virtual_address)
     return 1;
 }
 
-void context_switch(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, int pid)
+void context_switch(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, int oldpid, int newpid)
 {
-    kernel_object->currently_running_process_pid=pid;
+    kernel_object->currently_running_process_pid=newpid;
+
+    //state of the process switched out now set to ready to execute
+    kernel_object->pcb_array[oldpid].state=1;
+
+    //state of the process switched in now set to executing
+    kernel_object->pcb_array[newpid].state=2;
+    
     tlb_flush(L1_tlb);
     tlb_flush(L2_tlb);
 }

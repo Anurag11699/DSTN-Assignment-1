@@ -31,7 +31,7 @@ extern void execute_process_request(kernel*, tlb*, tlb*, L1_cache*, L1_cache*, L
 extern int get_request_type(int);
 extern int load_new_process(kernel*,main_memory*,int, int, char*); 
 extern void terminate_process(kernel*, main_memory*, int);
-extern void context_switch(kernel*, tlb*,tlb*,int);
+extern void context_switch(kernel*, tlb*,tlb*,int,int);
 
 
 //main memory functions

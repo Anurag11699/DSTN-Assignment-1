@@ -97,18 +97,24 @@ int main()
    int is_eof;
    int read_write;
    
+   int oldpid;
+   int newpid;
+
    while(1)
    {
       if(number_of_requests_processed%process_switch_instruction_count==0)
       {
+         oldpid=pid_array[executing_pid_index];
          executing_pid_index=(executing_pid_index+1)%(number_of_processes_ready);
-         context_switch(kernel_object,L1_tlb,L2_tlb,pid_array[executing_pid_index]);
+         newpid=pid_array[executing_pid_index];
+         context_switch(kernel_object,L1_tlb,L2_tlb,oldpid,newpid);
       }
 
       is_eof=fscanf(kernel_object->pcb_array[pid_array[executing_pid_index]].fd,"%x",&process_request);
 
       if(is_eof==EOF)
       {
+         oldpid=pid_array[executing_pid_index];
          //terminate the process who has no more requests to process
          terminate_process(kernel_object,main_memory_32MB,pid_array[executing_pid_index]);
 
@@ -122,12 +128,15 @@ int main()
          number_of_processes_ready--;
          executing_pid_index=0;
          
-
+         
          if(number_of_processes_ready==0)
          {
             fprintf(stderr,"Simulation Over\n");
             return 0;
          }
+
+         newpid=pid_array[executing_pid_index];
+         context_switch(kernel_object,L1_tlb,L2_tlb,oldpid,newpid);
          continue;
         
       }
