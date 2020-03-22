@@ -244,6 +244,7 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object)
 
     //invalidate the frame table entry for this frame
     main_memory_object->frame_table[frame_number].pid=-1;
+    main_memory_object->frame_table[frame_number].pointer_to_stored_page_table=NULL;
 
     //invalidate the page table entry for the pid and logical page we just got
 
@@ -399,6 +400,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     fprintf(output_fd,"Starting page walk of PID: %d | Request: %x | Request: %d\n",pid,logical_address,logical_address);
     //32 bit Virtual Address split as:  6 | 8 | 8 | 10 . Hence 3 level paging is required
 
+    //get the logical page number
+    int logical_page_number = get_logical_page_number(logical_address);
+
     //get frame of outermost page table
     int outer_page_table_frame_number = kernel_object->pcb_array[pid].outer_page_base_address;
 
@@ -416,7 +420,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         page_table* outermost_page_table = initialize_page_table(outer_page_table_frame_number);
 
         //update the frame table for the frame we got
-        update_frame_table_entry(main_memory_object,outer_page_table_frame_number,pid,-1,outermost_page_table); //-1 for logical page as it is a page table. send the pointer to outermost page table as this frame is a page table
+        update_frame_table_entry(main_memory_object,outer_page_table_frame_number,pid,logical_page_number,outermost_page_table); //send the pointer to outermost page table as this frame is a page table
         
         //add it to the pcb of this process
         kernel_object->pcb_array[pid].outer_page_base_address=outer_page_table_frame_number;
@@ -454,7 +458,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
         //update frame table entry
         //update the frame table for the frame we got
-        update_frame_table_entry(main_memory_object,middle_page_table_frame_number,pid,-1,middle_page_table); //-1 for logical page as it is a page table. send the pointer to middle page table as this frame is a page table
+        update_frame_table_entry(main_memory_object,middle_page_table_frame_number,pid,logical_page_number,middle_page_table); //send the pointer to middle page table as this frame is a page table
 
         //link it from outermost page table
         outer_page_table->page_table_entries[outer_page_table_offset].frame_base_address=middle_page_table_frame_number;
@@ -492,7 +496,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
         //update frame table entry
         //update the frame table for the frame we got
-        update_frame_table_entry(main_memory_object,inner_page_table_frame_number,pid,-1,inner_page_table); //-1 for logical page as it is a page table. send the pointer to inner page table as this frame is a page table
+        update_frame_table_entry(main_memory_object,inner_page_table_frame_number,pid,logical_page_number,inner_page_table); //send the pointer to inner page table as this frame is a page table
 
         //link it from middle page table
         middle_page_table->page_table_entries[middle_page_table_offset].frame_base_address=inner_page_table_frame_number;
@@ -518,17 +522,17 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     int own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
 
   
-    //get the logical page number
-    int logical_page_number = get_logical_page_number(logical_address);
+   
 
     fprintf(output_fd,"Logical Page Number: %d\n",logical_page_number);
 
     fprintf(output_fd,"Needed Frame Number: %d | Own it: %d\n",needed_frame_number, own_needed_frame);
-
+    
     if(own_needed_frame==-1 || inner_page_table->page_table_entries[inner_page_table_offset].valid==0)
     {
         //insert this entry into the frame table and the page table of this process
         needed_frame_number = get_frame(kernel_object,main_memory_object);
+        
 
         //insert entry into page table
         inner_page_table->page_table_entries[inner_page_table_offset].frame_base_address=needed_frame_number;

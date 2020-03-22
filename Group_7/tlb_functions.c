@@ -3,7 +3,15 @@
 #include <unistd.h>
 #include "functions.h"
 
+/*
+PreConditions
+Inputs:{number of entries in the tlb}
 
+Purpose of the Function: Initialize the tlb data structure which has number of entries as specified by the input parameter
+
+PostConditions
+Output: {pointer to intialized tlb}
+*/
 tlb* initialize_tlb(int number_of_entries)
 {
     tlb *tlb_object = (tlb *)malloc(sizeof(tlb));
@@ -15,6 +23,16 @@ tlb* initialize_tlb(int number_of_entries)
     return tlb_object;
 }
 
+
+/*
+PreConditions
+Inputs:{pointer to tlb object}
+
+Purpose of the Function: Invalidate all the entries in the tlb
+
+PostConditions
+Updated tlb object
+*/
 void tlb_flush(tlb* tlb_object)
 {
     int number_of_entries = tlb_object->number_of_entries;
@@ -25,6 +43,20 @@ void tlb_flush(tlb* tlb_object)
     }
 }
 
+
+/*
+PreConditions
+Inputs:{pointer to tlb object, logical page number to search for}
+0<=logical page number<2^22
+
+Purpose of the Function: The function goes through the tlb to search for the entry corresponding to the given logical page number. If found, it returns the Physical frame number associated with it and sets the MSB of the counter of that entry to 1.
+The function also right shifts the counters of all entries.
+
+PostConditions
+Return Value:
+Physical Frame Number, if entry exists
+-1, if entry does not exist
+*/
 int tlb_search(tlb* tlb_object, int logical_page_number)
 {
     int number_of_entries = tlb_object->number_of_entries;
