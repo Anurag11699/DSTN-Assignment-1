@@ -96,7 +96,15 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int 
 }
 
 
+/*
+PreConditions
+Inputs: {pointer to kernel object, pointer to main memory object, pid of process that has finished execution}
 
+Purpose of the Function: This function is used terminate a process that has finished execution. All the pages that this process owns are transfered to the free frame list. The state of this process is set to 0 (terminated) and the file descriptor for the input file for this process is closed.
+
+PostConditions
+Updated kernel and main memory objects
+*/
 void terminate_process(kernel* kernel_object, main_memory* main_memory_object, int pid)
 {
     int i;
@@ -113,12 +121,13 @@ void terminate_process(kernel* kernel_object, main_memory* main_memory_object, i
     //close the file descriptor of the process
     fclose(kernel_object->pcb_array[pid].fd);
 
-    //set state of the process to terminated == 0
+    //set state of the process to terminated = 0
     kernel_object->pcb_array[pid].state=0;
     
 }
 
 //return 0 if process is requesting an instruction, returns 1 if process is requesting for data
+
 int get_request_type(int virtual_address)
 {
     //the virtual address of instructions begins with 1 
@@ -194,6 +203,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         int L1_cache_hit;
         int L2_cache_hit;
+
         //as cache is lookaside, we need to search both the caches in parallel.
         if(request_type==0)
         {
