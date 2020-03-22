@@ -32,7 +32,7 @@ int main()
    total_time_taken=0;
    int j;
    kernel* kernel_object = initialize_kernel(max_number_of_processes);
-   main_memory* main_memory_32MB = initialize_main_memory(0.05,1); 
+   main_memory* main_memory_32MB = initialize_main_memory(32,1); 
    
    tlb* L1_tlb = initialize_tlb(12);
    tlb *L2_tlb = initialize_tlb(24);
@@ -54,8 +54,17 @@ int main()
    // }
 
    //return 0;
+
+//    print_tlb(L1_tlb);
+//    print_tlb(L2_tlb);
+
+//    insert_new_tlb_entry(L2_tlb,5,6);
+//    L2_to_L1_tlb_transfer(L1_tlb,L2_tlb,5);
+
+//    print_tlb(L1_tlb);
+//    print_tlb(L2_tlb);
    
-  
+//   return 0;
 
 
    //loading all proccesses
