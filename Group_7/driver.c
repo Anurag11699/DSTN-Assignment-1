@@ -28,7 +28,7 @@ int main()
    output_fd=fopen("OUTPUT.txt","w"); 
    int max_number_of_processes=5;
    
-   //initialize totoal time taken as 0
+   //initialize total time taken as 0
    total_time_taken=0;
    int j;
    kernel* kernel_object = initialize_kernel(max_number_of_processes);

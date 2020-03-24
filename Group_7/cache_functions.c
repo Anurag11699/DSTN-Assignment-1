@@ -121,12 +121,15 @@ If entry is absent return -1;
 
 PostConditions
 Output: 
-If entry is present return 1
+If entry is present return time taken to process request
 If entry is absent return -1;
 */
 int L1_search(main_memory* main_memory_object,L1_cache* L1_cache_object, int index, int tag, int offset, int frame_number, int write)
 {
     int i,j;
+
+    long int time_taken = 0;
+    time_taken=time_taken+L1_cache_search_time;
 
     for(i=0;i<4;i++)
     {
@@ -145,12 +148,25 @@ int L1_search(main_memory* main_memory_object,L1_cache* L1_cache_object, int ind
             }
 
             if(write==1)
-            {
+            {   
+                //as write through, we tranfer the entry immediately to memory
+                time_taken = time_taken + L1_cache_to_from_main_memory_transfer_time;
+
                 //mark frame as modified
                 mark_frame_modified(main_memory_object,frame_number);
-            }
 
-            return 1;
+                //add time to mark the frame as modified
+                //time_taken=time_taken + 
+            }
+            else
+            {
+                //it was a read request 
+
+                time_taken = time_taken + processor_to_from_L1_cache_transfer_time;
+            }
+            
+
+            return time_taken;
         }
     }
 
@@ -174,13 +190,16 @@ If entry is absent return -1;
 
 PostConditions
 Output: 
-If entry is present return 1
+If entry is present return return time taken to process request
 If entry is absent return -1;
 */
 int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_buffer_object,int index, int tag, int offset, int frame_number, int write)
 {
     int i,j;
     int flag=0;
+
+    long int time_taken = 0;
+    time_taken=time_taken+L2_cache_search_time;
 
     for(i=0;i<16;i++)
     {
@@ -208,13 +227,18 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
                 //print_L2_buffer_cache(L2_cache_write_buffer_object);
 
                 int L2_cache_write_buffer_num_entries = L2_cache_write_buffer_object->number_of_entries;
+                total_time_taken=total_time_taken+L2_cache_write_buffer_search_time;
+
                 //first search if the current block which was modified exists in buffer cache. If it does remove it and insert the newly updated one, else, copy this block to buffer cache
                 for(j=0;j<L2_cache_write_buffer_num_entries;j++)
                 {
                     if(L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid==1 && L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].index==index && L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].tag== L2_cache_object->L2_cache_entries[index].way[i].tag)
                     {
-                        //just replace the existing block in buffer cache.
-                        return 1;
+                        //just replace the existing block in buffer cache add time taken for it
+
+                        total_time_taken = total_time_taken + L2_cache_to_L2_cache_write_buffer_transfer_time;
+                        
+                        return total_time_taken;
                     }
                 }
 
@@ -228,7 +252,12 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
                         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].tag=L2_cache_object->L2_cache_entries[index].way[i].tag;
                         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].corresponding_frame_number=frame_number;
 
-                        return 1;
+                        //just replace this block in buffer cache add time taken for it
+
+                        total_time_taken = total_time_taken + L2_cache_to_L2_cache_write_buffer_transfer_time;
+                        
+                        return total_time_taken;
+
                     }
                 }
 
@@ -236,6 +265,9 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
 
                 for(j=0;j<L2_cache_write_buffer_num_entries;j++)
                 {
+                    //add time taken to write each buffer cache block to the main memory
+                    time_taken = time_taken + L2_cache_write_buffer_to_main_memory_transfer_time;
+
                     //need to mark this frame as dirty
                     mark_frame_modified(main_memory_object,L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].corresponding_frame_number);
                     
@@ -252,13 +284,24 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
                         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].tag=L2_cache_object->L2_cache_entries[index].way[i].tag;
                         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].corresponding_frame_number=frame_number;
 
-                        return 1;
+                        //just replace this block in buffer cache add time taken for it
+
+                        total_time_taken = total_time_taken + L2_cache_to_L2_cache_write_buffer_transfer_time;
+                        
+                        return total_time_taken;
+
                     }
                 }
 
 
-            }  
-            return 1;
+            }
+            else
+            {
+                //it was a read request
+                time_taken = time_taken + processor_to_from_L2_cache_transfer_time;
+            }
+            
+            return total_time_taken;
         }
     }
 
@@ -281,7 +324,11 @@ The LFU way in the given index is replaced and its counter is set to 0
 */
 void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int offset)
 {
-    print_L2_cache(L2_cache_object);
+    //L2 cache entry is replaced by the one transfered from L1 cache, hence add the transfer time and search time in L2 cache to total time
+
+    total_time_taken = total_time_taken + L1_cache_to_from_L2_cache_transfer_time + L2_cache_search_time;
+
+    //print_L2_cache(L2_cache_object);
 
     int way_to_replace=-1;
     int i;
@@ -338,6 +385,9 @@ The LRU way in the given index is replaced.
 */
 void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object, int index, int tag, int offset)
 {
+    //add time taken to get this block from main memory and the time taken to search which tag to put it in
+    total_time_taken = total_time_taken + L1_cache_to_from_main_memory_transfer_time + L1_cache_search_time;
+
     int way_to_replace=-1;
     int i;
 
@@ -383,7 +433,7 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
         }
     }
 
-    //as this is exclusive cache, we must send this entry into L2 cache
+    //as this is exclusive cache, we must send this entry into L2 cache add the time taken to transfer this entry to L2 cache
 
     fprintf(output_fd,"Replacing in L2 cache, Index: %d | Tag: %d\n ",index,L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag);
 

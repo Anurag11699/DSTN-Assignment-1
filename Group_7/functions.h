@@ -9,6 +9,8 @@
 #include "configuration_file.h"
 
 //macros
+#define max(x,y) ((x>y)?x:y)
+
 #define set_MSB_bit_8(LRU_counter) ((LRU_counter)|0x80)
 
 #define get_frame_offset 0x3ff
@@ -36,7 +38,7 @@
 
 //global variables
 FILE* output_fd;
-long int total_time_taken;
+long long int total_time_taken;
 
 
 

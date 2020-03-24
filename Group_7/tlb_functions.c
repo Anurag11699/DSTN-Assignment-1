@@ -91,7 +91,10 @@ PostConditions
 Updated TLB objects if transfer took place
 */
 void L2_to_L1_tlb_transfer(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number)
-{
+{   
+    //add time take for this transfer
+    total_time_taken=total_time_taken+L1_tlb_to_from_L2_tlb_transfer_time;
+
     int number_of_entries_L1 = L1_tlb->number_of_entries;
     int number_of_entires_L2 = L2_tlb->number_of_entries;
     tlb_entry entry_to_be_transfered;
@@ -149,20 +152,29 @@ Physical Frame Number, if entry exists in L1 tlb or L2 tlb
 */
 int complete_tlb_search(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number)
 {
-    //int number_of_entries_L1 = L1_tlb->number_of_entries;
-    //int number_of_entires_L2 = L2_tlb->number_of_entries;
+    //search in L1 tlb
     int physical_frame_number = tlb_search(L1_tlb,logical_page_number);
+    //add L1_tlb search time
+    total_time_taken = total_time_taken + L1_tlb_search_time;
 
     if(physical_frame_number!=-1)
     {
         return physical_frame_number;
     }
 
+    //add L1_tlb miss overhead
+    total_time_taken = total_time_taken + L1_tlb_miss_OS_overhead;
+
+    //search in L2 tlb
     physical_frame_number = tlb_search(L2_tlb,logical_page_number);
+    //add L2 tlb search time
+    total_time_taken = total_time_taken + L2_tlb_search_time;
 
     if(physical_frame_number!=-1)
-    {
+    {   
+        //entry was found in L2 tlb. As tlb's are inclusive, transfer the entry to L1 tlb. Time for this added in the function itself
         L2_to_L1_tlb_transfer(L1_tlb,L2_tlb,logical_page_number);
+        
         //physical_frame_number=tlb_search(L1_tlb,logical_page_number);
         return physical_frame_number;
     }
