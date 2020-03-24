@@ -27,10 +27,13 @@ int main()
 {
    output_fd=fopen("OUTPUT.txt","w"); 
    int max_number_of_processes=5;
-   
+   int j;
    //initialize total time taken as 0
    total_time_taken=0;
-   int j;
+   number_of_L1_tlb_searches=0;
+   number_of_L2_tlb_searches=0;
+   
+   
    kernel* kernel_object = initialize_kernel(max_number_of_processes);
    main_memory* main_memory_32MB = initialize_main_memory(32,1); 
    

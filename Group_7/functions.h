@@ -36,10 +36,19 @@
 
 #define get_logical_page_number(x) (x>>10)
 
+#define right_shift_L1_tlb_counter 64
+
+#define right_shift_L2_tlb_counter 64
+
+#define right_shift_L2_cache_counter 64
+
 //global variables
 FILE* output_fd;
 long long int total_time_taken;
 
+//used to keep track of when to shift their respective counters
+int number_of_L1_tlb_searches;
+int number_of_L2_tlb_searches;
 
 
 //kernel functions

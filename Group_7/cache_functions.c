@@ -201,6 +201,7 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
     long int time_taken = 0;
     time_taken=time_taken+L2_cache_search_time;
 
+
     for(i=0;i<16;i++)
     {
         if(L2_cache_object->L2_cache_entries[index].way[i].valid==1 && L2_cache_object->L2_cache_entries[index].way[i].tag==tag)
