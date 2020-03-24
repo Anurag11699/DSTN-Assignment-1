@@ -132,6 +132,7 @@ int main()
          if(number_of_processes_ready==0)
          {
             fprintf(stderr,"Simulation Over\n");
+            fclose(output_fd);
             return 0;
          }
 
