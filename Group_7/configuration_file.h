@@ -5,13 +5,21 @@
 
 #define L1_tlb_search_time
 #define L2_tlb_search_time
-#define L2_tlb_to_L1_tlb_transfer_time
+#define L1_tlb_miss_OS_overhead
+#define L2_tlb_miss_OS_overhead
+#define processor_to_from_L1_tlb_transfer_time
+#define processor_to_from_L2_tlb_transfer_time
+#define L1_tlb_to_from_L2_tlb_transfer_time
 #define L1_cache_search_time
 #define L2_cache_search_time
+#define processor_to_from_L1_cache_transfer_time
+#define processor_to_from_L2_cache_transfer_time
 #define L1_cache_to_from_L2_cache_transfer_time
-
-#define memory_access_time
-
-
+#define L1_cache_to_from_main_memory_transfer_time
+#define L1_cache_to_from_main_memory_transfer_time
+#define main_memory_access_time
+#define main_memory_to_disk_transfer_time
+#define main_memory_from_disk_transfer_time
+#define restart_overhead_time
 
 #endif /*CONFIGURATION_FILE_H*/
