@@ -5,6 +5,7 @@ typedef struct pcb
 {   
     unsigned int pid;
     int outer_page_base_address:15;
+    int outer_page_base_address_initialized_before:1;
     FILE* fd;
     int state;
 }pcb;

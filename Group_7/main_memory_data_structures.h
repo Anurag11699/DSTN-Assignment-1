@@ -6,11 +6,9 @@ typedef struct page_table_entry
     //each page table entry is 4 bytes
     
     int frame_base_address:15; //pointer to next page table or the actual frame if it is the last level
+    int initialized_before:1;
     unsigned int global_page:1;
     unsigned int modified:1;
-    unsigned int referenced:1;
-    unsigned int cache_disabled:1;
-    unsigned int write:1;
     unsigned int valid:1;
     
 }page_table_entry;
