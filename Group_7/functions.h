@@ -108,7 +108,7 @@ extern tlb* initialize_tlb(int);
 extern void tlb_flush(tlb*);
 extern int tlb_search(tlb*, int);
 extern void L2_to_L1_tlb_transfer(tlb*, tlb*, int);
-extern int complete_tlb_search(tlb*, tlb*, int);
+extern int complete_tlb_search(tlb*, tlb*, int, int*);
 extern void insert_new_tlb_entry(tlb*, int, int);
 
 //tlb printing functions

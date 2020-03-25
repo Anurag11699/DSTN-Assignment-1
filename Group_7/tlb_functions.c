@@ -190,46 +190,51 @@ void L2_to_L1_tlb_transfer(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number)
 
 /*
 PreConditions
-Inputs:{pointer to L1 tlb object, pointer to L2 object, logical page number to search for}
+Inputs:{pointer to L1 tlb object, pointer to L2 object, logical page number to search for, pointer to store the physical frame number}
 0<=logical page number<2^22
 
 Purpose of the Function: This function searches in L1 tlb, if the entry corresponding to the logical page number exists in L1 tlb, returns the physical frame number in the entry. If not found in L1 tlb, L2 tlb is searched. If found in L2 tlb, a copy of that entry is transfered to L1 tlb (using L2_to_L1_tlb_transfer function) and physical frame number in the entry returned. If the entry was not found in any tlb, -1 is returned.
 
 PostConditions
 Return Value:
-Physical Frame Number, if entry exists in L1 tlb or L2 tlb
--1, if entry does not exist
+time taken to search for the entry
 */
-int complete_tlb_search(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number)
+int complete_tlb_search(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number, int *physical_frame_number)
 {
+    long int time_taken=0;
     //search in L1 tlb
-    int physical_frame_number = L1_tlb_search(L1_tlb,logical_page_number);
+    (*physical_frame_number) = L1_tlb_search(L1_tlb,logical_page_number);
     //add L1_tlb search time
-    total_time_taken = total_time_taken + L1_tlb_search_time;
+    time_taken = time_taken + L1_tlb_search_time;
 
-    if(physical_frame_number!=-1)
+    if((*physical_frame_number)!=-1)
     {
-        return physical_frame_number;
+        return time_taken;
     }
 
     //add L1_tlb miss overhead
     total_time_taken = total_time_taken + L1_tlb_miss_OS_overhead;
 
     //search in L2 tlb
-    physical_frame_number = L2_tlb_search(L2_tlb,logical_page_number);
+    (*physical_frame_number) = L2_tlb_search(L2_tlb,logical_page_number);
     //add L2 tlb search time
-    total_time_taken = total_time_taken + L2_tlb_search_time;
+    time_taken = time_taken + L2_tlb_search_time;
 
-    if(physical_frame_number!=-1)
+    if((*physical_frame_number)!=-1)
     {   
         //entry was found in L2 tlb. As tlb's are inclusive, transfer the entry to L1 tlb. Time for this added in the function itself
         L2_to_L1_tlb_transfer(L1_tlb,L2_tlb,logical_page_number);
 
         //physical_frame_number=tlb_search(L1_tlb,logical_page_number);
-        return physical_frame_number;
+
+        return time_taken;
+        
     }
 
-    return -1;
+    //L2 tlb miss
+    time_taken = time_taken + L2_tlb_miss_OS_overhead;
+    
+    return time_taken;
 }
 
 

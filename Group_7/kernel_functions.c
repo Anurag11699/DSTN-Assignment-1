@@ -210,7 +210,8 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     int logical_page_number = get_logical_page_number(virtual_address); //as page size is 10bits, hence 10bit offset
 
     //TLB SEARCH
-    int physical_frame_number = complete_tlb_search(L1_tlb,L2_tlb,logical_page_number);
+    int physical_frame_number=-1;
+    int time_taken_for_tlb_lookup = complete_tlb_search(L1_tlb,L2_tlb,logical_page_number,&physical_frame_number);
 
     //tlb hit, get direct physical frame number
     unsigned int physical_address;
@@ -266,6 +267,10 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
             total_time_taken = total_time_taken + L1_cache_hit;
 
+            //add time taken for tlb and cache index search. add only max of them as they were done in parallel (virtually tagged, physically indexed)
+
+            total_time_taken = total_time_taken + max(time_taken_for_tlb_lookup, L1_cache_indexing_time);
+
             fprintf(output_fd,"L1 Cache HIT\n");
             return; 
         }
@@ -273,7 +278,9 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         {
             //add the time taken by L2 cache to process request 
 
-            total_time_taken = total_time_taken + L2_cache_hit;
+            total_time_taken = total_time_taken + L2_cache_hit + time_taken_for_tlb_lookup;
+            
+
 
             //need to enter this entry into the L1 cache for performance improvement
             if(request_type==0)
@@ -294,7 +301,9 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         // add time to search in the caches. take max of the two times as we search lookaside
 
-        //total_time_taken = total_time_taken + max(L1_cache_search_time, L2_cache_search_time);
+        //time taken to search in L1 cache is max(L1 indexing time,Tlb lookup time)+L1 tag comparison time
+        //time taken to search in L2 cache is L2 cache search time
+        total_time_taken = total_time_taken +max((max(time_taken_for_tlb_lookup,L1_cache_indexing_time)+L1_cache_tag_comparison_time), L2_cache_search_time);
 
         //entry was not found in any cache. we must get the block from main memory and insert it into L1 cache
 
@@ -324,6 +333,10 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     }    
     else
     {
+
+        //add time taken for tlb search
+        total_time_taken = total_time_taken + time_taken_for_tlb_lookup;
+
         //initiatie page walk to get the physical frame number
         //recevie a physical frame number upon page walk and service page faults in that process
         int physical_frame_number_received_from_page_walk = page_table_walk(kernel_object,main_memory_32MB,pid,virtual_address);
