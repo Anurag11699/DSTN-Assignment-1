@@ -227,12 +227,29 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object, int is_page
     total_time_taken=total_time_taken+page_fault_overhead_time+restart_overhead_time;
 
     //we are getting frame for a page table
-    if(is_page_table==0)
+    if(is_page_table==1)
     {
-        //as it is a in memory DS 
+        //as it is an in memory DS 
         if(brought_in_before==0)
         {
-
+            total_time_taken=total_time_taken; //we initialize the page table, dont swap it
+        }
+        else if(brought_in_before==1)
+        {
+            total_time_taken=total_time_taken+swap_space_to_main_memory_transfer_time; //swap in the page
+        }
+    }
+    else if(is_page_table==0)
+    {
+        //we get the page for the first time from the disk
+        if(brought_in_before==0)
+        {
+            total_time_taken=total_time_taken + disk_to_main_memory_transfer_time;
+        }
+        //we get the page from the swap space
+        else if(brought_in_before==1)
+        {
+            total_time_taken=total_time_taken+swap_space_to_main_memory_transfer_time; //swap in the page
         }
     }
 
@@ -262,6 +279,14 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object, int is_page
     //invalidate the page table entry for the pid and logical page we just got
 
     invalidate_page_table_entry(kernel_object,main_memory_object,current_pid_of_frame,current_logical_page_of_frame);
+
+    //if the frame that we got was modified, it must be swapped out
+    if(main_memory_object->frame_table[frame_number].modified==1)
+    {
+        total_time_taken=total_time_taken+main_memory_to_swap_space_transer_time;
+        main_memory_object->frame_table[frame_number].modified=0;
+    }
+    
    
     //add to used frame list
     add_used_frame(main_memory_object,frame_number);
