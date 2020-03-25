@@ -27,6 +27,8 @@
 
 #define get_L2_cache_tag(physical_address,L2_cache_index_size,L2_cache_block_size) (physical_address>>(L2_cache_index_size+L2_cache_block_size))
 
+#define get_physical_address_from_L1_cache(tag,index,offset) ((tag<<10)+(index<<5)+offset)
+
 
 #define get_outer_page_table_offset(x) (x>>26)
 

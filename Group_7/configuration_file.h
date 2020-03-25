@@ -12,7 +12,8 @@
 #define processor_to_from_L1_tlb_transfer_time 1
 #define processor_to_from_L2_tlb_transfer_time 1
 #define L1_tlb_to_from_L2_tlb_transfer_time 1
-#define L1_cache_search_time 1 
+#define L1_cache_indexing_time 1
+#define L1_cache_tag_comparison_time 1 
 #define L2_cache_search_time 1
 #define processor_to_from_L1_cache_transfer_time 1
 #define processor_to_from_L2_cache_transfer_time 1 
@@ -23,8 +24,11 @@
 #define L2_cache_to_L2_cache_write_buffer_transfer_time 1
 #define L2_cache_write_buffer_to_main_memory_transfer_time 1
 #define main_memory_access_time 1
+#define update_bit_in_main_memory_time 1
+#define update_page_table_time 1
 #define main_memory_to_disk_transfer_time 1
 #define main_memory_from_disk_transfer_time 1
+#define page_fault_overhead_time 1
 #define restart_overhead_time 1
 #define context_switch_time 1
 

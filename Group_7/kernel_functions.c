@@ -275,20 +275,35 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
             total_time_taken = total_time_taken + L2_cache_hit;
 
+            //need to enter this entry into the L1 cache for performance improvement
+            if(request_type==0)
+            {
+                replace_L1_cache_entry(L1_instruction_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,L1_cache_tag);
+            }
+            else if(request_type==1)
+            {
+                replace_L1_cache_entry(L1_data_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,L1_cache_tag);
+            }
+
+            //add time taken to transfer this entry to L1 cache to be replaced
+            total_time_taken = total_time_taken + L1_cache_to_from_L2_cache_transfer_time;
+
             fprintf(output_fd,"L2 Cache HIT\n");
             return;
         }
 
         // add time to search in the caches. take max of the two times as we search lookaside
 
-        total_time_taken = total_time_taken + max(L1_cache_search_time, L2_cache_search_time);
+        //total_time_taken = total_time_taken + max(L1_cache_search_time, L2_cache_search_time);
 
         //entry was not found in any cache. we must get the block from main memory and insert it into L1 cache
 
         
 
         
-        //now, insert this new entry into L1 cache. time taken for this is added in the function itself
+        //now, insert this new entry into L1 cache. add time taken to transfer this entry from main memory to L1 cache
+        total_time_taken = total_time_taken + L1_cache_to_from_main_memory_transfer_time;
+
         fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
         if(request_type==0)
         {
@@ -314,7 +329,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         int physical_frame_number_received_from_page_walk = page_table_walk(kernel_object,main_memory_32MB,pid,virtual_address);
         physical_address=get_physical_address(physical_frame_number,virtual_address);
 
-        
+
 
         //insert this new mapping of logical page number to physical frame number into the L2 and L1 TLB and restart the instruction
         

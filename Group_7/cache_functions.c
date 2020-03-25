@@ -129,7 +129,7 @@ int L1_search(main_memory* main_memory_object,L1_cache* L1_cache_object, int ind
     int i,j;
 
     long int time_taken = 0;
-    time_taken=time_taken+L1_cache_search_time;
+    time_taken=time_taken+L1_cache_tag_comparison_time;
 
     for(i=0;i<4;i++)
     {
@@ -386,8 +386,8 @@ The LRU way in the given index is replaced.
 */
 void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object, int index, int tag, int offset)
 {
-    //add time taken to get this block from main memory and the time taken to search which tag to put it in
-    total_time_taken = total_time_taken + L1_cache_to_from_main_memory_transfer_time + L1_cache_search_time;
+    //add the time taken to search which tag to put it in
+    total_time_taken = total_time_taken  + (L1_cache_indexing_time+L1_cache_tag_comparison_time);
 
     int way_to_replace=-1;
     int i;
@@ -436,9 +436,15 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
 
     //as this is exclusive cache, we must send this entry into L2 cache add the time taken to transfer this entry to L2 cache
 
+
+    int physical_address = get_physical_address_from_L1_cache(L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag,index,offset);
+
+    int L2_cache_needed_index_to_replace = get_L2_cache_block_index(physical_address,5);
+    int L2_cache_needed_tag_to_replace = get_L2_cache_tag(physical_address,6,5);
+
     fprintf(output_fd,"Replacing in L2 cache, Index: %d | Tag: %d\n ",index,L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag);
 
-    replace_L2_cache_entry(L2_cache_object, index, L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag,offset);
+    replace_L2_cache_entry(L2_cache_object, L2_cache_needed_index_to_replace,  L2_cache_needed_tag_to_replace,offset);
 
 
     L1_cache_object->L1_cache_entries[index].way[i].valid=1;
