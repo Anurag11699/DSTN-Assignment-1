@@ -259,7 +259,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         //if L1 cache or L2 cache was hit all good, otherwise need to request transfer of that block from main memory
 
-        fprintf(output_fd,"Print L1 instruction cache\n");    
+        //fprintf(output_fd,"Print L1 instruction cache\n");    
         //print_L1_cache(L1_instruction_cache_4KB);
 
         // as was lookaside, we only add the times taken by one of them, not both   
@@ -309,9 +309,9 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         //entry was not found in any cache. we must get the block from main memory and insert it into L1 cache
 
-        
+        fprintf(output_fd,"CACHE MISS\n");
 
-        
+        fprintf(output_fd,"Getting data from MM\n");
         //now, insert this new entry into L1 cache. add time taken to transfer this entry from main memory to L1 cache
         total_time_taken = total_time_taken + L1_cache_to_from_main_memory_transfer_time;
 
@@ -329,12 +329,28 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         //fprintf(output_fd,"Print L1 instruction cache after Replacing\n");    
         //print_L1_cache(L1_instruction_cache_4KB);
+
+
+        if(request_type==0)
+        {
+            L1_cache_hit = L1_search(main_memory_32MB,L1_instruction_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,physical_frame_number,write); //as it is an instruction will be read only, write field will be 0
+        }
+        else
+        {
+            L1_cache_hit = L1_search(main_memory_32MB,L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,physical_frame_number,write); 
+        }
+
+        if(L1_cache_hit!=-1)
+        {
+            fprintf(output_fd,"L1 Cache HIT\n");
+        }
         
         
         
     }    
     else
     {
+        fprintf(output_fd,"TLB MISS\n");
 
         //add time taken for tlb search
         total_time_taken = total_time_taken + time_taken_for_tlb_lookup;

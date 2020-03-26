@@ -159,8 +159,8 @@ int main()
          if(number_of_processes_ready==0)
          {
             fprintf(stderr,"Simulation Over\n");
-            fclose(output_fd);
-            return 0;
+            
+            break;
          }
 
          newpid=pid_array[executing_pid_index];
@@ -186,7 +186,9 @@ int main()
       number_of_requests_processed++;
    }
    
-      
+   fprintf(output_fd,"\n\nTotal Time Taken: %Lf ns\nNumber of Requests Processed: %ld\nEMAT: %Lf ns\n",total_time_taken,number_of_requests_processed,total_time_taken/number_of_requests_processed);
+
+   fprintf(stderr,"\n\nTotal Time Taken: %Lf\nNumber of Requests Processed: %ld\nEMAT: %Lf ns\n",total_time_taken,number_of_requests_processed,total_time_taken/number_of_requests_processed);
 
    fclose(output_fd);
    

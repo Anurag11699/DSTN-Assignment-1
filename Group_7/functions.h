@@ -44,13 +44,18 @@
 
 #define right_shift_L2_cache_counter 64
 
+
 //global variables
 FILE* output_fd;
-long long int total_time_taken;
+long double total_time_taken;
 
 //used to keep track of when to shift their respective counters
 int number_of_L1_tlb_searches;
 int number_of_L2_tlb_searches;
+
+//lower and upper bound for number of pages a process can hold (as Global Replacement)
+int number_of_pages_per_process_lower_bound;
+int number_of_pages_per_process_upper_bound;
 
 
 //kernel functions

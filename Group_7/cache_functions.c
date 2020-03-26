@@ -329,7 +329,7 @@ void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int o
 
     total_time_taken = total_time_taken + L1_cache_to_from_L2_cache_transfer_time + L2_cache_search_time;
 
-    //print_L2_cache(L2_cache_object);
+    print_L2_cache(L2_cache_object);
 
     int way_to_replace=-1;
     int i;
