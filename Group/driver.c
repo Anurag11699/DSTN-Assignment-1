@@ -26,8 +26,13 @@ int rand75()
 int main()
 {
    output_fd=fopen("OUTPUT.txt","w"); 
-   int max_number_of_processes=5;
+
+   FILE* input_fd = fopen("input.txt","r");
+   int max_number_of_processes;
+   fscanf(input_fd,"%d",&max_number_of_processes);
    int j;
+
+
    //initialize total time taken as 0
    total_time_taken=0;
    number_of_L1_tlb_searches=0;
@@ -49,7 +54,7 @@ int main()
    int executing_pid_index=1;
    int process_switch_instruction_count=200;
    int number_of_processes_ready=0;
-   int pid_array[5]={0};
+   int pid_array[max_number_of_processes];
 
    // while(1)
    // {
@@ -69,33 +74,52 @@ int main()
    
 //   return 0;
 
-
-   //loading all proccesses
-   load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,0,"APSI.txt");
-   fseek(kernel_object->pcb_array[0].fd,0,SEEK_SET);
-   pid_array[0]=0;
-   number_of_processes_ready++;
-
-   load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,1,"CC1.txt");
-   fseek(kernel_object->pcb_array[1].fd,0,SEEK_SET);
-   pid_array[1]=1;
-   number_of_processes_ready++;
+   char filename[100]={0};
+   char x;
 
 
-   load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,2,"LI.txt");
-   fseek(kernel_object->pcb_array[2].fd,0,SEEK_SET);
-   pid_array[2]=2;
-   number_of_processes_ready++;
+   //load all the new processes
+   for(j=0;j<max_number_of_processes;j++)
+   {  
+      fscanf(input_fd,"%c",&x);
+      fscanf(input_fd,"%[^\n]",filename);
+      printf("Data from the file: %s\n", filename);
 
-   load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,3,"M88KSIM.txt");
-   fseek(kernel_object->pcb_array[3].fd,0,SEEK_SET);
-   pid_array[3]=3;
-   number_of_processes_ready++;
+      load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,j,filename);
+      fseek(kernel_object->pcb_array[j].fd,j,SEEK_SET);
+      pid_array[j]=j;
+      number_of_processes_ready++;
 
-   load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,4,"VORTEX.txt");
-   fseek(kernel_object->pcb_array[4].fd,0,SEEK_SET);
-   pid_array[4]=4;
-   number_of_processes_ready++;
+   }
+   fclose(input_fd);
+ 
+
+   // //loading all proccesses
+   // load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,0,"APSI.txt");
+   // fseek(kernel_object->pcb_array[0].fd,0,SEEK_SET);
+   // pid_array[0]=0;
+   // number_of_processes_ready++;
+
+   // load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,1,"CC1.txt");
+   // fseek(kernel_object->pcb_array[1].fd,0,SEEK_SET);
+   // pid_array[1]=1;
+   // number_of_processes_ready++;
+
+
+   // load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,2,"LI.txt");
+   // fseek(kernel_object->pcb_array[2].fd,0,SEEK_SET);
+   // pid_array[2]=2;
+   // number_of_processes_ready++;
+
+   // load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,3,"M88KSIM.txt");
+   // fseek(kernel_object->pcb_array[3].fd,0,SEEK_SET);
+   // pid_array[3]=3;
+   // number_of_processes_ready++;
+
+   // load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,4,"VORTEX.txt");
+   // fseek(kernel_object->pcb_array[4].fd,0,SEEK_SET);
+   // pid_array[4]=4;
+   // number_of_processes_ready++;
 
    int is_eof;
    int read_write;
@@ -165,6 +189,7 @@ int main()
       
 
    fclose(output_fd);
+   
 
 }
 
