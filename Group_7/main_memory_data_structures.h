@@ -1,24 +1,31 @@
 #ifndef MAIN_MEMORY_DATA_STRUCTURES_H
 #define MAIN_MEMORY_DATA_STRUCTURES_H
 
-typedef struct page_table_entry
+struct page_table_entry;
+typedef struct page_table_entry page_table_entry;
+
+struct page_table;
+typedef struct page_table page_table;
+
+struct page_table_entry
 {
-    //each page table entry is 4 bytes
+    //assume each page table entry is 4 bytes
     
-    int frame_base_address:15; //pointer to next page table or the actual frame if it is the last level
+    page_table* pointer_to_page_table;
+    int frame_base_address:15; //frame which is occupied by the page table pointed to by this entry
     int initialized_before:1;
     unsigned int global_page:1;
     unsigned int modified:1;
     unsigned int valid:1;
-    
-}page_table_entry;
+};
 
-typedef struct page_table
+struct page_table
 {
     int frame_occupied:15;
+
     //each page table will have 2^8 page table entries
     page_table_entry* page_table_entries;
-}page_table;
+};
 
 typedef struct frame_table_entry
 {
@@ -26,7 +33,7 @@ typedef struct frame_table_entry
     int page_number:22;
     int pid;
     unsigned int modified:1;
-    page_table* pointer_to_stored_page_table; //if the frame is a page table, then this is the pointer to that page table
+    //page_table* pointer_to_stored_page_table; //if the frame is a page table, then this is the pointer to that page table
 
 }frame_table_entry;
 

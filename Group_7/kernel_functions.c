@@ -30,6 +30,7 @@ kernel* initialize_kernel(int max_number_of_processes)
         kernel_object->pcb_array[i].fd=NULL;
         kernel_object->pcb_array[i].outer_page_base_address=-1;
         kernel_object->pcb_array[i].outer_page_base_address_initialized_before=0;
+        kernel_object->pcb_array[i].outer_page_table=NULL;
     }
     return kernel_object;
 }
@@ -187,7 +188,7 @@ Updated all memory levels accordingly
 void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int pid,unsigned int virtual_address, int write)
 {
     fprintf(output_fd,"\n\nExecuting Process Request for PID: %d | Logical Address: %x or %d\n",pid,virtual_address,virtual_address);
-
+    fflush(output_fd);
     //request type = 0 if read, request type = 1 if write
     int request_type=get_request_type(virtual_address);
     fprintf(output_fd,"Request Type %d\n",request_type);

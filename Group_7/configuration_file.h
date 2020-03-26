@@ -27,7 +27,7 @@
 #define update_bit_in_main_memory_time 1
 #define update_page_table_time 1
 #define main_memory_to_disk_transfer_time 1
-#define disk_transfer_to_main_memory_transfer_time 1
+#define disk_to_main_memory_transfer_time 1
 #define main_memory_to_swap_space_transer_time 1
 #define swap_space_to_main_memory_transfer_time 1
 #define page_fault_overhead_time 1
