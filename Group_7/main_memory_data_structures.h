@@ -17,6 +17,7 @@ struct page_table_entry
     unsigned int global_page:1;
     unsigned int modified:1;
     unsigned int valid:1;
+    int swapped_out_before:1;
 };
 
 struct page_table

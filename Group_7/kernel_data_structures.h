@@ -9,6 +9,7 @@ typedef struct pcb
     int outer_page_base_address_initialized_before:1;
     FILE* fd;
     int state;
+    unsigned int number_of_frames_used;
 }pcb;
 
 typedef struct kernel

@@ -40,7 +40,7 @@ int main()
    
    
    kernel* kernel_object = initialize_kernel(max_number_of_processes);
-   main_memory* main_memory_32MB = initialize_main_memory(0.1,1); 
+   main_memory* main_memory_32MB = initialize_main_memory(0.05,1); 
    
    tlb* L1_tlb = initialize_tlb(12);
    tlb *L2_tlb = initialize_tlb(24);
@@ -48,6 +48,12 @@ int main()
    L1_cache* L1_data_cache_4KB = initialize_L1_cache();
    L2_cache* L2_cache_32KB = initialize_L2_cache();
    L2_cache_write_buffer* L2_cache_write_buffer_8 = initialize_L2_cache_write_buffer(8);
+
+   //each process should ideally have these many frames
+   number_of_frames_per_process_average = total_number_of_frames/max_number_of_processes;
+
+   number_of_frames_per_process_lower_bound = number_of_frames_per_process_average/2;
+   number_of_frames_per_process_upper_bound = number_of_frames_per_process_average+number_of_frames_per_process_lower_bound;
 
    long int number_of_requests_processed=0;
    unsigned int process_request;

@@ -54,9 +54,10 @@ int number_of_L1_tlb_searches;
 int number_of_L2_tlb_searches;
 
 //lower and upper bound for number of pages a process can hold (as Global Replacement)
-int number_of_pages_per_process_lower_bound;
-int number_of_pages_per_process_upper_bound;
-
+int number_of_frames_per_process_lower_bound;
+int number_of_frames_per_process_upper_bound;
+int number_of_frames_per_process_average;
+int total_number_of_frames;
 
 //kernel functions
 extern kernel* initialize_kernel(int);
@@ -72,10 +73,10 @@ extern main_memory* initialize_main_memory(float, float);
 extern void add_free_frame(main_memory*, int);
 extern int remove_free_frame(main_memory *);
 extern void add_used_frame(main_memory*, int);
-extern int remove_used_frame(main_memory*);
+extern int remove_used_frame(kernel*,main_memory*);
 extern void transfer_to_free_frame_list(main_memory*, int);
 extern void set_reference_bit(main_memory*,int);
-extern int get_frame(kernel*,main_memory*,int,int);
+extern int get_frame(kernel*,main_memory*,int,int,int);
 extern void update_frame_table_entry(main_memory*,int,int,int);
 extern int get_pid_of_frame(main_memory*,int);
 extern int get_page_number_of_frame(main_memory*, int);

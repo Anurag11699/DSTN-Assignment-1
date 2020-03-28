@@ -156,7 +156,7 @@ int L1_search(main_memory* main_memory_object,L1_cache* L1_cache_object, int ind
                 mark_frame_modified(main_memory_object,frame_number);
 
                 //add time to mark the frame as modified
-                //time_taken=time_taken + 
+                time_taken=time_taken + update_bit_in_main_memory_time;
             }
             else
             {
@@ -271,6 +271,9 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
 
                     //need to mark this frame as dirty
                     mark_frame_modified(main_memory_object,L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].corresponding_frame_number);
+
+                    //add time to mark the frame as modified
+                    time_taken=time_taken + update_bit_in_main_memory_time;
                     
                     L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid=0;
                     
