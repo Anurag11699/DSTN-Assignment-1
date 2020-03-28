@@ -296,15 +296,15 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
 
         fprintf(output_fd,"Upper Bound: %d | Number of PID %d Frames: %d| Average Frames: %d\n",number_of_frames_per_process_upper_bound,pid,kernel_object->pcb_array[pid].number_of_frames_used, number_of_frames_per_process_average);
 
-        print_ffl(main_memory_object);
-        print_ufl(main_memory_object);
+        //print_ffl(main_memory_object);
+        //print_ufl(main_memory_object);
 
         free_process_frames(kernel_object,main_memory_object,pid,number_of_frames_to_remove_from_process);
 
-        fprintf(output_fd,"Upper Bound: %d | Number of PID %d Frames: %d| Average Frames: %d\n",number_of_frames_per_process_upper_bound,pid,kernel_object->pcb_array[pid].number_of_frames_used, number_of_frames_per_process_average);
+        //fprintf(output_fd,"Upper Bound: %d | Number of PID %d Frames: %d| Average Frames: %d\n",number_of_frames_per_process_upper_bound,pid,kernel_object->pcb_array[pid].number_of_frames_used, number_of_frames_per_process_average);
 
-        print_ffl(main_memory_object);
-        print_ufl(main_memory_object);
+        //print_ffl(main_memory_object);
+        //print_ufl(main_memory_object);
 
         //fprintf(stderr,"HI\n");
         //sleep(1);

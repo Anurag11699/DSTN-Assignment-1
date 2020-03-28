@@ -35,6 +35,14 @@ int main()
 
    //initialize total time taken as 0
    total_time_taken=0;
+
+   number_of_tlb_hits=0;
+   total_tlb_accesses=0;
+   number_of_L1_cache_hits=0;
+   total_L1_cache_accesses=0;
+   number_of_L2_cache_hits=0;
+   total_L2_cache_accesses=0;
+
    number_of_L1_tlb_searches=0;
    number_of_L2_tlb_searches=0;
    
@@ -100,33 +108,6 @@ int main()
    fclose(input_fd);
  
 
-   // //loading all proccesses
-   // load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,0,"APSI.txt");
-   // fseek(kernel_object->pcb_array[0].fd,0,SEEK_SET);
-   // pid_array[0]=0;
-   // number_of_processes_ready++;
-
-   // load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,1,"CC1.txt");
-   // fseek(kernel_object->pcb_array[1].fd,0,SEEK_SET);
-   // pid_array[1]=1;
-   // number_of_processes_ready++;
-
-
-   // load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,2,"LI.txt");
-   // fseek(kernel_object->pcb_array[2].fd,0,SEEK_SET);
-   // pid_array[2]=2;
-   // number_of_processes_ready++;
-
-   // load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,3,"M88KSIM.txt");
-   // fseek(kernel_object->pcb_array[3].fd,0,SEEK_SET);
-   // pid_array[3]=3;
-   // number_of_processes_ready++;
-
-   // load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,4,"VORTEX.txt");
-   // fseek(kernel_object->pcb_array[4].fd,0,SEEK_SET);
-   // pid_array[4]=4;
-   // number_of_processes_ready++;
-
    int is_eof;
    int read_write;
    
@@ -153,7 +134,7 @@ int main()
 
          //remove element of array pointed to by executing_pid_index
          fprintf(stderr,"Process %d Over\n",pid_array[executing_pid_index]);
-         sleep(1);
+         //sleep(1);
          for(j=executing_pid_index;j<number_of_processes_ready-1;j++)
          {
             pid_array[j]=pid_array[j+1];
@@ -192,10 +173,24 @@ int main()
       number_of_requests_processed++;
    }
    
+   //printing simulation results
+
    fprintf(output_fd,"\n\nTotal Time Taken: %Lf ns\nNumber of Requests Processed: %ld\nEMAT: %Lf ns\n",total_time_taken,number_of_requests_processed,total_time_taken/number_of_requests_processed);
 
    fprintf(stderr,"\n\nTotal Time Taken: %Lf\nNumber of Requests Processed: %ld\nEMAT: %Lf ns\n",total_time_taken,number_of_requests_processed,total_time_taken/number_of_requests_processed);
 
+   tlb_hit_rate=number_of_tlb_hits/total_tlb_accesses;
+   fprintf(output_fd,"TLB Hit Rate: %Lf\n",tlb_hit_rate);
+   fprintf(stderr,"TLB Hit Rate: %Lf\n",tlb_hit_rate);
+
+   L1_cache_hit_rate=number_of_L1_cache_hits/total_L1_cache_accesses;
+   fprintf(output_fd,"L1 Cache Hit Rate: %Lf\n",L1_cache_hit_rate);
+   fprintf(stderr,"L1 Cache Hit Rate: %Lf\n",L1_cache_hit_rate);
+
+   L2_cache_hit_rate=number_of_L2_cache_hits/total_L2_cache_accesses;
+   fprintf(output_fd,"L2 Cache Hit Rate: %Lf\n",L2_cache_hit_rate);
+   fprintf(stderr,"L2 Cache Hit Rate: %Lf\n",L2_cache_hit_rate);
+   
    fclose(output_fd);
    
 

@@ -410,7 +410,7 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
         L1_cache_object->L1_cache_entries[index].way[way_to_replace].valid=1;
         L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag=tag;
 
-        fprintf(output_fd,"CHECK 1: %d | 2: %d\n",tag,L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag);
+        //fprintf(output_fd,"CHECK 1: %d | 2: %d\n",tag,L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag);
         //update the LRU square matrix
         for(i=0;i<4;i++)
         {

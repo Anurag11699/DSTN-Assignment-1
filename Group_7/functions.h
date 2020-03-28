@@ -59,6 +59,17 @@ int number_of_frames_per_process_upper_bound;
 int number_of_frames_per_process_average;
 int total_number_of_frames;
 
+//variables to get hit rates
+long double number_of_tlb_hits;
+long double total_tlb_accesses;
+long double tlb_hit_rate;
+long double number_of_L1_cache_hits;
+long double total_L1_cache_accesses;
+long double L1_cache_hit_rate;
+long double number_of_L2_cache_hits;
+long double total_L2_cache_accesses;
+long double L2_cache_hit_rate;
+
 //kernel functions
 extern kernel* initialize_kernel(int);
 extern void execute_process_request(kernel*, tlb*, tlb*, L1_cache*, L1_cache*, L2_cache*, L2_cache_write_buffer* ,main_memory*,int,unsigned int,int);

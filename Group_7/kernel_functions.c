@@ -216,6 +216,8 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     int physical_frame_number=-1;
     int time_taken_for_tlb_lookup = complete_tlb_search(L1_tlb,L2_tlb,logical_page_number,&physical_frame_number);
 
+    total_tlb_accesses++;
+
     //tlb hit, get direct physical frame number
     unsigned int physical_address;
     fprintf(output_fd,"Logical Page Number: %x or %d\n",logical_page_number,logical_page_number);
@@ -227,6 +229,8 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     if(physical_frame_number!=-1)
     {
         fprintf(output_fd,"TLB HIT\n");
+        number_of_tlb_hits++;
+
         physical_address= get_physical_address(physical_frame_number,virtual_address);
 
         fprintf(output_fd,"Physical Frame Number: %d | Frame Offset: %d | Physical Address: %d\n",physical_frame_number,(virtual_address&get_frame_offset),physical_address);
@@ -237,7 +241,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         L1_cache_tag= get_L1_cache_tag(physical_address,L1_cache_index_size,cache_block_offset_size);
         L2_cache_tag= get_L2_cache_tag(physical_address,L2_cache_index_size,cache_block_offset_size);
 
-        fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
+        //fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
 
         int L1_cache_hit;
         int L2_cache_hit;
@@ -252,9 +256,16 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         {
             L1_cache_hit = L1_search(main_memory_32MB,L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,physical_frame_number,write); 
         }
+        total_L1_cache_accesses++;
 
         //searching L2 cache in parallel
         L2_cache_hit = L2_search(main_memory_32MB,L2_cache_32KB,L2_cache_write_buffer_8,L2_cache_index,L2_cache_tag,cache_block_offset,physical_frame_number,write); 
+
+        if(L1_cache_hit==-1)
+        {
+            total_L2_cache_accesses++;
+        }
+            
         
        
 
@@ -274,6 +285,8 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
             total_time_taken = total_time_taken + max(time_taken_for_tlb_lookup, L1_cache_indexing_time);
 
+            number_of_L1_cache_hits++;
+
             fprintf(output_fd,"L1 Cache HIT\n");
             return; 
         }
@@ -283,6 +296,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
             total_time_taken = total_time_taken + L2_cache_hit + time_taken_for_tlb_lookup;
             
+            number_of_L2_cache_hits++;
 
 
             //need to enter this entry into the L1 cache for performance improvement
@@ -316,7 +330,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         //now, insert this new entry into L1 cache. add time taken to transfer this entry from main memory to L1 cache
         total_time_taken = total_time_taken + L1_cache_to_from_main_memory_transfer_time;
 
-        fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
+        //fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
         if(request_type==0)
         {
             
@@ -341,9 +355,13 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
             L1_cache_hit = L1_search(main_memory_32MB,L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,physical_frame_number,write); 
         }
 
+        total_L1_cache_accesses++;
+
         if(L1_cache_hit!=-1)
         {
             fprintf(output_fd,"L1 Cache HIT\n");
+
+            number_of_L1_cache_hits++;
         }
         
         
@@ -374,6 +392,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         total_time_taken = total_time_taken + processor_to_from_L1_tlb_transfer_time;
 
         //restart this request
+        fprintf(output_fd,"Restart Instruction after doing page walk and updating TLB\n");
         execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,pid,virtual_address,write);
 
     }
