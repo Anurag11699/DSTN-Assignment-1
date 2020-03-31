@@ -7,68 +7,10 @@
 #include "tlb_data_structures.h"
 #include "kernel_data_structures.h"
 #include "configuration_file.h"
-
-//macros
-#define max(x,y) ((x>y)?x:y)
-
-#define set_MSB_bit_8(LRU_counter) ((LRU_counter)|0x80)
-
-#define get_frame_offset 0x3ff
-
-#define get_physical_address(physical_frame_number,virtual_address) (physical_frame_number<<10)+(virtual_address&get_frame_offset)
-
-#define get_cache_block_offset(virtual_address) (virtual_address&0x1f)
-
-#define get_L1_cache_block_index(virtual_address,L1_cache_block_offset_size) ((virtual_address>>L1_cache_block_offset_size)&0x1f)
-
-#define get_L2_cache_block_index(virtual_address,L2_cache_block_offset_size) ((virtual_address>>L2_cache_block_offset_size)&0x3f)
-
-#define get_L1_cache_tag(physical_address,L1_cache_index_size,L1_cache_block_size) (physical_address>>(L1_cache_index_size+L1_cache_block_size))
-
-#define get_L2_cache_tag(physical_address,L2_cache_index_size,L2_cache_block_size) (physical_address>>(L2_cache_index_size+L2_cache_block_size))
-
-#define get_physical_address_from_L1_cache(tag,index,offset) ((tag<<10)+(index<<5)+offset)
+#include "macros.h"
+#include "global_variables.h"
 
 
-#define get_outer_page_table_offset(x) (x>>26)
-
-#define get_middle_page_table_offset(x) ((x>>18)&0xff)
-
-#define get_inner_page_table_offset(x) ((x>>10)&0xff)
-
-#define get_logical_page_number(x) (x>>10)
-
-#define right_shift_L1_tlb_counter 64
-
-#define right_shift_L2_tlb_counter 64
-
-#define right_shift_L2_cache_counter 64
-
-
-//global variables
-FILE* output_fd;
-long double total_time_taken;
-
-//used to keep track of when to shift their respective counters
-int number_of_L1_tlb_searches;
-int number_of_L2_tlb_searches;
-
-//lower and upper bound for number of pages a process can hold (as Global Replacement)
-int number_of_frames_per_process_lower_bound;
-int number_of_frames_per_process_upper_bound;
-int number_of_frames_per_process_average;
-int total_number_of_frames;
-
-//variables to get hit rates
-long double number_of_tlb_hits;
-long double total_tlb_accesses;
-long double tlb_hit_rate;
-long double number_of_L1_cache_hits;
-long double total_L1_cache_accesses;
-long double L1_cache_hit_rate;
-long double number_of_L2_cache_hits;
-long double total_L2_cache_accesses;
-long double L2_cache_hit_rate;
 
 //kernel functions
 extern kernel* initialize_kernel(int);

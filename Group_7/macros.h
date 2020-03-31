@@ -1,0 +1,44 @@
+#ifndef MACROS_H
+#define MACROS_H
+
+#define max(x,y) ((x>y)?x:y)
+
+#define set_MSB_bit_8(LRU_counter) ((LRU_counter)|0x80)
+
+#define get_frame_offset 0x3ff
+
+#define get_physical_address(physical_frame_number,virtual_address) (physical_frame_number<<10)+(virtual_address&get_frame_offset)
+
+#define get_cache_block_offset(virtual_address) (virtual_address&0x1f)
+
+#define get_L1_cache_block_index(virtual_address,L1_cache_block_offset_size) ((virtual_address>>L1_cache_block_offset_size)&0x1f)
+
+#define get_L2_cache_block_index(virtual_address,L2_cache_block_offset_size) ((virtual_address>>L2_cache_block_offset_size)&0x3f)
+
+#define get_L1_cache_tag(physical_address,L1_cache_index_size,L1_cache_block_size) (physical_address>>(L1_cache_index_size+L1_cache_block_size))
+
+#define get_L2_cache_tag(physical_address,L2_cache_index_size,L2_cache_block_size) (physical_address>>(L2_cache_index_size+L2_cache_block_size))
+
+#define get_physical_address_from_L1_cache(tag,index,offset) ((tag<<10)+(index<<5)+offset)
+
+
+#define get_outer_page_table_offset(x) (x>>26)
+
+#define get_middle_page_table_offset(x) ((x>>18)&0xff)
+
+#define get_inner_page_table_offset(x) ((x>>10)&0xff)
+
+#define get_logical_page_number(x) (x>>10)
+
+#define right_shift_L1_tlb_counter 64
+
+#define right_shift_L2_tlb_counter 64
+
+#define right_shift_L2_cache_counter 64
+
+#define outputfile "OUTPUT.txt"
+
+#define inputfile "input.txt"
+
+
+#endif /*MACROS_H*/
