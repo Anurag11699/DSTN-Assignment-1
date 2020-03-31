@@ -5,6 +5,12 @@
 
 #define DATA_REQUEST 1
 
+#define TASK_TERMINATED 0
+
+#define TASK_READY 1
+
+#define TASK_EXECUTING 2
+
 #define cache_block_offset_size 5 //in number of bits (as 32 byte block)
 
 #define L1_cache_index_size 5 //in number of bits (as 32 index entries in L1 cache)

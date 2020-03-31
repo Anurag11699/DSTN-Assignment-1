@@ -394,7 +394,7 @@ page_table* initialize_page_table(int frame_number_occupied)
 {
     int i;
     page_table* page_table_object = (page_table*)malloc(sizeof(page_table));
-    page_table_object->frame_occupied=frame_number_occupied;
+    //page_table_object->frame_occupied=frame_number_occupied;
     page_table_object->page_table_entries = (page_table_entry*)malloc(sizeof(page_table_entry)*256); //there are 2^8 entries in each page table
 
     for(i=0;i<256;i++)
@@ -403,7 +403,7 @@ page_table* initialize_page_table(int frame_number_occupied)
         page_table_object->page_table_entries[i].frame_base_address=-1;
         page_table_object->page_table_entries[i].initialized_before=0;
         //page_table_object->page_table_entries[i].referenced=0;
-        page_table_object->page_table_entries[i].modified=0;
+        //page_table_object->page_table_entries[i].modified=0;
         page_table_object->page_table_entries[i].valid=0;
         page_table_object->page_table_entries[i].pointer_to_page_table=NULL;
         page_table_object->page_table_entries[i].swapped_out_before=0;
@@ -619,7 +619,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         //link it from outermost page table
         outer_page_table->page_table_entries[outer_page_table_offset].frame_base_address=middle_page_table_frame_number;
         outer_page_table->page_table_entries[outer_page_table_offset].valid=1;
-        outer_page_table->page_table_entries[outer_page_table_offset].modified=0;
+        //outer_page_table->page_table_entries[outer_page_table_offset].modified=0;
 
         //add time to trnasfer the updated page table entry from processor to main memory
         total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
@@ -673,7 +673,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         //link it from middle page table
         middle_page_table->page_table_entries[middle_page_table_offset].frame_base_address=inner_page_table_frame_number;
         middle_page_table->page_table_entries[middle_page_table_offset].valid=1;
-        middle_page_table->page_table_entries[middle_page_table_offset].modified=0;
+        //middle_page_table->page_table_entries[middle_page_table_offset].modified=0;
 
         //add time to trnasfer the updated page table entry from processor to main memory
         total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
@@ -729,7 +729,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         inner_page_table->page_table_entries[inner_page_table_offset].frame_base_address=needed_frame_number;
         inner_page_table->page_table_entries[inner_page_table_offset].pointer_to_page_table=NULL;
         inner_page_table->page_table_entries[inner_page_table_offset].valid=1;
-        inner_page_table->page_table_entries[inner_page_table_offset].modified=0;
+        //inner_page_table->page_table_entries[inner_page_table_offset].modified=0;
         inner_page_table->page_table_entries[inner_page_table_offset].initialized_before=1;
 
         //add time to trnasfer the updated page table entry from processor to main memory

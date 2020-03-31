@@ -19,8 +19,8 @@ kernel* initialize_kernel(int max_number_of_processes)
     //initialize pcb array
     kernel_object->pcb_array=(pcb *)malloc(max_number_of_processes*sizeof(pcb));
     kernel_object->number_of_processes=0;
-    kernel_object->CR3_reg=-1;
-    kernel_object->current_instruction=-1;
+    //kernel_object->CR3_reg=-1;
+    //kernel_object->current_instruction=-1;
     kernel_object->currently_running_process_pid=-1;
 
     int i;
@@ -62,9 +62,9 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int 
     // if state==0, that means that entry in pcb array is free or the process before has been terminated
    
     //indexing pcb array using pid
-    if(kernel_object->pcb_array[pid].state==0)
+    if(kernel_object->pcb_array[pid].state==TASK_TERMINATED)
     {
-        kernel_object->pcb_array[pid].state=1; //make the state ready to run
+        kernel_object->pcb_array[pid].state=TASK_READY; //make the state ready to run
         kernel_object->pcb_array[pid].pid=pid;
         kernel_object->pcb_array[pid].fd=fopen(filename,"r");
         kernel_object->number_of_processes++;
@@ -125,7 +125,7 @@ void terminate_process(kernel* kernel_object, main_memory* main_memory_object, i
     fclose(kernel_object->pcb_array[pid].fd);
 
     //set state of the process to terminated = 0
-    kernel_object->pcb_array[pid].state=0;
+    kernel_object->pcb_array[pid].state=TASK_TERMINATED;
     
 }
 
@@ -167,10 +167,10 @@ void context_switch(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, int oldpid,
     kernel_object->currently_running_process_pid=newpid;
 
     //state of the process switched out now set to ready to execute
-    kernel_object->pcb_array[oldpid].state=1;
+    kernel_object->pcb_array[oldpid].state=TASK_READY;
 
     //state of the process switched in now set to executing
-    kernel_object->pcb_array[newpid].state=2;
+    kernel_object->pcb_array[newpid].state=TASK_EXECUTING;
 
     tlb_flush(L1_tlb);
     tlb_flush(L2_tlb);
