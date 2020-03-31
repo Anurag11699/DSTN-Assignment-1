@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include "functions.h"
 
-
+/*auxillary function used to get x^y*/
 int power(int x, unsigned int y) 
 { 
     int temp; 
@@ -344,11 +344,11 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
         return frame_number;
     }
 
-    fprintf(output_fd,"REMOVING USED FRAME\n");
+    //fprintf(output_fd,"REMOVING USED FRAME\n");
 
-    print_ufl(main_memory_object);
+    //print_ufl(main_memory_object);
     frame_number = remove_used_frame(kernel_object,main_memory_object);
-    print_ufl(main_memory_object);
+    //print_ufl(main_memory_object);
 
 
     //need to update the page table of the process from which this was taken from and frame table of the OS
