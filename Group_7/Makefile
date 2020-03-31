@@ -6,7 +6,6 @@ executableName=test
 
 driver=driver
 
-#all: DSTN
 
 all: $(driver).o kernel_functions.o tlb_functions.o cache_functions.o main_memory_functions.o
 	$(CC)  $(driver).o kernel_functions.o tlb_functions.o cache_functions.o main_memory_functions.o -o $(executableName)
@@ -24,7 +23,7 @@ cache_functions.o: cache_functions.c
 	$(CC) $(flags) cache_functions.c
 
 main_memory_functions.o: main_memory_functions.c
-	$(CC) $(flags) main_memory_functions.c
+	$(CC) $(flags) main_memory_functions.c 
 
 clean:
 	rm -f *.o $(executableName) OUTPUT.txt

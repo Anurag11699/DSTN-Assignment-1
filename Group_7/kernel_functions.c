@@ -147,10 +147,10 @@ int get_request_type(int virtual_address)
     //the virtual address of instructions begins with 1 
     if(virtual_address>>28 == 0x1)
     {
-        return 0;
+        return INSTRUCTION_REQUEST;
     }
 
-    return 1;
+    return DATA_REQUEST;
 }
 
 /*
@@ -174,6 +174,9 @@ void context_switch(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, int oldpid,
 
     tlb_flush(L1_tlb);
     tlb_flush(L2_tlb);
+
+    //add context switch time
+    total_time_taken = total_time_taken + context_switch_time;
 }
 
 
@@ -190,19 +193,20 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 {
     fprintf(output_fd,"\n\nExecuting Process Request for PID: %d | Logical Address: %x or %d\n",pid,virtual_address,virtual_address);
     fflush(output_fd);
-    //request type = 0 if read, request type = 1 if write
+
+    //request type = 0 if instruction, request type = 1 if data
     int request_type=get_request_type(virtual_address);
     fprintf(output_fd,"Request Type %d\n",request_type);
+
     //we can get index and offest for L1 and L2 cache from the virtual address and use it for virtually tagged, physically offset. this is because (index + offset = page size)
 
     //last 5 bits of the virtual address as cache block size is 32bits
 
     //we get cache offset and index directly from the virtual address as offset+index = page size {virtually tagged, physically offset}
-    int cache_block_offset_size=5;
+   
     int cache_block_offset = get_cache_block_offset(virtual_address);
 
-    int L1_cache_index_size=5;
-    int L2_cache_index_size=6;
+    
     int L1_cache_index = get_L1_cache_block_index(virtual_address,cache_block_offset_size);
     int L2_cache_index = get_L2_cache_block_index(virtual_address,cache_block_offset_size);
     
@@ -210,7 +214,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     int L1_cache_tag;
     int L2_cache_tag;
 
-    int logical_page_number = get_logical_page_number(virtual_address); //as page size is 10bits, hence 10bit offset
+    int logical_page_number = get_logical_page_number(virtual_address,frame_size); //as page size is 10bits, hence 10bit offset
 
     //TLB SEARCH
     int physical_frame_number=-1;

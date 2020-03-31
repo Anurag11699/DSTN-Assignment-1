@@ -3,6 +3,28 @@
 #include <unistd.h>
 #include "functions.h"
 
+
+int power(int x, unsigned int y) 
+{ 
+    int temp; 
+    if( y == 0) 
+    {
+        return 1;
+    }
+         
+    temp = power(x, y/2); 
+    if (y%2 == 0) 
+    {
+        return temp*temp; 
+    }
+        
+    else
+    {
+        return x*temp*temp; 
+    }
+        
+} 
+
 /*
 PreConditions
 Inputs:{pointer to main memory object, frame number which we need to add to free frame list}
@@ -507,7 +529,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     //32 bit Virtual Address split as:  6 | 8 | 8 | 10 . Hence 3 level paging is required
 
     //get the logical page number
-    int logical_page_number = get_logical_page_number(logical_address);
+    int logical_page_number = get_logical_page_number(logical_address,frame_size);
 
     //get frame of outermost page table
     int outer_page_table_frame_number = kernel_object->pcb_array[pid].outer_page_base_address;
@@ -831,11 +853,11 @@ Purpose of the Function: Initialze Main Memory Data Structure and all the compon
 PostConditions
 Output: {pointer to intialized main memory}
 */
-main_memory* initialize_main_memory(float main_memory_size, float frame_size)
+main_memory* initialize_main_memory()
 {
     //find number of frames
     
-    int number_of_frames=(main_memory_size/frame_size)*1024;
+    int number_of_frames=power(2,(main_memory_size - frame_size));
 
     fprintf(output_fd,"Number of Frames: %d\n",number_of_frames);
 

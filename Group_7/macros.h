@@ -1,6 +1,20 @@
 #ifndef MACROS_H
 #define MACROS_H
 
+#define INSTRUCTION_REQUEST 0
+
+#define DATA_REQUEST 1
+
+#define cache_block_offset_size 5 //in number of bits (as 32 byte block)
+
+#define L1_cache_index_size 5 //in number of bits (as 32 index entries in L1 cache)
+
+#define L2_cache_index_size 6 //in number of bits (as 64 index entries in L2 cache)
+
+#define frame_size 10 //size is log based 2 of frame size (2^10 = 1K is frame size)
+
+#define main_memory_size 25 //size is log based 2 of frame size (2^25 = 32MB is main memory size)
+
 #define max(x,y) ((x>y)?x:y)
 
 #define set_MSB_bit_8(LRU_counter) ((LRU_counter)|0x80)
@@ -28,7 +42,7 @@
 
 #define get_inner_page_table_offset(x) ((x>>10)&0xff)
 
-#define get_logical_page_number(x) (x>>10)
+#define get_logical_page_number(x,y) (x>>y)
 
 #define right_shift_L1_tlb_counter 64
 

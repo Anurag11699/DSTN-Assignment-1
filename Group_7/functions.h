@@ -22,7 +22,7 @@ extern void context_switch(kernel*, tlb*,tlb*,int,int);
 
 
 //main memory functions
-extern main_memory* initialize_main_memory(float, float);
+extern main_memory* initialize_main_memory();
 extern void add_free_frame(main_memory*, int);
 extern int remove_free_frame(main_memory *);
 extern void add_used_frame(main_memory*, int);
@@ -39,6 +39,7 @@ extern page_table* initialize_page_table(int);
 extern int page_table_walk(kernel* ,main_memory*,int,int);
 extern void invalidate_page_table_entry(kernel*, main_memory*, int, int);
 extern void mark_frame_modified(main_memory*, int);
+extern int power(int, unsigned int); 
 
 //main memory printing functions
 extern void print_page_table(page_table*);
