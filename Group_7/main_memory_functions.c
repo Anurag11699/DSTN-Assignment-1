@@ -481,6 +481,9 @@ void update_frame_table_entry(main_memory* main_memory_object,int frame_number,i
     main_memory_object->frame_table[frame_number].pid=pid;
     main_memory_object->frame_table[frame_number].page_number=page_number;
     //main_memory_object->frame_table[frame_number].pointer_to_stored_page_table=page_table_object;
+
+    //add time taken for this
+    total_time_taken = total_time_taken + update_frame_table_entry_time;
 }
 
 
@@ -534,6 +537,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     //get frame of outermost page table
     int outer_page_table_frame_number = kernel_object->pcb_array[pid].outer_page_base_address;
 
+    //add time to get the entry from main memory
+    total_time_taken = total_time_taken + pcb_data_processor_to_from_main_memory_transfer_time;
+
     //check if you own frame, otherwise load new frame for the outermost page table
 
     int own_outer_page_table = check_frame_ownership(main_memory_object,pid,outer_page_table_frame_number);
@@ -560,6 +566,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         
         //add it to the pcb of this process
         kernel_object->pcb_array[pid].outer_page_base_address=outer_page_table_frame_number;
+
+        //add time to transfer this entry back to main memory
+        total_time_taken = total_time_taken + pcb_data_processor_to_from_main_memory_transfer_time;;
         
     }
 
@@ -582,7 +591,8 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     
     int middle_page_table_frame_number = outer_page_table->page_table_entries[outer_page_table_offset].frame_base_address;
 
-    
+    //add time to get this page table entry from main memory to processor
+    total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
 
     int own_middle_page_table = check_frame_ownership(main_memory_object,pid,middle_page_table_frame_number);
 
@@ -611,6 +621,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         outer_page_table->page_table_entries[outer_page_table_offset].valid=1;
         outer_page_table->page_table_entries[outer_page_table_offset].modified=0;
 
+        //add time to trnasfer the updated page table entry from processor to main memory
+        total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
+
     }
 
     own_middle_page_table = check_frame_ownership(main_memory_object,pid,middle_page_table_frame_number);
@@ -631,6 +644,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     //go to inner page table
 
     int inner_page_table_frame_number = middle_page_table->page_table_entries[middle_page_table_offset].frame_base_address;
+
+    //add time to get this page table entry from main memory to processor
+    total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
 
     int own_inner_page_table = check_frame_ownership(main_memory_object,pid,inner_page_table_frame_number);
 
@@ -658,6 +674,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         middle_page_table->page_table_entries[middle_page_table_offset].frame_base_address=inner_page_table_frame_number;
         middle_page_table->page_table_entries[middle_page_table_offset].valid=1;
         middle_page_table->page_table_entries[middle_page_table_offset].modified=0;
+
+        //add time to trnasfer the updated page table entry from processor to main memory
+        total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
         
     }
 
@@ -680,11 +699,13 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     //get the frame we needed to store this logical address
     int needed_frame_number = inner_page_table->page_table_entries[inner_page_table_offset].frame_base_address;
 
+
+    //add time to get this page table entry from main memory to processor
+    total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
+
     int own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
 
   
-   
-
     fprintf(output_fd,"Logical Page Number: %d\n",logical_page_number);
     fflush(output_fd);
 
@@ -710,6 +731,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         inner_page_table->page_table_entries[inner_page_table_offset].valid=1;
         inner_page_table->page_table_entries[inner_page_table_offset].modified=0;
         inner_page_table->page_table_entries[inner_page_table_offset].initialized_before=1;
+
+        //add time to trnasfer the updated page table entry from processor to main memory
+        total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
     }
 
     own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
@@ -755,6 +779,9 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
     //get frame of outermost page table
     int outer_page_table_frame_number = kernel_object->pcb_array[pid].outer_page_base_address;
 
+    //add time to get this entry from pcb in main memory to processor
+    total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
+
     //we dont own the outer page itself, hence return
     if (outer_page_table_frame_number==-1)
     {
@@ -782,6 +809,9 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
     
     int middle_page_table_frame_number = outer_page_table->page_table_entries[outer_page_table_offset].frame_base_address;
 
+    //add time to get this page table entry from main memory to processor
+    total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
+
     int own_middle_page_table = check_frame_ownership(main_memory_object,pid,middle_page_table_frame_number);
 
     //we cant reach the next level of paging, hence return
@@ -804,6 +834,9 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
 
     int inner_page_table_frame_number = middle_page_table->page_table_entries[middle_page_table_offset].frame_base_address;
 
+    //add time to get this page table entry from main memory to processor
+    total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
+
     int own_inner_page_table = check_frame_ownership(main_memory_object,pid,inner_page_table_frame_number);
 
     //we cant reach the next level of paging , hence return
@@ -824,6 +857,9 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
 
     //get the frame we needed to store this logical address
     int needed_frame_number = inner_page_table->page_table_entries[inner_page_table_offset].frame_base_address;
+
+    //add time to get this page table entry from main memory to processor
+    total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
 
     int own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
 
@@ -913,6 +949,9 @@ main_memory* initialize_main_memory()
 void mark_frame_modified(main_memory* main_memory_object, int frame_number)
 {
     main_memory_object->frame_table[frame_number].modified=1;
+
+    //add time taken for this
+    total_time_taken = total_time_taken + update_bit_in_main_memory_time;
 }
 
 

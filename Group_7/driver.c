@@ -77,16 +77,16 @@ int main()
 
    //return 0;
 
-//    print_tlb(L1_tlb);
-//    print_tlb(L2_tlb);
+   //print_tlb(L1_tlb);
+   // print_tlb(L2_tlb);
 
-//    insert_new_tlb_entry(L2_tlb,5,6);
-//    L2_to_L1_tlb_transfer(L1_tlb,L2_tlb,5);
+   // insert_new_tlb_entry(L2_tlb,5,6);
+   // L2_to_L1_tlb_transfer(L1_tlb,L2_tlb,5);
 
-//    print_tlb(L1_tlb);
-//    print_tlb(L2_tlb);
+   // print_tlb(L1_tlb);
+   // print_tlb(L2_tlb);
    
-//   return 0;
+   //return 0;
 
    char filename[100]={0};
    char x;
@@ -157,7 +157,7 @@ int main()
       }
 
       //if the process is requesting for an instruction, it can be Read Only
-      if(get_request_type(process_request)==0)
+      if(get_request_type(process_request)==INSTRUCTION_REQUEST)
       {
          read_write=0;
       }

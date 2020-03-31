@@ -213,7 +213,7 @@ int complete_tlb_search(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number, int *
     }
 
     //add L1_tlb miss overhead
-    total_time_taken = total_time_taken + L1_tlb_miss_OS_overhead;
+    time_taken = time_taken + L1_tlb_miss_OS_overhead;
 
     //search in L2 tlb
     (*physical_frame_number) = L2_tlb_search(L2_tlb,logical_page_number);

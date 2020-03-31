@@ -155,8 +155,8 @@ int L1_search(main_memory* main_memory_object,L1_cache* L1_cache_object, int ind
                 //mark frame as modified
                 mark_frame_modified(main_memory_object,frame_number);
 
-                //add time to mark the frame as modified
-                time_taken=time_taken + update_bit_in_main_memory_time;
+                //add time to mark the frame as modified -> done in that function itself 
+                //time_taken=time_taken + update_bit_in_main_memory_time;
             }
             else
             {
@@ -237,9 +237,9 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
                     {
                         //just replace the existing block in buffer cache add time taken for it
 
-                        total_time_taken = total_time_taken + L2_cache_to_L2_cache_write_buffer_transfer_time;
+                        time_taken = time_taken + L2_cache_to_L2_cache_write_buffer_transfer_time;
                         
-                        return total_time_taken;
+                        return time_taken;
                     }
                 }
 
@@ -255,9 +255,9 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
 
                         //just replace this block in buffer cache add time taken for it
 
-                        total_time_taken = total_time_taken + L2_cache_to_L2_cache_write_buffer_transfer_time;
+                        time_taken = time_taken + L2_cache_to_L2_cache_write_buffer_transfer_time;
                         
-                        return total_time_taken;
+                        return time_taken;
 
                     }
                 }
@@ -272,8 +272,8 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
                     //need to mark this frame as dirty
                     mark_frame_modified(main_memory_object,L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].corresponding_frame_number);
 
-                    //add time to mark the frame as modified
-                    time_taken=time_taken + update_bit_in_main_memory_time;
+                    //add time to mark the frame as modified -> done in that function itself
+                    //time_taken=time_taken + update_bit_in_main_memory_time;
                     
                     L2_cache_write_buffer_object->L2_cache_write_buffer_entries[j].valid=0;
                     
@@ -290,9 +290,9 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
 
                         //just replace this block in buffer cache add time taken for it
 
-                        total_time_taken = total_time_taken + L2_cache_to_L2_cache_write_buffer_transfer_time;
+                        time_taken = time_taken + L2_cache_to_L2_cache_write_buffer_transfer_time;
                         
-                        return total_time_taken;
+                        return time_taken;
 
                     }
                 }
@@ -305,7 +305,7 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
                 time_taken = time_taken + processor_to_from_L2_cache_transfer_time;
             }
             
-            return total_time_taken;
+            return time_taken;
         }
     }
 
