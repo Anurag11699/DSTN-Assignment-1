@@ -48,7 +48,7 @@
 
 #define get_inner_page_table_offset(x) ((x>>10)&0xff)
 
-#define get_logical_page_number(x,y) (x>>y)
+#define get_logical_page_number(virtual_address,page_size) (virtual_address>>page_size)
 
 #define right_shift_L1_tlb_counter 64
 

@@ -134,6 +134,7 @@ int main()
 
          //remove element of array pointed to by executing_pid_index
          fprintf(stderr,"Process %d Over\n",pid_array[executing_pid_index]);
+         
          //sleep(1);
          for(j=executing_pid_index;j<number_of_processes_ready-1;j++)
          {
@@ -146,6 +147,7 @@ int main()
          if(number_of_processes_ready==0)
          {
             fprintf(stderr,"Simulation Over\n");
+            
             
             break;
          }
@@ -176,19 +178,23 @@ int main()
    //printing simulation results
 
    fprintf(output_fd,"\n\nTotal Time Taken: %Lf ns\nNumber of Requests Processed: %ld\nEMAT: %Lf ns\n",total_time_taken,number_of_requests_processed,total_time_taken/number_of_requests_processed);
+   fflush(output_fd);
 
    fprintf(stderr,"\n\nTotal Time Taken: %Lf\nNumber of Requests Processed: %ld\nEMAT: %Lf ns\n",total_time_taken,number_of_requests_processed,total_time_taken/number_of_requests_processed);
 
    tlb_hit_rate=number_of_tlb_hits/total_tlb_accesses;
    fprintf(output_fd,"TLB Hit Rate: %Lf\n",tlb_hit_rate);
+   fflush(output_fd);
    fprintf(stderr,"TLB Hit Rate: %Lf\n",tlb_hit_rate);
 
    L1_cache_hit_rate=number_of_L1_cache_hits/total_L1_cache_accesses;
    fprintf(output_fd,"L1 Cache Hit Rate: %Lf\n",L1_cache_hit_rate);
+   fflush(output_fd);
    fprintf(stderr,"L1 Cache Hit Rate: %Lf\n",L1_cache_hit_rate);
 
    L2_cache_hit_rate=number_of_L2_cache_hits/total_L2_cache_accesses;
    fprintf(output_fd,"L2 Cache Hit Rate: %Lf\n",L2_cache_hit_rate);
+   fflush(output_fd);
    fprintf(stderr,"L2 Cache Hit Rate: %Lf\n",L2_cache_hit_rate);
    
    fclose(output_fd);

@@ -56,6 +56,7 @@ extern int L1_search(main_memory*,L1_cache*,int,int,int,int,int);
 extern int L2_search(main_memory*,L2_cache*,L2_cache_write_buffer*,int,int,int,int,int);
 extern void replace_L2_cache_entry(L2_cache *,int,int,int);
 extern void replace_L1_cache_entry(L1_cache*, L2_cache*, int, int, int);
+extern void remove_L2_cache_block(L2_cache*,int,int,int);
 
 //cache printing functions
 extern void print_L1_cache(L1_cache*);

@@ -317,13 +317,15 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
         int number_of_frames_to_remove_from_process = kernel_object->pcb_array[pid].number_of_frames_used - number_of_frames_per_process_average;
 
         fprintf(output_fd,"Upper Bound: %d | Number of PID %d Frames: %d| Average Frames: %d\n",number_of_frames_per_process_upper_bound,pid,kernel_object->pcb_array[pid].number_of_frames_used, number_of_frames_per_process_average);
+        fflush(output_fd);
 
         //print_ffl(main_memory_object);
         //print_ufl(main_memory_object);
 
         free_process_frames(kernel_object,main_memory_object,pid,number_of_frames_to_remove_from_process);
 
-        //fprintf(output_fd,"Upper Bound: %d | Number of PID %d Frames: %d| Average Frames: %d\n",number_of_frames_per_process_upper_bound,pid,kernel_object->pcb_array[pid].number_of_frames_used, number_of_frames_per_process_average);
+        fprintf(output_fd,"Upper Bound: %d | Number of PID %d Frames: %d| Average Frames: %d\n",number_of_frames_per_process_upper_bound,pid,kernel_object->pcb_array[pid].number_of_frames_used, number_of_frames_per_process_average);
+        fflush(output_fd);
 
         //print_ffl(main_memory_object);
         //print_ufl(main_memory_object);
@@ -345,6 +347,7 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
     }
 
     //fprintf(output_fd,"REMOVING USED FRAME\n");
+    //fflush(output_fd);
 
     //print_ufl(main_memory_object);
     frame_number = remove_used_frame(kernel_object,main_memory_object);
@@ -743,17 +746,21 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     set_reference_bit(main_memory_object,needed_frame_number);
 
     fprintf(output_fd,"\n\n");
+    fflush(output_fd);
     // fprintf(output_fd,"Print Outer Page Table\n");
+    //fflush(output_fd);
     // print_page_table(outer_page_table);
 
     // fprintf(output_fd,"Print Middle Page Table\n");
+    //fflush(output_fd);
     // print_page_table(middle_page_table);
 
     // fprintf(output_fd,"Print Inner Page Table\n");
+    //fflush(output_fd);
     // print_page_table(inner_page_table);
 
     //print_frame_table(main_memory_object);
-    fflush(output_fd);
+    //fflush(output_fd);
 
     return needed_frame_number;
 }
@@ -896,6 +903,7 @@ main_memory* initialize_main_memory()
     int number_of_frames=power(2,(main_memory_size - frame_size));
 
     fprintf(output_fd,"Number of Frames: %d\n",number_of_frames);
+    fflush(output_fd);
 
     main_memory* main_memory_object = (main_memory *)malloc(sizeof(main_memory));
     main_memory_object->number_of_frames=number_of_frames;
@@ -958,14 +966,17 @@ void mark_frame_modified(main_memory* main_memory_object, int frame_number)
 void print_page_table(page_table* page_table_object)
 {
     fprintf(output_fd,"Printing Page Table\n");
+    fflush(output_fd);
 
     int i;
     for(i=0;i<256;i++)
     {
         fprintf(output_fd,"Index: %d | Frame Number: %d | Valid: %d\n",i,page_table_object->page_table_entries[i].frame_base_address,page_table_object->page_table_entries[i].valid);
+        fflush(output_fd);
     }
 
     fprintf(output_fd,"\n\n");
+    fflush(output_fd);
 }
 
 
@@ -973,56 +984,76 @@ void print_page_table(page_table* page_table_object)
 void print_frame_table(main_memory* main_memory_object)
 {
     fprintf(output_fd,"Printing OS Frame Table\n");
+    fflush(output_fd);
 
     int number_of_frames = main_memory_object->number_of_frames;
 
     for(int i=0;i<number_of_frames;i++)
     {
-        //fprintf(output_fd,"Frame Number: %d | Page Number: %d | PID: %d | Modified: %d | PageTable Pointer: %p\n",i,main_memory_object->frame_table[i].page_number,main_memory_object->frame_table[i].pid, main_memory_object->frame_table[i].modified, main_memory_object->frame_table[i].pointer_to_stored_page_table);
+        fprintf(output_fd,"Frame Number: %d | Page Number: %d | PID: %d | Modified: %d |\n",i,main_memory_object->frame_table[i].page_number,main_memory_object->frame_table[i].pid, main_memory_object->frame_table[i].modified);
+        fflush(output_fd);
     }
 
     fprintf(output_fd,"\n\n");
+    fflush(output_fd);
 }
 
 /*auxillary function to print the free frame list, useful for debugging*/
 void print_ffl(main_memory *main_memory_object)
 {
     fprintf(output_fd,"Printing Free Frame List\nNumber of Free Frames are: %d\n",main_memory_object->ffl_dummy_head->number_free_frames);
+    fflush(output_fd);
+
     free_frame *walker;
     walker = main_memory_object->ffl_dummy_head->next;
     if(walker==NULL)
     {
         fprintf(output_fd,"Free Frame List is empty\n");
+        fflush(output_fd);
+
         return;
     }
     while(walker->next!=NULL)
     {
         fprintf(output_fd,"{Frame Number: %d}-->",walker->frame_number);
+        fflush(output_fd);
+
         walker=walker->next;
     }
 
     fprintf(output_fd,"\n");
+    fflush(output_fd);
+
 }
 
 /*auxillary function to print the used frame list, useful for debugging*/
 void print_ufl(main_memory *main_memory_object)
 {
     fprintf(output_fd,"Printing Used Frame List\nNumber of Used Frames are: %d\n",main_memory_object->ufl_dummy_head->number_used_frames);
+    fflush(output_fd);
+
     used_frame *walker;
     
     walker = main_memory_object->ufl_dummy_head->next;
     used_frame *temp=walker;
     if(walker!=NULL)
         fprintf(output_fd,"Recently Used Frame: {Frame Number: %d, Reference Bit: %d}\n",main_memory_object->recently_used_frame->frame_number,main_memory_object->recently_used_frame->reference_bit);
+        fflush(output_fd);
+
     while(walker!=NULL && walker->next!=temp)
     {
         fprintf(output_fd,"{Frame Number: %d, Reference Bit: %d}-->",walker->frame_number, walker->reference_bit);
+        fflush(output_fd);
+
         walker=walker->next;
     }
     if(walker!=NULL)
     {
         fprintf(output_fd,"{Frame Number: %d, Reference Bit: %d}-->",walker->frame_number, walker->reference_bit);
+        fflush(output_fd);
+
     }
 
     fprintf(output_fd,"\n");
+    fflush(output_fd);
 }

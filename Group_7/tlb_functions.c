@@ -292,7 +292,9 @@ void print_tlb(tlb* tlb_object)
     for(int i=0;i<number_of_entries;i++)
     {
         fprintf(output_fd,"Logical Page Number: %d | Physical Frame Number: %d | Valid: %d | LRU Counter: %d\n", tlb_object->tlb_entries[i].logical_page_number,tlb_object->tlb_entries[i].physical_frame_number, tlb_object->tlb_entries[i].valid, tlb_object->tlb_entries[i].LRU_counter);
+        fflush(output_fd);
     }
 
     fprintf(output_fd,"\n\n");
+    fflush(output_fd);
 }

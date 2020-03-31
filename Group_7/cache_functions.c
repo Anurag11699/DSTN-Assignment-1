@@ -332,7 +332,7 @@ void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int o
 
     total_time_taken = total_time_taken + L1_cache_to_from_L2_cache_transfer_time + L2_cache_search_time;
 
-    print_L2_cache(L2_cache_object);
+    //print_L2_cache(L2_cache_object);
 
     int way_to_replace=-1;
     int i;
@@ -370,6 +370,23 @@ void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int o
     L2_cache_object->L2_cache_entries[index].way[i].valid=1;
     L2_cache_object->L2_cache_entries[index].way[i].tag=tag;
     L2_cache_object->L2_cache_entries[index].way[i].LFU_counter=0;
+
+}
+
+
+void remove_L2_cache_block(L2_cache* L2_cache_object, int index, int tag, int offset)
+{   
+    //add time taken to search for the entry to remove it
+    total_time_taken = total_time_taken + L2_cache_search_time;
+
+    for(int i=0;i<16;i++)
+    {
+        if(L2_cache_object->L2_cache_entries[index].way[i].valid==1 && L2_cache_object->L2_cache_entries[index].way[i].tag==tag)
+        {
+            L2_cache_object->L2_cache_entries[index].way[i].valid=0;
+            return;
+        }
+    }
 
 }
 
@@ -411,6 +428,7 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
         L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag=tag;
 
         //fprintf(output_fd,"CHECK 1: %d | 2: %d\n",tag,L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag);
+        //fflush(output_fd);
         //update the LRU square matrix
         for(i=0;i<4;i++)
         {
@@ -442,10 +460,11 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
 
     int physical_address = get_physical_address_from_L1_cache(L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag,index,offset);
 
-    int L2_cache_needed_index_to_replace = get_L2_cache_block_index(physical_address,5);
-    int L2_cache_needed_tag_to_replace = get_L2_cache_tag(physical_address,6,5);
+    int L2_cache_needed_index_to_replace = get_L2_cache_block_index(physical_address,cache_block_offset_size);
+    int L2_cache_needed_tag_to_replace = get_L2_cache_tag(physical_address,L2_cache_index_size,cache_block_offset_size);
 
-    fprintf(output_fd,"Replacing in L2 cache, Index: %d | Tag: %d\n ",index,L1_cache_object->L1_cache_entries[index].way[way_to_replace].tag);
+    fprintf(output_fd,"Replacing in L2 cache, Index: %d | Tag: %d\n ",L2_cache_needed_index_to_replace,L2_cache_needed_tag_to_replace);
+    fflush(output_fd);
 
     replace_L2_cache_entry(L2_cache_object, L2_cache_needed_index_to_replace,  L2_cache_needed_tag_to_replace,offset);
 
@@ -468,43 +487,54 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
 void print_L1_cache(L1_cache* L1_cache_object)
 {
     fprintf(output_fd,"Printing L1 Cache\n");
+    fflush(output_fd);
     int i,j,k;
 
     for(i=0;i<32;i++)
     {
         fprintf(output_fd,"INDEX: %d\t",i);
+        fflush(output_fd);
         for(j=0;j<4;j++)
         {
             fprintf(output_fd,"Way: %d | Tag: %d | Valid: %d\t||",j,L1_cache_object->L1_cache_entries[i].way[j].tag,L1_cache_object->L1_cache_entries[i].way[j].valid);
+            fflush(output_fd);
         }
 
         fprintf(output_fd,"\nLRU Sqaure Matrix of Index %d\n",i);
+        fflush(output_fd);
         for(j=0;j<4;j++)
         {
             for(k=0;k<4;k++)
             {
                 fprintf(output_fd,"%d ",L1_cache_object->L1_cache_entries[i].LRU_square_matrix[j][k]);
+                fflush(output_fd);
             }
             fprintf(output_fd,"\n");
+            fflush(output_fd);
         }
     }
     fprintf(output_fd,"\n");
+    fflush(output_fd);
 }
 
 void print_L2_cache(L2_cache* L2_cache_object)
 {
     fprintf(output_fd,"Printing L2 Cache\n");
+    fflush(output_fd);
     int i,j;
 
     for(i=0;i<64;i++)
     {
         fprintf(output_fd,"INDEX: %d\t",i);
+        fflush(output_fd);
         for(j=0;j<16;j++)
         {
             fprintf(output_fd,"Way: %d | Tag: %d | Valid: %d | LFU Counter: %d || ",j,L2_cache_object->L2_cache_entries[i].way[j].tag,L2_cache_object->L2_cache_entries[i].way[j].valid,L2_cache_object->L2_cache_entries[i].way[j].LFU_counter);
+            fflush(output_fd);
         }
 
         fprintf(output_fd,"\n");
+        fflush(output_fd);
     }
     
 }
@@ -512,12 +542,15 @@ void print_L2_cache(L2_cache* L2_cache_object)
 void print_L2_buffer_cache(L2_cache_write_buffer* L2_cache_write_buffer_object)
 {
     fprintf(output_fd,"Printing L2 Cache Write Buffer\n");
+    fflush(output_fd);
 
     int number_of_entries = L2_cache_write_buffer_object->number_of_entries;
 
     for(int i=0;i<number_of_entries;i++)
     {
         fprintf(output_fd,"Entry #%d | Index: %d | Tag: %d | Valid: %d |\n",i,L2_cache_write_buffer_object->L2_cache_write_buffer_entries[i].index,L2_cache_write_buffer_object->L2_cache_write_buffer_entries[i].tag,L2_cache_write_buffer_object->L2_cache_write_buffer_entries[i].valid);
+        fflush(output_fd);
     }
     fprintf(output_fd,"\n");
+    fflush(output_fd);
 }

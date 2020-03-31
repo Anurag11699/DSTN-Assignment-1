@@ -84,12 +84,14 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int 
     //do page table walk for request1 and request2 to load these pages
 
     fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_1,request_1);
+    fflush(output_fd);
 
     //fprintf(stderr,"CHECK IN LOAD_NEW_PROCESS\n");
     //int frame_number_1;
     page_table_walk(kernel_object,main_memory_object,pid,request_1);
 
     fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_2,request_2);
+    fflush(output_fd);
     //int frame_number_2;
     page_table_walk(kernel_object,main_memory_object,pid,request_2);
 
@@ -197,6 +199,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     //request type = 0 if instruction, request type = 1 if data
     int request_type=get_request_type(virtual_address);
     fprintf(output_fd,"Request Type %d\n",request_type);
+    fflush(output_fd);
 
     //we can get index and offest for L1 and L2 cache from the virtual address and use it for virtually tagged, physically offset. this is because (index + offset = page size)
 
@@ -225,19 +228,24 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     //tlb hit, get direct physical frame number
     unsigned int physical_address;
     fprintf(output_fd,"Logical Page Number: %x or %d\n",logical_page_number,logical_page_number);
+    fflush(output_fd);
     // fprintf(output_fd,"Printing L1 tlb\n");
+    //fflush(output_fd);
     // print_tlb(L1_tlb);
     // fprintf(output_fd,"Printing L2 tlb\n");
+    //fflush(output_fd);
     // print_tlb(L2_tlb);
 
     if(physical_frame_number!=-1)
     {
         fprintf(output_fd,"TLB HIT\n");
+        fflush(output_fd);
         number_of_tlb_hits++;
 
         physical_address= get_physical_address(physical_frame_number,virtual_address);
 
         fprintf(output_fd,"Physical Frame Number: %d | Frame Offset: %d | Physical Address: %d\n",physical_frame_number,(virtual_address&get_frame_offset),physical_address);
+        fflush(output_fd);
 
         //use this physical addresss to search in cache
 
@@ -252,11 +260,11 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         //as cache is lookaside, we need to search both the caches in parallel.
         //we need to check request type. if process is requesting for instruction, search in 
-        if(request_type==0)
+        if(request_type==INSTRUCTION_REQUEST)
         {
             L1_cache_hit = L1_search(main_memory_32MB,L1_instruction_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,physical_frame_number,write); //as it is an instruction will be read only, write field will be 0
         }
-        else
+        else if(request_type==DATA_REQUEST)
         {
             L1_cache_hit = L1_search(main_memory_32MB,L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,physical_frame_number,write); 
         }
@@ -276,6 +284,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         //if L1 cache or L2 cache was hit all good, otherwise need to request transfer of that block from main memory
 
         //fprintf(output_fd,"Print L1 instruction cache\n");    
+        //fflush(output_fd);
         //print_L1_cache(L1_instruction_cache_4KB);
 
         // as was lookaside, we only add the times taken by one of them, not both   
@@ -292,6 +301,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
             number_of_L1_cache_hits++;
 
             fprintf(output_fd,"L1 Cache HIT\n");
+            fflush(output_fd);
             return; 
         }
         else if(L2_cache_hit!=-1)
@@ -302,21 +312,56 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
             
             number_of_L2_cache_hits++;
 
+            // fprintf(output_fd,"L2 Cache Index: %d | L2 cache Tag: %d\n",L2_cache_index,L2_cache_tag);
+            // fflush(output_fd);
 
-            //need to enter this entry into the L1 cache for performance improvement
-            if(request_type==0)
+            // fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
+            // fflush(output_fd);
+
+            // if(request_type==0)
+            // {
+            //     print_L1_cache(L1_instruction_cache_4KB);
+            // }
+            // else
+            // {
+            //     print_L1_cache(L1_data_cache_4KB);
+            // }
+
+            // print_L2_cache(L2_cache_32KB);
+            
+
+
+            //need to enter this entry into the L1 cache for performance improvement and remove from L2 cache as caches are exclusive
+
+            //removing entry from L2 cache
+            remove_L2_cache_block(L2_cache_32KB,L2_cache_index,L2_cache_tag,cache_block_offset);
+
+            //add this entry to L1 cache
+            if(request_type==INSTRUCTION_REQUEST)
             {
-                replace_L1_cache_entry(L1_instruction_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,L1_cache_tag);
+                replace_L1_cache_entry(L1_instruction_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,cache_block_offset);
             }
-            else if(request_type==1)
+            else if(request_type==DATA_REQUEST)
             {
-                replace_L1_cache_entry(L1_data_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,L1_cache_tag);
+                replace_L1_cache_entry(L1_data_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,cache_block_offset);
             }
 
             //add time taken to transfer this entry to L1 cache to be replaced
             total_time_taken = total_time_taken + L1_cache_to_from_L2_cache_transfer_time;
 
+            // if(request_type==0)
+            // {
+            //     print_L1_cache(L1_instruction_cache_4KB);
+            // }
+            // else
+            // {
+            //     print_L1_cache(L1_data_cache_4KB);
+            // }
+
+            // print_L2_cache(L2_cache_32KB);
+
             fprintf(output_fd,"L2 Cache HIT\n");
+            fflush(output_fd);
             return;
         }
 
@@ -329,32 +374,36 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         //entry was not found in any cache. we must get the block from main memory and insert it into L1 cache
 
         fprintf(output_fd,"CACHE MISS\n");
+        fflush(output_fd);
 
         fprintf(output_fd,"Getting data from MM\n");
+        fflush(output_fd);
         //now, insert this new entry into L1 cache. add time taken to transfer this entry from main memory to L1 cache
         total_time_taken = total_time_taken + L1_cache_to_from_main_memory_transfer_time;
 
         //fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
-        if(request_type==0)
+        //fflush(output_fd);
+        if(request_type==INSTRUCTION_REQUEST)
         {
             
             replace_L1_cache_entry(L1_instruction_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,cache_block_offset);
 
         }
-        else
+        else if(request_type==DATA_REQUEST)
         {
             replace_L1_cache_entry(L1_data_cache_4KB,L2_cache_32KB,L1_cache_index,L1_cache_tag,cache_block_offset);
         }
 
-        //fprintf(output_fd,"Print L1 instruction cache after Replacing\n");    
+        //fprintf(output_fd,"Print L1 instruction cache after Replacing\n");   
+        //fflush(output_fd) 
         //print_L1_cache(L1_instruction_cache_4KB);
 
 
-        if(request_type==0)
+        if(request_type==INSTRUCTION_REQUEST)
         {
             L1_cache_hit = L1_search(main_memory_32MB,L1_instruction_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,physical_frame_number,write); //as it is an instruction will be read only, write field will be 0
         }
-        else
+        else if(request_type==DATA_REQUEST)
         {
             L1_cache_hit = L1_search(main_memory_32MB,L1_data_cache_4KB ,L1_cache_index,L1_cache_tag,cache_block_offset,physical_frame_number,write); 
         }
@@ -364,6 +413,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         if(L1_cache_hit!=-1)
         {
             fprintf(output_fd,"L1 Cache HIT\n");
+            //fflush(output_fd);
 
             number_of_L1_cache_hits++;
         }
@@ -374,6 +424,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     else
     {
         fprintf(output_fd,"TLB MISS\n");
+        fflush(output_fd);
 
         //add time taken for tlb search
         total_time_taken = total_time_taken + time_taken_for_tlb_lookup;
@@ -397,6 +448,8 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         //restart this request
         fprintf(output_fd,"Restart Instruction after doing page walk and updating TLB\n");
+        fflush(output_fd);
+
         execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,pid,virtual_address,write);
 
     }
