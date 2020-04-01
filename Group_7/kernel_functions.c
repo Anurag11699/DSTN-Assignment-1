@@ -1,11 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <unistd.h>
+#include<assert.h>
 #include "functions.h"
 
 /*
 PreConditions
 Inputs: {maximum size of the process ready queue}
+max_number_of_prcocesses>=0
 
 Purpose of the Function: Initialze Kernel Data Structure and its components
 
@@ -14,11 +16,15 @@ Output: {pointer to intialized kernel object}
 */
 kernel* initialize_kernel(int max_number_of_processes)
 {
+    //check PreConditions
+    assert(max_number_of_processes>=0 && "Number of Processes must be >= 0d");
+
     kernel* kernel_object = (kernel *)malloc(sizeof(kernel));
 
     //initialize pcb array
     kernel_object->pcb_array=(pcb *)malloc(max_number_of_processes*sizeof(pcb));
     kernel_object->number_of_processes=0;
+    kernel_object->max_number_of_processes=max_number_of_processes;
     //kernel_object->CR3_reg=-1;
     //kernel_object->current_instruction=-1;
     kernel_object->currently_running_process_pid=-1;
@@ -39,7 +45,13 @@ kernel* initialize_kernel(int max_number_of_processes)
 
 /*
 PreConditions
-Inputs: {pointer to kernel object, pointer to main memory object, maximum number of processes, pid of process, filename containing processes memory access requests}
+Inputs: {pointer to kernel object, pointer to main memory object, pid of process, filename containing processes memory access requests}
+
+kernel_object!=NULL
+main_memory_object!=NULL
+filename!=NULL
+0<=pid<maximum number of processes
+
 
 Purpose of the Function: This function is used to load a new process into the system. The pcb array entry corresponding to this processes pid are filled. Also the first two pages of the process are pre paged using the page_walk function
 
@@ -50,11 +62,19 @@ Return Value:
 1, if process was successfully loaded
 -1, otherwise
 */
-int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int max_number_processes, int pid, char* filename)
+int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int pid, char* filename)
 {
+    //check PreConditions
+    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+    assert(filename!=NULL && "Filename cannot be NULL");
+
+    assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
+    assert(pid>=0 && "pid less than 0 not allowed");
+
     
     //process limit reached, this process cannot be loaded yet 
-    if(kernel_object->number_of_processes>=max_number_processes)
+    if(kernel_object->number_of_processes>=kernel_object->max_number_of_processes)
     {
         return -1;
     }
@@ -108,6 +128,9 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int 
 /*
 PreConditions
 Inputs: {pointer to kernel object, pointer to main memory object, pid of process that has finished execution}
+kernel_object!=NULL
+main_memory_object!=NULL
+0<=pid<maximum number of processes
 
 Purpose of the Function: This function is used terminate a process that has finished execution. All the pages that this process owns are transfered to the free frame list. The state of this process is set to 0 (terminated) and the file descriptor for the input file for this process is closed.
 
@@ -116,6 +139,13 @@ Updated kernel and main memory objects
 */
 void terminate_process(kernel* kernel_object, main_memory* main_memory_object, int pid)
 {
+    //check PreConditions
+    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
+    assert(pid>=0 && "pid less than 0 not allowed");
+
     int i;
 
     //release all the pages held by the process
@@ -135,6 +165,8 @@ void terminate_process(kernel* kernel_object, main_memory* main_memory_object, i
 
     //set state of the process to terminated = 0
     kernel_object->pcb_array[pid].state=TASK_TERMINATED;
+
+    kernel_object->number_of_processes--;
     
 }
 
@@ -153,6 +185,11 @@ Return Value:
 */
 int get_request_type(int virtual_address)
 {
+    //check PreConditions
+    assert(virtual_address >= 0x0 && "Virtual Address must be >= 0x0");
+    assert(virtual_address <= 0xffffffff && "Virtual Address must be <= 0xffffffff");
+
+
     //the virtual address of instructions begins with 1 
     if(virtual_address>>28 == 0x1)
     {
@@ -165,6 +202,11 @@ int get_request_type(int virtual_address)
 /*
 PreConditions
 Inputs: {pointer to kernel object, pointer to L1 tlb object, pointer to L2 tlb object, pid of process that has switched out, pid of process that is switched in}
+kernel_object!=NULL
+L1_tlb!=NULL
+L2_tlb!=NULL
+0<=oldpid<maximum number of processes
+0<=newpid<maximum number of processes
 
 Purpose of the Function: This function is used to change the execting process. The state of the process switched out is changed to ready and the state of the process switched is changed to executing. Also, both the L1 and L2 tlbs are flushed upon context switch.
 
@@ -173,6 +215,19 @@ Updated kernel and tlb objects
 */
 void context_switch(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, int oldpid, int newpid)
 {
+
+    //check PreConditions
+    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
+    assert(L1_tlb!=NULL && "pointer to L1 tlb cannot be NULL");
+    assert(L2_tlb!=NULL && "pointer to L2 tlb cannot be NULL");
+
+    assert(oldpid<kernel_object->max_number_of_processes && "oldpid exceeded bounds");
+    assert(newpid<kernel_object->max_number_of_processes && "newpid exceeded bounds");
+    assert(oldpid>=0 && "oldpid less than 0 not allowed");
+    assert(newpid>=0 && "newpid less than 0 not allowed");
+
+
+
     kernel_object->currently_running_process_pid=newpid;
 
     //state of the process switched out now set to ready to execute
@@ -193,6 +248,17 @@ void context_switch(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, int oldpid,
 PreConditions
 Inputs: {pointer to kernel object, pointer to L1 tlb , pointer to L2 tlb ,pointer to L1 instruction cache object, pointer to L1 data cache, pointer to L2 cache,pointer to L2 cache write buffer, pointer to main memory ,pid of process whose request it is}
 
+kernel_object!=NULL
+L1_tlb!=NULL
+L2_tlb!=NULL
+L1_instruction_cache_4KB!=NULL
+L1_data_cache_4KB!=NULL
+L2_cache_32KB!=NULL
+L2_cache_write_buffer_8!=NULL
+main_memory_32MB!=NULL
+0<=virtual_address <= 0xffffffff
+0<=pid<maximum number of processes
+
 Purpose of the Function: This is the function used to execute the process request. First both tlb's are checked, if the entry for logical page is not found in tlb, page walk for the logical page is initiated and the instruction is restarted. Upon tlb hit, we get the physical address and use it to access the cache for the required data needed.
 
 PostConditions
@@ -200,6 +266,23 @@ Updated all memory levels accordingly
 */
 void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int pid, unsigned long int virtual_address, int write)
 {
+    //check PreConditions
+    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
+    assert(L1_tlb!=NULL && "pointer to L1 tlb cannot be NULL");
+    assert(L2_tlb!=NULL && "pointer to L2 tlb cannot be NULL");
+    assert(L1_instruction_cache_4KB!=NULL && "pointer to L1 instruction cache cannot be NULL");
+    assert(L1_data_cache_4KB!=NULL && "pointer to L1 data cache cannot be NULL");
+    assert(L2_cache_32KB!=NULL && "pointer to L2 cache cannot be NULL");
+    assert(L2_cache_write_buffer_8!=NULL && "pointer to L2 cache write buffer cannot be NULL");
+    assert(main_memory_32MB!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(virtual_address >= 0x0 && "Virtual Address must be >= 0x0");
+    assert(virtual_address <= 0xffffffff && "Virtual Address must be <= 0xffffffff");
+
+    assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
+    assert(pid>=0 && "pid less than 0 not allowed");
+
+
     fprintf(output_fd,"\n\nExecuting Process Request for PID: %d | Logical Address: %lx or %ld\n",pid,virtual_address,virtual_address);
     fflush(output_fd);
 

@@ -16,6 +16,7 @@ Follows write through
 Purpose of the Function: Initialize L1 cache data structure
 
 PostConditions
+pointer to L1 Cache Object != NULL
 Output: {pointer to intialized L1 cache}
 */
 L1_cache* initialize_L1_cache()
@@ -41,6 +42,9 @@ L1_cache* initialize_L1_cache()
         }
     }
 
+    //check PostCondition
+    assert(L1_cache_object!=NULL && "L1 Cache Object cannot be NULL");
+
     return L1_cache_object;
 }
 
@@ -56,6 +60,7 @@ Follows write buffer
 Purpose of the Function: Initialize L2 cache data structure
 
 PostConditions
+pointer to L2 Cache Object != NULL
 Output: {pointer to intialized L2 cache}
 */
 L2_cache* initialize_L2_cache()
@@ -74,12 +79,16 @@ L2_cache* initialize_L2_cache()
         }       
     }
 
+    //check PostCondition
+    assert(L2_cache_object!=NULL && "L2 Cache Object cannot be NULL");
+
     return L2_cache_object;
 }
 
 
 /*
 PreConditions
+number_of_entries > 0
 Inputs: None, we have hardcoded the cache as it is a given hardware structure. 
 
 Number of entries in write buffer = 8.
@@ -87,12 +96,14 @@ Number of entries in write buffer = 8.
 Purpose of the Function: Initialize L2 cache write buffer
 
 PostConditions
+pointer to L2 Cache write buffer object != NULL
 Output: {pointer to intialized L2 cache write buffer}
 */
 L2_cache_write_buffer* initialize_L2_cache_write_buffer(int number_of_entries)
 {
-    //write buffer has only 8 buffers
-
+    //check PreConditions
+    assert(number_of_entries>0 && "Number of L2 Cache write buffer entries must be > 0d");
+    
     L2_cache_write_buffer *L2_cache_write_buffer_object = (L2_cache_write_buffer *)malloc(sizeof(L2_cache_write_buffer));
     L2_cache_write_buffer_object->number_of_entries=number_of_entries;
     L2_cache_write_buffer_object->L2_cache_write_buffer_entries = (L2_cache_write_buffer_entry *)malloc(sizeof(L2_cache_write_buffer_entry)*number_of_entries);
@@ -102,6 +113,9 @@ L2_cache_write_buffer* initialize_L2_cache_write_buffer(int number_of_entries)
     {
         L2_cache_write_buffer_object->L2_cache_write_buffer_entries[i].valid=0;
     }
+
+    //check PostCondition
+    assert(L2_cache_write_buffer_object!=NULL && "L2 Cache write buffer object cannot be NULL");
 
     return L2_cache_write_buffer_object;
 }
@@ -114,6 +128,9 @@ Inputs: {pointer to main memory object,pointer to L1 cache object, index of entr
 0<=index<=32 
 0<=tag<=0x7fff
 0<=offset<=32
+0<=frame_number<=number of frames
+main_memory_object!=NULL
+L1_cache_object!=NULL
 if cache is L1 instruction cache, write always 0.
 if cache is L1 data cache, write is 1 if process requests a write. write is 0 if process requests a read. 
 
@@ -131,6 +148,11 @@ If entry is absent return -1;
 int L1_search(main_memory* main_memory_object,L1_cache* L1_cache_object, int index, int tag, int offset, int frame_number, int write)
 {
     //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+    assert(L1_cache_object!=NULL && "pointer to L1 cache cannot be NULL");
+
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
 
     assert(offset<32 && "L1 Cache Block Offset must be < 32d");
     assert(offset>=0 && "L1 Cache Block Offset must be >= 0d");
@@ -197,6 +219,10 @@ Inputs: {pointer to main memory object, pointer to L2 cache object, pointer to L
 0<=index<=64 
 0<=tag<=0x3fff
 0<=offset<=32
+0<=frame_number<=number of frames
+main_memory_object!=NULL
+L2_cache_object!=NULL
+L2_cache_write_buffer_object!=NULL
 
 Purpose of the Function: 
 Searches for the required block in the L2 cache.
@@ -214,6 +240,12 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
 {
 
     //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+    assert(L2_cache_object!=NULL && "pointer to L2 cache cannot be NULL");
+    assert(L2_cache_write_buffer_object!=NULL && "pointer to L2 cache write buffer cannot be NULL");
+
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
 
     assert(offset<32 && "L2 Cache Block Offset must be < 32d");
     assert(offset>=0 && "L2 Cache Block Offset must be >= 0d");
@@ -223,6 +255,7 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
 
     assert(tag<0x3fff && "L2 Cache Block Tag must be < 0x3fff");
     assert(tag>=0 && "L2 Cache Block Tag must be >= 0d");
+
 
     int i,j;
     int flag=0;
@@ -349,6 +382,7 @@ Inputs: {pointer to L2 cache object, pointer to L2 write buffer object, index of
 0<=index<=64 
 0<=tag<=0x3fff
 0<=offset<=32
+L2_cache_object!=NULL
 
 Purpose of the Function: 
 First checks if there are any invalid block in that index to place the new block in. If not,the function replaces the LFU block in that index of the cache. The block going to be replaced can be dropped as the main memory is inclusive
@@ -360,6 +394,7 @@ void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int o
 {
 
     //check PreConditions
+    assert(L2_cache_object!=NULL && "pointer to L2 cache cannot be NULL");
 
     assert(offset<32 && "L2 Cache Block Offset must be < 32d");
     assert(offset>=0 && "L2 Cache Block Offset must be >= 0d");
@@ -423,6 +458,7 @@ Inputs: {pointer to L2 cache object, index of entry, tag of entry , block offset
 0<=index<=64 
 0<=tag<=0x3fff
 0<=offset<=32
+L2_cache_object!=NULL
 
 Purpose of the Function: 
 It invalidates the given given entry of L2 cache. This function is used in conjuction with replace_L1_cache entry to remove a block from L2 cache and transfer it to L1 cache.
@@ -434,6 +470,7 @@ void remove_L2_cache_block(L2_cache* L2_cache_object, int index, int tag, int of
 {   
     
     //check PreConditions
+    assert(L2_cache_object!=NULL && "pointer to L2 cache cannot be NULL");
 
     assert(offset<32 && "L2 Cache Block Offset must be < 32d");
     assert(offset>=0 && "L2 Cache Block Offset must be >= 0d");
@@ -467,6 +504,8 @@ Inputs: {pointer to L1 cache object, pointer to L2 cache object, index of entry,
 0<=index<=32 
 0<=tag<=0x7fff
 0<=offset<=32
+L1_cache_object!=NULL
+L2_cache_object!=NULL
 
 Purpose of the Function: 
 First checks if there are any invalid block in that index to place the new block in. If not,the function replaces the LRU block in that index of the cache. The block going to be replaced in L1 cannot be simply dropped as the cache is exclusive. Hence, we must transfer the going to be replaced block to the L2 cache by calling the replace_L2_cache_entry function with appropriate index and tag of L2 cache.
@@ -477,6 +516,8 @@ The LRU way in the given index is replaced.
 void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object, int index, int tag, int offset)
 {
     //check PreConditions
+    assert(L1_cache_object!=NULL && "pointer to L1 cache cannot be NULL");
+    assert(L2_cache_object!=NULL && "pointer to L2 cache cannot be NULL");
 
     assert(offset<32 && "L1 Cache Block Offset must be < 32d");
     assert(offset>=0 && "L1 Cache Block Offset must be >= 0d");

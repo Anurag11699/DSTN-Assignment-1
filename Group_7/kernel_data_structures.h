@@ -42,6 +42,7 @@ typedef struct kernel
     //int CR3_reg;
     //int current_instruction;
     unsigned int number_of_processes;
+    unsigned int max_number_of_processes;
 
     pcb* pcb_array;
 }kernel;

@@ -127,7 +127,7 @@ int main()
       fscanf(input_fd,"%[^\n]",filename);
       printf("Data from the file: %s\n", filename);
 
-      load_new_process(kernel_object, main_memory_32MB,max_number_of_processes,j,filename);
+      load_new_process(kernel_object, main_memory_32MB,j,filename);
       fseek(kernel_object->pcb_array[j].fd,j,SEEK_SET);
       pid_array[j]=j;
       number_of_processes_ready++;
