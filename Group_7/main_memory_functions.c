@@ -299,16 +299,9 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
     }
     else if(is_page_table==0)
     {
-        //we get the page for the first time from the disk
-        if(brought_in_before==0)
-        {
-            total_time_taken=total_time_taken + disk_to_main_memory_transfer_time;
-        }
-        //we get the page from the swap space
-        else if(brought_in_before==1)
-        {
-            total_time_taken=total_time_taken+swap_space_to_main_memory_transfer_time; //swap in the page
-        }
+        
+        total_time_taken=total_time_taken+swap_space_to_main_memory_transfer_time; //swap in the page
+        
     }
 
     //to avoid thrasing, if this process has crossed its number of pages upper limit, remove frames from it until it reaches the average number of frames per process
@@ -370,6 +363,7 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
     if(main_memory_object->frame_table[frame_number].modified==1)
     {
         total_time_taken=total_time_taken+main_memory_to_swap_space_transer_time;
+
         main_memory_object->frame_table[frame_number].modified=0;
     }
     
@@ -528,9 +522,9 @@ PostConditions
 Return Value:
 Frame number assigned to the logical page requested by process
 */
-int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int pid, int logical_address)
+int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int pid, unsigned long int logical_address)
 {
-    fprintf(output_fd,"Starting page walk of PID: %d | Request: %x | Request: %d\n",pid,logical_address,logical_address);
+    fprintf(output_fd,"Starting page walk of PID: %d | Request: %lx | Request: %ld\n",pid,logical_address,logical_address);
     fflush(output_fd);
     //32 bit Virtual Address split as:  6 | 8 | 8 | 10 . Hence 3 level paging is required
 
@@ -798,7 +792,7 @@ Purpose of the Function: Invalidate the page table entry of the given process an
 PostConditions
 In the page table of the process whose pid we got, we have invalidated the entry for the given logical page.
 */
-void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory_object, int pid, int logical_page)
+void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory_object, int pid,unsigned long int logical_page)
 {
     if(pid<0 || logical_page<0)
     {

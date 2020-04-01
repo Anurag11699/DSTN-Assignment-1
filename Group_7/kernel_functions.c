@@ -74,29 +74,33 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int 
 
     int pcb_array_entry=pid;
     
-    int request_1;
-    int request_2;
+    unsigned long request_1;
+    unsigned long request_2;
 
-    fscanf(kernel_object->pcb_array[pcb_array_entry].fd,"%x",&request_1);
-    fscanf(kernel_object->pcb_array[pcb_array_entry].fd,"%x",&request_2);
+    fscanf(kernel_object->pcb_array[pcb_array_entry].fd,"%lx",&request_1);
+    fscanf(kernel_object->pcb_array[pcb_array_entry].fd,"%lx",&request_2);
+
+
+    //add time to transfer the process pages from disk to Virtual Memory
+    total_time_taken = total_time_taken + average_disk_to_from_swap_space_transfer_time_entire_process;
+
 
     //prepage 2 pages for the first 2 logical addresses the process requests
     //do page table walk for request1 and request2 to load these pages
 
-    fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_1,request_1);
+    fprintf(output_fd,"PID: %d | Request: %lx or %ld\n\n",pid,request_1,request_1);
     fflush(output_fd);
 
     //fprintf(stderr,"CHECK IN LOAD_NEW_PROCESS\n");
     //int frame_number_1;
     page_table_walk(kernel_object,main_memory_object,pid,request_1);
 
-    fprintf(output_fd,"PID: %d | Request: %x or %d\n\n",pid,request_2,request_2);
+    fprintf(output_fd,"PID: %d | Request: %lx or %ld\n\n",pid,request_2,request_2);
     fflush(output_fd);
     //int frame_number_2;
     page_table_walk(kernel_object,main_memory_object,pid,request_2);
 
-    //should we put these into tlb?
-
+    
    return 1;
 }
 
@@ -122,6 +126,9 @@ void terminate_process(kernel* kernel_object, main_memory* main_memory_object, i
             transfer_to_free_frame_list(main_memory_object,i);
         }
     }
+
+    //add time to transfer the process pages from Virtual Memory to Disk
+    total_time_taken = total_time_taken + average_disk_to_from_swap_space_transfer_time_entire_process;
 
     //close the file descriptor of the process
     fclose(kernel_object->pcb_array[pid].fd);
@@ -191,9 +198,9 @@ Purpose of the Function: This is the function used to execute the process reques
 PostConditions
 Updated all memory levels accordingly 
 */
-void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int pid,unsigned int virtual_address, int write)
+void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1_cache* L1_instruction_cache_4KB, L1_cache* L1_data_cache_4KB ,L2_cache* L2_cache_32KB, L2_cache_write_buffer* L2_cache_write_buffer_8, main_memory* main_memory_32MB ,int pid, unsigned long int virtual_address, int write)
 {
-    fprintf(output_fd,"\n\nExecuting Process Request for PID: %d | Logical Address: %x or %d\n",pid,virtual_address,virtual_address);
+    fprintf(output_fd,"\n\nExecuting Process Request for PID: %d | Logical Address: %lx or %ld\n",pid,virtual_address,virtual_address);
     fflush(output_fd);
 
     //request type = 0 if instruction, request type = 1 if data
@@ -244,8 +251,11 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         physical_address= get_physical_address(physical_frame_number,virtual_address);
 
-        fprintf(output_fd,"Physical Frame Number: %d | Frame Offset: %d | Physical Address: %d\n",physical_frame_number,(virtual_address&get_frame_offset),physical_address);
+        fprintf(output_fd,"Physical Frame Number: %d | Frame Offset: %ld | Physical Address: %d\n",physical_frame_number,(virtual_address&get_frame_offset),physical_address);
         fflush(output_fd);
+
+        //search in cache
+        total_cache_accesses++;
 
         //use this physical addresss to search in cache
 
@@ -372,6 +382,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         total_time_taken = total_time_taken +max((max(time_taken_for_tlb_lookup,L1_cache_indexing_time)+L1_cache_tag_comparison_time), L2_cache_search_time);
 
         //entry was not found in any cache. we must get the block from main memory and insert it into L1 cache
+        number_of_cache_misses++;
 
         fprintf(output_fd,"CACHE MISS\n");
         fflush(output_fd);

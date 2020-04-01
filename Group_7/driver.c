@@ -25,13 +25,49 @@ int rand75()
 
 int main()
 {
-   output_fd=fopen(outputfile,"w"); 
+   output_fd = fopen(output_file,"w"); 
 
-   FILE* input_fd = fopen(inputfile,"r");
-   int max_number_of_processes;
+   //load all time values
+   FILE* time_fd = fopen(time_parameter_file,"r");
+   for(int j=0;j<28;j++)
+   {
+      fscanf(time_fd,"%ld",&L1_tlb_search_time);
+      fscanf(time_fd,"%ld",&L2_tlb_search_time);
+      fscanf(time_fd,"%ld",&L1_tlb_miss_OS_overhead);
+      fscanf(time_fd,"%ld",&L2_tlb_miss_OS_overhead);
+      fscanf(time_fd,"%ld",&processor_to_from_L1_tlb_transfer_time);
+      fscanf(time_fd,"%ld",&processor_to_from_L2_tlb_transfer_time);
+      fscanf(time_fd,"%ld",&L1_tlb_to_from_L2_tlb_transfer_time);
+      fscanf(time_fd,"%ld",&L1_cache_indexing_time);
+      fscanf(time_fd,"%ld",&L1_cache_tag_comparison_time);
+      fscanf(time_fd,"%ld",&L2_cache_search_time);
+      fscanf(time_fd,"%ld",&processor_to_from_L1_cache_transfer_time);
+      fscanf(time_fd,"%ld",&processor_to_from_L2_cache_transfer_time);
+      fscanf(time_fd,"%ld",&L1_cache_to_from_L2_cache_transfer_time);
+      fscanf(time_fd,"%ld",&L1_cache_to_from_main_memory_transfer_time);
+      fscanf(time_fd,"%ld",&L2_cache_to_from_main_memory_transfer_time);
+      fscanf(time_fd,"%ld",&L2_cache_write_buffer_search_time);
+      fscanf(time_fd,"%ld",&L2_cache_to_L2_cache_write_buffer_transfer_time);
+      fscanf(time_fd,"%ld",&L2_cache_write_buffer_to_main_memory_transfer_time);
+      fscanf(time_fd,"%ld",&update_bit_in_main_memory_time);
+      fscanf(time_fd,"%ld",&pcb_data_processor_to_from_main_memory_transfer_time);
+      fscanf(time_fd,"%ld",&page_table_entry_processor_to_from_main_memory_transfer_time);
+      fscanf(time_fd,"%ld",&update_frame_table_entry_time);
+      fscanf(time_fd,"%ld",&average_disk_to_from_swap_space_transfer_time_entire_process);
+      fscanf(time_fd,"%ld",&main_memory_to_swap_space_transer_time);
+      fscanf(time_fd,"%ld",&swap_space_to_main_memory_transfer_time);
+      fscanf(time_fd,"%ld",&page_fault_overhead_time);
+      fscanf(time_fd,"%ld",&restart_overhead_time);
+      fscanf(time_fd,"%ld",&context_switch_time);
+
+   }
+
+   fclose(time_fd);
+
+
+   FILE* input_fd = fopen(input_file,"r");
+   int max_number_of_processes,j;
    fscanf(input_fd,"%d",&max_number_of_processes);
-   int j;
-
 
    //initialize total time taken as 0
    total_time_taken=0;
@@ -44,6 +80,9 @@ int main()
 
    number_of_L2_cache_hits=0;
    total_L2_cache_accesses=0;
+
+   number_of_cache_misses=0;
+   total_cache_accesses=0;
 
    number_of_page_misses=0;
    number_of_page_accesses=0;
@@ -74,22 +113,6 @@ int main()
    int process_switch_instruction_count=200;
    int number_of_processes_ready=0;
    int pid_array[max_number_of_processes];
-
-   // while(1)
-   // {
-   //    fprintf(stderr,"%d\n",get_frame(kernel_object,main_memory_32MB));
-   // }
-
-   //return 0;
-
-   //print_tlb(L1_tlb);
-   // print_tlb(L2_tlb);
-
-   // insert_new_tlb_entry(L2_tlb,5,6);
-   // L2_to_L1_tlb_transfer(L1_tlb,L2_tlb,5);
-
-   // print_tlb(L1_tlb);
-   // print_tlb(L2_tlb);
    
    //return 0;
 
@@ -201,6 +224,11 @@ int main()
    fprintf(output_fd,"L2 Cache Hit Rate: %Lf\n",L2_cache_hit_rate);
    fflush(output_fd);
    fprintf(stderr,"L2 Cache Hit Rate: %Lf\n",L2_cache_hit_rate);
+
+   cache_hit_rate = 1 - (number_of_cache_misses/total_cache_accesses);
+   fprintf(output_fd,"Cache Hit Rate: %Lf\n",cache_hit_rate);
+   fflush(output_fd);
+   fprintf(stderr,"Cache Hit Rate: %Lf\n",cache_hit_rate);
 
    page_fault_rate=number_of_page_misses/number_of_page_accesses;
    fprintf(output_fd,"Page Fault Rate: %Lf\n",page_fault_rate);

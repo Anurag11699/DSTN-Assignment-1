@@ -56,9 +56,13 @@
 
 #define right_shift_L2_cache_counter 64
 
-#define outputfile "OUTPUT.txt"
+#define output_file "OUTPUT.txt"
 
-#define inputfile "input.txt"
+#define input_file "input.txt"
+
+#define time_parameter_file "time_values.txt"
+
+#define number_of_time_parameters 28
 
 
 #endif /*MACROS_H*/
