@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include <unistd.h>
 #include "functions.h"
+#include<assert.h>
 
 
 /*
@@ -43,6 +44,7 @@ L1_cache* initialize_L1_cache()
     return L1_cache_object;
 }
 
+
 /*
 PreConditions
 Inputs: None, we have hardcoded the cache as it is a given hardware structure. 
@@ -75,6 +77,7 @@ L2_cache* initialize_L2_cache()
     return L2_cache_object;
 }
 
+
 /*
 PreConditions
 Inputs: None, we have hardcoded the cache as it is a given hardware structure. 
@@ -103,12 +106,13 @@ L2_cache_write_buffer* initialize_L2_cache_write_buffer(int number_of_entries)
     return L2_cache_write_buffer_object;
 }
 
+
 /*
 PreConditions
-Inputs: {pointer to L1 cache object, index of entry, tag of entry , block offset, request is read or write}
+Inputs: {pointer to main memory object,pointer to L1 cache object, index of entry, tag of entry , block offset, frame number of entry where the block is present in, request is read or write}
 
 0<=index<=32 
-0<=tag<=0x3fff
+0<=tag<=0x7fff
 0<=offset<=32
 if cache is L1 instruction cache, write always 0.
 if cache is L1 data cache, write is 1 if process requests a write. write is 0 if process requests a read. 
@@ -116,7 +120,7 @@ if cache is L1 data cache, write is 1 if process requests a write. write is 0 if
 Purpose of the Function: 
 Searches for the required block in the L1 cache.
 If entry is present return 1 and update the LRU sqaure matrix row of that entry as all 1 and column as all 0. 
-As policy is write through, we initiate immediate write to the main memory if the request is a write
+As policy is write through, we initiate immediate write to the main memory if the request is a write and mark the frame given by frame number as modified.
 If entry is absent return -1; 
 
 PostConditions
@@ -126,6 +130,18 @@ If entry is absent return -1;
 */
 int L1_search(main_memory* main_memory_object,L1_cache* L1_cache_object, int index, int tag, int offset, int frame_number, int write)
 {
+    //check PreConditions
+
+    assert(offset<32 && "L1 Cache Block Offset must be < 32d");
+    assert(offset>=0 && "L1 Cache Block Offset must be >= 0d");
+
+    assert(index<32 && "L1 Cache Block Index must be < 32d");
+    assert(index>=0 && "L1 Cache Block Index must be >= 0d");
+
+    assert(tag<0x7fff && "L1 Cache Block Tag must be < 0x7fff");
+    assert(tag>=0 && "L1 Cache Block Tag must be >= 0d");
+    
+    
     int i,j;
 
     long int time_taken = 0;
@@ -173,9 +189,10 @@ int L1_search(main_memory* main_memory_object,L1_cache* L1_cache_object, int ind
     return -1;
 }
 
+
 /*
 PreConditions
-Inputs: {pointer to L2 cache object, pointer to L2 write buffer object, index of entry, tag of entry , block offset, request is read or write}
+Inputs: {pointer to main memory object, pointer to L2 cache object, pointer to L2 write buffer object, index of entry, tag of entry , block offset, frame number of the frame where this block is from, request is read or write}
 
 0<=index<=64 
 0<=tag<=0x3fff
@@ -184,8 +201,8 @@ Inputs: {pointer to L2 cache object, pointer to L2 write buffer object, index of
 Purpose of the Function: 
 Searches for the required block in the L2 cache.
 If entry is present return 1. 
-Right shift LRU counters of all ways by 1 and set MSB of the way which was hit.
-If it was a right request copy that block and its metadata to the write buffer, do appropriate actions
+Right shift LRU counters of all ways by 1 if any of the counters reaches max value of 255 and set MSB of the way which was hit.
+If it was a write request copy that block and its metadata to the write buffer, If write buffer was full, copy data from write buffer to main memory.
 If entry is absent return -1; 
 
 PostConditions
@@ -193,8 +210,20 @@ Output:
 If entry is present return return time taken to process request
 If entry is absent return -1;
 */
-int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_buffer_object,int index, int tag, int offset, int frame_number, int write)
+int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache_write_buffer* L2_cache_write_buffer_object, int index, int tag, int offset, int frame_number, int write)
 {
+
+    //check PreConditions
+
+    assert(offset<32 && "L2 Cache Block Offset must be < 32d");
+    assert(offset>=0 && "L2 Cache Block Offset must be >= 0d");
+
+    assert(index<64 && "L2 Cache Block Index must be < 64d");
+    assert(index>=0 && "L2 Cache Block Index must be >= 0d");
+
+    assert(tag<0x3fff && "L2 Cache Block Tag must be < 0x3fff");
+    assert(tag>=0 && "L2 Cache Block Tag must be >= 0d");
+
     int i,j;
     int flag=0;
 
@@ -312,6 +341,7 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
     return -1;
 }
 
+
 /*
 PreConditions
 Inputs: {pointer to L2 cache object, pointer to L2 write buffer object, index of entry, tag of entry , block offset}
@@ -328,6 +358,19 @@ The LFU way in the given index is replaced and its counter is set to 0
 */
 void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int offset)
 {
+
+    //check PreConditions
+
+    assert(offset<32 && "L2 Cache Block Offset must be < 32d");
+    assert(offset>=0 && "L2 Cache Block Offset must be >= 0d");
+
+    assert(index<64 && "L2 Cache Block Index must be < 64d");
+    assert(index>=0 && "L2 Cache Block Index must be >= 0d");
+
+    assert(tag<0x3fff && "L2 Cache Block Tag must be < 0x3fff");
+    assert(tag>=0 && "L2 Cache Block Tag must be >= 0d");
+
+
     //L2 cache entry is replaced by the one transfered from L1 cache, hence add the transfer time and search time in L2 cache to total time
 
     total_time_taken = total_time_taken + L1_cache_to_from_L2_cache_transfer_time + L2_cache_search_time;
@@ -373,9 +416,35 @@ void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int o
 
 }
 
+/*
+PreConditions
+Inputs: {pointer to L2 cache object, index of entry, tag of entry , block offset}
 
+0<=index<=64 
+0<=tag<=0x3fff
+0<=offset<=32
+
+Purpose of the Function: 
+It invalidates the given given entry of L2 cache. This function is used in conjuction with replace_L1_cache entry to remove a block from L2 cache and transfer it to L1 cache.
+
+PostConditions
+The given entry is invalidated 
+*/
 void remove_L2_cache_block(L2_cache* L2_cache_object, int index, int tag, int offset)
 {   
+    
+    //check PreConditions
+
+    assert(offset<32 && "L2 Cache Block Offset must be < 32d");
+    assert(offset>=0 && "L2 Cache Block Offset must be >= 0d");
+
+    assert(index<64 && "L2 Cache Block Index must be < 64d");
+    assert(index>=0 && "L2 Cache Block Index must be >= 0d");
+
+    assert(tag<0x3fff && "L2 Cache Block Tag must be < 0x3fff");
+    assert(tag>=0 && "L2 Cache Block Tag must be >= 0d");
+
+
     //add time taken to search for the entry to remove it
     total_time_taken = total_time_taken + L2_cache_search_time;
 
@@ -390,22 +459,35 @@ void remove_L2_cache_block(L2_cache* L2_cache_object, int index, int tag, int of
 
 }
 
+
 /*
 PreConditions
-Inputs: {pointer to L2 cache object, pointer to L2 write buffer object, index of entry, tag of entry , block offset}
+Inputs: {pointer to L1 cache object, pointer to L2 cache object, index of entry, tag of entry , block offset}
 
 0<=index<=32 
-0<=tag<=0x3fff
+0<=tag<=0x7fff
 0<=offset<=32
 
 Purpose of the Function: 
-First checks if there are any invalid block in that index to place the new block in. If not,the function replaces the LRU block in that index of the cache. The block going to be replaced in L1 cannot be simply dropped as the cache is exclusive. Hence, we must transfer the going to be replaced block to the L2 cache by calling the replace_L2_cache_entry function.
+First checks if there are any invalid block in that index to place the new block in. If not,the function replaces the LRU block in that index of the cache. The block going to be replaced in L1 cannot be simply dropped as the cache is exclusive. Hence, we must transfer the going to be replaced block to the L2 cache by calling the replace_L2_cache_entry function with appropriate index and tag of L2 cache.
 
 PostConditions
 The LRU way in the given index is replaced.
 */
 void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object, int index, int tag, int offset)
 {
+    //check PreConditions
+
+    assert(offset<32 && "L1 Cache Block Offset must be < 32d");
+    assert(offset>=0 && "L1 Cache Block Offset must be >= 0d");
+
+    assert(index<32 && "L1 Cache Block Index must be < 32d");
+    assert(index>=0 && "L1 Cache Block Index must be >= 0d");
+
+    assert(tag<0x7fff && "L1 Cache Block Tag must be < 0x7fff");
+    assert(tag>=0 && "L1 Cache Block Tag must be >= 0d");
+
+
     //add the time taken to search which tag to put it in
     total_time_taken = total_time_taken  + (L1_cache_indexing_time+L1_cache_tag_comparison_time);
 
@@ -484,6 +566,7 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
 
 }
 
+/*auxillary function used to print L1 cache useful for debugging*/
 void print_L1_cache(L1_cache* L1_cache_object)
 {
     fprintf(output_fd,"Printing L1 Cache\n");
@@ -517,6 +600,8 @@ void print_L1_cache(L1_cache* L1_cache_object)
     fflush(output_fd);
 }
 
+
+/*auxillary function used to print L2 cache useful for debugging*/
 void print_L2_cache(L2_cache* L2_cache_object)
 {
     fprintf(output_fd,"Printing L2 Cache\n");
@@ -539,6 +624,7 @@ void print_L2_cache(L2_cache* L2_cache_object)
     
 }
 
+/*auxillary function used to print L2 cache write buffer, useful for debugging*/
 void print_L2_buffer_cache(L2_cache_write_buffer* L2_cache_write_buffer_object)
 {
     fprintf(output_fd,"Printing L2 Cache Write Buffer\n");

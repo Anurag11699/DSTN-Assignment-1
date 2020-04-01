@@ -110,7 +110,7 @@ int main()
    long int number_of_requests_processed=0;
    unsigned int process_request;
    int executing_pid_index=1;
-   int process_switch_instruction_count=200;
+   int process_switch_instruction_count=2000;
    int number_of_processes_ready=0;
    int pid_array[max_number_of_processes];
    
@@ -189,7 +189,7 @@ int main()
       //if the process is requesting for an instruction, it can be Read Only
       if(get_request_type(process_request)==INSTRUCTION_REQUEST)
       {
-         read_write=0;
+         read_write=READ_REQUEST;
       }
       else
       {
@@ -226,9 +226,9 @@ int main()
    fprintf(stderr,"L2 Cache Hit Rate: %Lf\n",L2_cache_hit_rate);
 
    cache_hit_rate = 1 - (number_of_cache_misses/total_cache_accesses);
-   fprintf(output_fd,"Cache Hit Rate: %Lf\n",cache_hit_rate);
+   fprintf(output_fd,"Overall Cache Hit Rate: %Lf\n",cache_hit_rate);
    fflush(output_fd);
-   fprintf(stderr,"Cache Hit Rate: %Lf\n",cache_hit_rate);
+   fprintf(stderr,"Overall Cache Hit Rate: %Lf\n",cache_hit_rate);
 
    page_fault_rate=number_of_page_misses/number_of_page_accesses;
    fprintf(output_fd,"Page Fault Rate: %Lf\n",page_fault_rate);

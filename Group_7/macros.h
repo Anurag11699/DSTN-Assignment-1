@@ -5,6 +5,10 @@
 
 #define DATA_REQUEST 1
 
+#define READ_REQUEST 0
+
+#define WRITE_REQUEST 1
+
 #define TASK_TERMINATED 0
 
 #define TASK_READY 1
@@ -63,6 +67,5 @@
 #define time_parameter_file "time_values.txt"
 
 #define number_of_time_parameters 28
-
 
 #endif /*MACROS_H*/
