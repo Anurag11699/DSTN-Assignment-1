@@ -543,6 +543,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     //add time to get the entry from main memory
     total_time_taken = total_time_taken + pcb_data_processor_to_from_main_memory_transfer_time;
 
+    //increment page accesses
+    number_of_page_accesses++;
+
     //check if you own frame, otherwise load new frame for the outermost page table
 
     int own_outer_page_table = check_frame_ownership(main_memory_object,pid,outer_page_table_frame_number);
@@ -571,7 +574,10 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         kernel_object->pcb_array[pid].outer_page_base_address=outer_page_table_frame_number;
 
         //add time to transfer this entry back to main memory
-        total_time_taken = total_time_taken + pcb_data_processor_to_from_main_memory_transfer_time;;
+        total_time_taken = total_time_taken + pcb_data_processor_to_from_main_memory_transfer_time;
+
+        //increment page misses
+        number_of_page_misses++;
         
     }
 
@@ -596,6 +602,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
     //add time to get this page table entry from main memory to processor
     total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
+
+    //increment page accesses 
+    number_of_page_accesses++;
 
     int own_middle_page_table = check_frame_ownership(main_memory_object,pid,middle_page_table_frame_number);
 
@@ -627,6 +636,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         //add time to trnasfer the updated page table entry from processor to main memory
         total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
 
+        //increment page misses
+        number_of_page_misses++;
+
     }
 
     own_middle_page_table = check_frame_ownership(main_memory_object,pid,middle_page_table_frame_number);
@@ -650,6 +662,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
     //add time to get this page table entry from main memory to processor
     total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
+
+    //increment number of page accesses
+    number_of_page_accesses++;
 
     int own_inner_page_table = check_frame_ownership(main_memory_object,pid,inner_page_table_frame_number);
 
@@ -680,6 +695,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
         //add time to trnasfer the updated page table entry from processor to main memory
         total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
+
+        //increment number of page misses
+        number_of_page_misses++;
         
     }
 
@@ -705,6 +723,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
     //add time to get this page table entry from main memory to processor
     total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
+
+    //increment number of page accesses
+    number_of_page_accesses++;
 
     int own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
 
@@ -737,6 +758,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
         //add time to trnasfer the updated page table entry from processor to main memory
         total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
+
+        //increment number of page misses
+        number_of_page_misses++;
     }
 
     own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
@@ -1037,8 +1061,11 @@ void print_ufl(main_memory *main_memory_object)
     walker = main_memory_object->ufl_dummy_head->next;
     used_frame *temp=walker;
     if(walker!=NULL)
+    {
+
         fprintf(output_fd,"Recently Used Frame: {Frame Number: %d, Reference Bit: %d}\n",main_memory_object->recently_used_frame->frame_number,main_memory_object->recently_used_frame->reference_bit);
         fflush(output_fd);
+    }
 
     while(walker!=NULL && walker->next!=temp)
     {

@@ -25,6 +25,9 @@ long double L1_cache_hit_rate;
 long double number_of_L2_cache_hits;
 long double total_L2_cache_accesses;
 long double L2_cache_hit_rate;
+long double number_of_page_accesses;
+long double number_of_page_misses;
+long double page_fault_rate;
 
 
 //access time vairables

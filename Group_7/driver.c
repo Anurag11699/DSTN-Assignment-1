@@ -38,10 +38,15 @@ int main()
 
    number_of_tlb_hits=0;
    total_tlb_accesses=0;
+
    number_of_L1_cache_hits=0;
    total_L1_cache_accesses=0;
+
    number_of_L2_cache_hits=0;
    total_L2_cache_accesses=0;
+
+   number_of_page_misses=0;
+   number_of_page_accesses=0;
 
    number_of_L1_tlb_searches=0;
    number_of_L2_tlb_searches=0;
@@ -196,6 +201,11 @@ int main()
    fprintf(output_fd,"L2 Cache Hit Rate: %Lf\n",L2_cache_hit_rate);
    fflush(output_fd);
    fprintf(stderr,"L2 Cache Hit Rate: %Lf\n",L2_cache_hit_rate);
+
+   page_fault_rate=number_of_page_misses/number_of_page_accesses;
+   fprintf(output_fd,"Page Fault Rate: %Lf\n",page_fault_rate);
+   fflush(output_fd);
+   fprintf(stderr,"Page Fault Rate: %Lf\n",page_fault_rate);
    
    fclose(output_fd);
    
