@@ -451,7 +451,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
             //     print_L1_cache(L1_data_cache_4KB);
             // }
 
-            // print_L2_cache(L2_cache_32KB);
+            //print_L2_cache(L2_cache_32KB);
 
             fprintf(output_fd,"L2 Cache HIT\n");
             fflush(output_fd);

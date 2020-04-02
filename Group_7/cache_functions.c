@@ -287,7 +287,12 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
             //also, if it was a write request, put this block into buffer cache
             if(write==1) //write==1 means the entry was write
             {
-                //print_L2_buffer_cache(L2_cache_write_buffer_object);
+                // fprintf(output_fd,"L2 Tag: %d | Index: %d\n",index,tag);
+                // fflush(output_fd);
+
+                // print_L2_buffer_cache(L2_cache_write_buffer_object);
+
+                
 
                 int L2_cache_write_buffer_num_entries = L2_cache_write_buffer_object->number_of_entries;
                 total_time_taken=total_time_taken+L2_cache_write_buffer_search_time;
@@ -586,8 +591,8 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
     int L2_cache_needed_index_to_replace = get_L2_cache_block_index(physical_address,cache_block_offset_size);
     int L2_cache_needed_tag_to_replace = get_L2_cache_tag(physical_address,L2_cache_index_size,cache_block_offset_size);
 
-    fprintf(output_fd,"Replacing in L2 cache, Index: %d | Tag: %d\n ",L2_cache_needed_index_to_replace,L2_cache_needed_tag_to_replace);
-    fflush(output_fd);
+    // fprintf(output_fd,"Replacing in L2 cache, Index: %d | Tag: %d\n ",L2_cache_needed_index_to_replace,L2_cache_needed_tag_to_replace);
+    // fflush(output_fd);
 
     replace_L2_cache_entry(L2_cache_object, L2_cache_needed_index_to_replace,  L2_cache_needed_tag_to_replace,offset);
 
