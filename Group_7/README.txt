@@ -55,3 +55,16 @@ go to Group_7 folder
 Type ./test in the terminal to execute the program
 
 
+
+Structure of the program:
+1. driver takes all inputs pertaining to memory times and file names of each process
+2. All processes are loaded into memory using the "load_new_process" function. First two pages are prepaged for each process
+3. Every process is executed for a fixed number of instructions until being context switched out. This happens in a cycle for all processes until all its requests are processes. It is terminated after that.
+4. To process a request, we call "execute_process_request" function which does the following
+    a. Checks if the logical frame mapping to physical frame exists in any of the tlb using "complete tlb search" function. If it does not, it does a page walk using the "page_table_walk" function to get the frame number for the corresponding logical page. It then inserts the mapping into the tlbs and restarts the process request.
+    b. If there is a tlb hit, we get the physical frame number. Using this we search in both the L1 and L2 caches.
+    c. If L1 cache hit we get the requested data.
+    d. If L2 cache hit we get the data and transfer the block to L1 cache. The L1 cache also transfers a block to L2 as the caches are exclusive.
+    e. If both the caches miss, then we get the data from memory and insert it into the L1 cache. The L1 cache also transfers a block to L2 as the caches are exclusive.
+
+

@@ -149,11 +149,14 @@ int main()
          oldpid=pid_array[executing_pid_index];
          executing_pid_index=(executing_pid_index+1)%(number_of_processes_ready);
          newpid=pid_array[executing_pid_index];
+
+         //context switch after every "process_switch_instruction_count" number of accesses
          context_switch(kernel_object,L1_tlb,L2_tlb,oldpid,newpid);
       }
 
       is_eof=fscanf(kernel_object->pcb_array[pid_array[executing_pid_index]].fd,"%x",&process_request);
 
+      //if we reach eof then process must be terminated
       if(is_eof==EOF)
       {
          oldpid=pid_array[executing_pid_index];
