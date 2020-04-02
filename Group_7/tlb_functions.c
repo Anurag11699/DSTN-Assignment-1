@@ -6,19 +6,28 @@
 /*
 PreConditions
 Inputs:{number of entries in the tlb}
+number of entries>=0
 
 Purpose of the Function: Initialize the tlb data structure which has number of entries as specified by the input parameter
 
 PostConditions
 Output: {pointer to intialized tlb}
+tlb_object!=NULL
 */
 tlb* initialize_tlb(int number_of_entries)
 {
+
+    //check PreConditions
+    assert(number_of_entries>=0 && "Number of Entries in TLB >= 0d");
+
     tlb *tlb_object = (tlb *)malloc(sizeof(tlb));
     tlb_object->number_of_entries=number_of_entries;
     tlb_object->tlb_entries=(tlb_entry *)malloc(sizeof(tlb_entry)*number_of_entries);
 
     tlb_flush(tlb_object);
+
+    //check PostConditions
+    assert(tlb_object!=NULL && "pointer to tlb cannot be NULL");
 
     return tlb_object;
 }
@@ -27,6 +36,7 @@ tlb* initialize_tlb(int number_of_entries)
 /*
 PreConditions
 Inputs:{pointer to tlb object}
+tlb_object!=NULL
 
 Purpose of the Function: Invalidate all the entries in the tlb
 
@@ -35,6 +45,11 @@ Updated tlb object
 */
 void tlb_flush(tlb* tlb_object)
 {
+
+    //check PreConditions
+    assert(tlb_object!=NULL && "pointer to tlb cannot be NULL");
+
+
     int number_of_entries = tlb_object->number_of_entries;
     for(int i=0;i<number_of_entries;i++)
     {
@@ -47,6 +62,7 @@ void tlb_flush(tlb* tlb_object)
 /*
 PreConditions
 Inputs:{pointer to tlb object, logical page number to search for}
+tlb_object!=NULL
 0<=logical page number<2^22
 
 Purpose of the Function: The function goes through the tlb to search for the entry corresponding to the given logical page number. If found, it returns the Physical frame number associated with it and sets the MSB of the counter of that entry to 1.
@@ -59,6 +75,12 @@ Physical Frame Number, if entry exists
 */
 int L1_tlb_search(tlb* tlb_object, int logical_page_number)
 {
+    //check PreConditions
+    assert(tlb_object!=NULL && "pointer to tlb cannot be NULL");
+
+    assert(logical_page_number >= 0x0 && "Logical page number must be >= 0x0");
+    assert(logical_page_number <= 0x3fffff && "Logical page number must be <= 0x3fffff");
+
     number_of_L1_tlb_searches++;
     int number_of_entries = tlb_object->number_of_entries;
     //shift all the counters to the right by 1
@@ -90,6 +112,7 @@ int L1_tlb_search(tlb* tlb_object, int logical_page_number)
 /*
 PreConditions
 Inputs:{pointer to tlb object, logical page number to search for}
+tlb_object!=NULL
 0<=logical page number<2^22
 
 Purpose of the Function: The function goes through the tlb to search for the entry corresponding to the given logical page number. If found, it returns the Physical frame number associated with it and sets the MSB of the counter of that entry to 1.
@@ -102,6 +125,13 @@ Physical Frame Number, if entry exists
 */
 int L2_tlb_search(tlb* tlb_object, int logical_page_number)
 {
+    //check PreConditions
+    assert(tlb_object!=NULL && "pointer to tlb cannot be NULL");
+
+    assert(logical_page_number >= 0x0 && "Logical page number must be >= 0x0");
+    assert(logical_page_number <= 0x3fffff && "Logical page number must be <= 0x3fffff");
+
+
     number_of_L2_tlb_searches++;
     int number_of_entries = tlb_object->number_of_entries;
     //shift all the counters to the right by 1
@@ -133,6 +163,8 @@ int L2_tlb_search(tlb* tlb_object, int logical_page_number)
 /*
 PreConditions
 Inputs:{pointer to L1 tlb object, pointer to L2 object, logical page number entry corresponding to which must be transfered from L2 tlb to L1 tlb}
+L1_tlb!=NULL
+L2_tlb!=NULL
 0<=logical page number<2^22
 
 Purpose of the Function: The function goes through the L2 tlb to search for the entry corresponding to the given logical page number. If found, it transferes a copy of this L2 tlb entry to the L1 tlb. In the L1 tlb we first try to replace an invalid entry, if no entry is invalid, we replace the least recently used entry 
@@ -142,6 +174,15 @@ Updated TLB objects if transfer took place
 */
 void L2_to_L1_tlb_transfer(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number)
 {   
+
+    //check PreConditions
+    assert(L1_tlb!=NULL && "pointer to L1 tlb cannot be NULL");
+    assert(L2_tlb!=NULL && "pointer to L1 tlb cannot be NULL");
+
+    assert(logical_page_number >= 0x0 && "Logical page number must be >= 0x0");
+    assert(logical_page_number <= 0x3fffff && "Logical page number must be <= 0x3fffff");
+
+
     //add time take for this transfer
     total_time_taken=total_time_taken+L1_tlb_to_from_L2_tlb_transfer_time;
 
@@ -191,6 +232,8 @@ void L2_to_L1_tlb_transfer(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number)
 /*
 PreConditions
 Inputs:{pointer to L1 tlb object, pointer to L2 object, logical page number to search for, pointer to store the physical frame number}
+L1_tlb!=NULL
+L2_tlb!=NULL
 0<=logical page number<2^22
 
 Purpose of the Function: This function searches in L1 tlb, if the entry corresponding to the logical page number exists in L1 tlb, returns the physical frame number in the entry. If not found in L1 tlb, L2 tlb is searched. If found in L2 tlb, a copy of that entry is transfered to L1 tlb (using L2_to_L1_tlb_transfer function) and physical frame number in the entry returned. If the entry was not found in any tlb, -1 is returned.
@@ -201,6 +244,15 @@ time taken to search for the entry
 */
 int complete_tlb_search(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number, int *physical_frame_number)
 {
+
+    //check PreConditions
+    assert(L1_tlb!=NULL && "pointer to L1 tlb cannot be NULL");
+    assert(L2_tlb!=NULL && "pointer to L1 tlb cannot be NULL");
+
+    assert(logical_page_number >= 0x0 && "Logical page number must be >= 0x0");
+    assert(logical_page_number <= 0x3fffff && "Logical page number must be <= 0x3fffff");
+
+
     long int time_taken=0;
     //search in L1 tlb
     (*physical_frame_number) = L1_tlb_search(L1_tlb,logical_page_number);
@@ -241,6 +293,7 @@ int complete_tlb_search(tlb *L1_tlb, tlb *L2_tlb, int logical_page_number, int *
 /*
 PreConditions
 Inputs:{pointer to tlb object,logical page number, physical frame number}
+tlb_object!=NULL
 0<=logical page number<2^22
 
 Purpose of the Function: This function creates a new tlb entry with the input parameters and inserts it into the tlb object given. It first searches for an invalid tlb entry to replace. If not invalid tlb entry found, it replaces the lru entry.
@@ -250,7 +303,14 @@ tlb object with new entry inserted
 */
 void insert_new_tlb_entry(tlb* tlb_object, int logical_page_number, int physical_frame_number)
 {
+    //check PreConditions
+    assert(tlb_object!=NULL && "pointer to tlb_object cannot be NULL");
+
+    assert(logical_page_number >= 0x0 && "Logical page number must be >= 0x0");
+    assert(logical_page_number <= 0x3fffff && "Logical page number must be <= 0x3fffff");
+
     int number_of_entries = tlb_object->number_of_entries;
+
     //Check if there are any invalid entries in tlb and replace it with that
     tlb_entry tlb_entry_to_add;
     tlb_entry_to_add.logical_page_number=logical_page_number;

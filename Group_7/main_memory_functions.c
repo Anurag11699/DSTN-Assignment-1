@@ -647,6 +647,7 @@ Purpose of the Function: Starts from the outermost page table stored in the pcb 
 PostConditions
 Return Value:
 Frame number assigned to the logical page requested by process
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
 */
 int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int pid, unsigned long int logical_address)
 {
@@ -918,6 +919,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     //print_frame_table(main_memory_object);
     //fflush(output_fd);
 
+    assert(needed_frame_number>=0 && "Frame Number out of bounds");
+    assert(needed_frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
+
     return needed_frame_number;
 }
 
@@ -941,8 +945,8 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
     assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
     assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
 
-    assert(logical_page >= 0x0 && "Virtual Address must be >= 0x0");
-    assert(logical_page <= 0x3fffff && "Virtual Address must be <= 0x3fffff");
+    assert(logical_page >= 0x0 && "Logical page number must be >= 0x0");
+    assert(logical_page <= 0x3fffff && "Logical page number must be <= 0x3fffff");
 
     assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
     assert(pid>=0 && "pid less than 0 not allowed");
