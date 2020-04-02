@@ -6,7 +6,6 @@
 #include "cache_data_structures.h"
 #include "tlb_data_structures.h"
 #include "kernel_data_structures.h"
-#include "configuration_file.h"
 #include "macros.h"
 #include "global_variables.h"
 
