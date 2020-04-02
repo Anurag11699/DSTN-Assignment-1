@@ -348,8 +348,8 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         //fprintf(output_fd,"L1 Cache Index: %d | L1 cache Tag: %d\n",L1_cache_index,L1_cache_tag);
 
-        int L1_cache_hit;
-        int L2_cache_hit;
+        int L1_cache_hit=-1;
+        int L2_cache_hit=-1;
 
         //as cache is lookaside, we need to search both the caches in parallel.
         //we need to check request type. if process is requesting for instruction, search in 
@@ -363,12 +363,12 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         }
         total_L1_cache_accesses++;
 
-        //searching L2 cache in parallel
-        L2_cache_hit = L2_search(main_memory_32MB,L2_cache_32KB,L2_cache_write_buffer_8,L2_cache_index,L2_cache_tag,cache_block_offset,physical_frame_number,write); 
-
+       
         if(L1_cache_hit==-1)
         {
             total_L2_cache_accesses++;
+            //searching L2 cache in parallel
+            L2_cache_hit = L2_search(main_memory_32MB,L2_cache_32KB,L2_cache_write_buffer_8,L2_cache_index,L2_cache_tag,cache_block_offset,physical_frame_number,write); 
         }
             
         
