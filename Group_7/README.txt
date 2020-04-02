@@ -42,6 +42,7 @@ input.txt: Contains number of processes and the input file name corresponding to
 OUTPUT.txt: Upon simulation, will contain the output of the program.
 time_values.txt: Contains the time values for each aspect of the effective memory access time calculation.
 
+makefile: used to compile the code
 
 
 How to Compile:

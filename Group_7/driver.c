@@ -166,7 +166,7 @@ int main()
          //remove element of array pointed to by executing_pid_index
          fprintf(stderr,"Process %d Over\n",pid_array[executing_pid_index]);
          
-         //sleep(1);
+         sleep(1);
          for(j=executing_pid_index;j<number_of_processes_ready-1;j++)
          {
             pid_array[j]=pid_array[j+1];
