@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <unistd.h>
+#include<assert.h>
 #include "functions.h"
 
 /*auxillary function used to get x^y*/
@@ -29,6 +30,7 @@ int power(int x, unsigned int y)
 PreConditions
 Inputs:{pointer to main memory object, frame number which we need to add to free frame list}
 0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+main_memory_object!=NULL
 
 Purpose of the Function: Add the frame number to the tail of the linked list of free frames and increment number of free frames
 
@@ -37,6 +39,12 @@ Updated free frame list with new entry
 */
 void add_free_frame(main_memory* main_memory_object, int frame_number)
 {
+    //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
+
 
     main_memory_object->frame_table[frame_number].pid=-1;
     main_memory_object->frame_table[frame_number].page_number=-1;
@@ -60,7 +68,7 @@ void add_free_frame(main_memory* main_memory_object, int frame_number)
 /*
 PreConditions
 Inputs:{pointer to main memory object}
-
+main_memory_object!=NULL
 
 Purpose of the Function: Remove a free frame entry from the head of the free frame list and return the frame number. Decrements the number of free frames.
 
@@ -72,6 +80,8 @@ frame number of the removed frame if the free frame list was not empty. {0<=fram
 */
 int remove_free_frame(main_memory* main_memory_object)
 {
+    //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
 
     if( main_memory_object->ffl_dummy_head->next==NULL)
     {
@@ -85,6 +95,10 @@ int remove_free_frame(main_memory* main_memory_object)
     free(temp);
     main_memory_object->ffl_dummy_head->number_free_frames--;
 
+    //check PostCondition
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
+
     return frame_number;
 }
 
@@ -92,6 +106,7 @@ int remove_free_frame(main_memory* main_memory_object)
 PreConditions
 Inputs:{pointer to main memory object, frame number which we need to add to the used frame list}
 0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+main_memory_object!=NULL
 
 Purpose of the Function: Add the {frame number, reference bit} to linked list of used frames(fifo queue) and increment number of used frames. Make the currently added frame as the recently used frame
 
@@ -100,6 +115,12 @@ Updated used frame list with new entry
 */
 void add_used_frame(main_memory* main_memory_object, int frame_number)
 {
+
+    //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
     
     used_frame *new_frame = (used_frame *)malloc(sizeof(free_frame));
     new_frame->frame_number=frame_number;
@@ -130,8 +151,12 @@ void add_used_frame(main_memory* main_memory_object, int frame_number)
 /*
 PreConditions
 Inputs:{pointer to main memory object}
+kernel_object!=NULL
+main_memory_object!=NULL
 
-Purpose of the Function: The functions traverses the used frame list starting from the element after the recently used frame. This element is the frame which was used first (as it is a fifo circular queue). If the reference bit is set to 1, make it 0 and continue until you find an entry whose reference bit is 0. (giving second chance to a frame). This frame is removed from the list and returned. The recently used frame is updated appropriately
+Purpose of the Function: 
+The functions traverses the used frame list starting from the element after the recently used frame. This element is the frame which was used first (as it is a fifo circular queue). If the reference bit is set to 1, make it 0 and continue until you find an entry whose reference bit is 0. (giving second chance to a frame). This frame is removed from the list and returned. The recently used frame is updated appropriately.
+We also need to take care of thrasing. We cannot remove a frame from a process who has less frames than the lower bound of frames per process.
 
 PostConditions
 Updated used frame list upon removing entry
@@ -141,6 +166,9 @@ frame number of the removed frame if the used frame list was not empty. {0<=fram
 */
 int remove_used_frame(kernel* kernel_object ,main_memory* main_memory_object)
 {
+    //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
     
     if(main_memory_object->ufl_dummy_head->next==NULL || main_memory_object->ufl_dummy_head->number_used_frames==0)
     {
@@ -168,13 +196,42 @@ int remove_used_frame(kernel* kernel_object ,main_memory* main_memory_object)
     main_memory_object->ufl_dummy_head->number_used_frames--;
 
     main_memory_object->ufl_dummy_head->next=main_memory_object->recently_used_frame;
+
+    //check PostCondition
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
     
     return frame_number;
 
 }
 
+
+
+/*
+PreConditions
+Inputs:{pointer to kernel object, pointer to main memory object, pid of processes whose frames we want to free, number of frames we need to free}
+kernel_object!=NULL
+main_memory_object!=NULL
+0<=pid<maximum number of processes
+
+Purpose of the Function: 
+This function is used to prevent thrashing. It is called upon when a process exceeds the upper bound of frames.The functions traverses the used frame list starting from the element after the recently used frame and removes the required number of frames from the process and adds them to the free frame list. 
+
+PostConditions
+Updated used frame list
+Updated free frame list
+Updated frame table
+*/
 void free_process_frames(kernel* kernel_object, main_memory* main_memory_object, int pid, int number_of_frames_to_remove)
 {
+
+    //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
+
+    assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
+    assert(pid>=0 && "pid less than 0 not allowed");
+
     used_frame* walker = main_memory_object->recently_used_frame;
 
     //tranverse from last used frame onwards and remove frames of this process
@@ -189,7 +246,7 @@ void free_process_frames(kernel* kernel_object, main_memory* main_memory_object,
             main_memory_object->ufl_dummy_head->number_used_frames--;
 
             //add this frame to free frame list
-            update_frame_table_entry(main_memory_object,temp->frame_number,-1,-1);
+            update_frame_table_entry(kernel_object,main_memory_object,temp->frame_number,-1,-1);
             add_free_frame(main_memory_object,temp->frame_number);
 
             kernel_object->pcb_array[pid].number_of_frames_used--;
@@ -210,6 +267,7 @@ void free_process_frames(kernel* kernel_object, main_memory* main_memory_object,
 /*
 PreConditions
 Inputs:{pointer to main memory object, frame number which we needs to be transfered from used frame list to free frame list}
+main_memory_object!=NULL
 0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
 frame number entry is present in used frame list
 
@@ -220,6 +278,14 @@ Updated used frame list and free frame list
 */
 void transfer_to_free_frame_list(main_memory* main_memory_object, int frame_number)
 {
+
+    //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
+
+
     used_frame *walker = main_memory_object->ufl_dummy_head->next;
     used_frame *start = walker;
 
@@ -253,6 +319,14 @@ Updated used frame list.
 */
 void set_reference_bit(main_memory* main_memory_object,int frame_number)
 {
+
+    //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
+
+
     if(main_memory_object->ufl_dummy_head->next==NULL)
     {
         return;
@@ -271,7 +345,10 @@ void set_reference_bit(main_memory* main_memory_object,int frame_number)
 
 /*
 PreConditions
-Inputs:{pointer to the kernel object,pointer to main memory object}
+Inputs:{pointer to the kernel object,pointer to main memory object, int pid of requesting process, if the requested frame is for page table, has the frame been brought in before}
+main_memory_object!=NULL
+kernel_object!=NULL
+0<=pid<maximum number of processes
 
 Purpose of the Function: This function is called by a process to get a frame for itself when needed. The function first tries to get a frame from the free frame list(using get_free_frame method)(as placement is preferred over replacement). If we correctly received the frame from the free frame list, the function returns the frame number. If the free frame list is empty, the last used frame is extracted from the used frame list (using get_used_frame method). Upon receiving the used frame we must find out the pid of the proccess currently using the frame and the logical page of that process which was using it. Using this information we can invalidate the entry for this frame in the page table of that process (using invalidate_page_table_entry method)
 
@@ -281,6 +358,14 @@ frame number of the removed frame. {0<=frame number<number of frames in main mem
 */
 int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int is_page_table, int brought_in_before)
 {
+
+    //check PreConditions
+    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
+    assert(pid>=0 && "pid less than 0 not allowed");
+
     //add page fault times
     total_time_taken=total_time_taken+page_fault_overhead_time+restart_overhead_time;
 
@@ -336,6 +421,10 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
 
         //increment the number number of frames used by the process
         kernel_object->pcb_array[pid].number_of_frames_used++;
+
+        //check PostConditions
+        assert(frame_number>=0 && "Frame Number out of bounds");
+        assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
         return frame_number;
     }
 
@@ -374,6 +463,11 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
     //increment the number number of frames used by the process
     kernel_object->pcb_array[pid].number_of_frames_used++;
     
+
+    //check PostConditions
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
+    
     return frame_number;
 }
 
@@ -381,6 +475,7 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
 /*
 PreConditions
 Inputs: {frame number that this page table will occupy}
+0<=frame number<number of frames in main memory
 
 Purpose of the Function: This function intializes a page table
 
@@ -389,6 +484,7 @@ Output: {pointer to intialized page table}
 */
 page_table* initialize_page_table(int frame_number_occupied)
 {
+
     int i;
     page_table* page_table_object = (page_table*)malloc(sizeof(page_table));
     //page_table_object->frame_occupied=frame_number_occupied;
@@ -415,6 +511,7 @@ page_table* initialize_page_table(int frame_number_occupied)
 PreConditions
 Inputs: {pointer to main memory object, frame number}
 0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+main_memory_object!=NULL
 
 Purpose of the Function: This function is used to just access the OS frame table using the frame number as its index and return the pid of the process using that frame
 
@@ -423,6 +520,12 @@ Output:{pid of process which has acquired that frame}
 */
 int get_pid_of_frame(main_memory* main_memory_object,int frame_number)
 {
+    //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
+
     return main_memory_object->frame_table[frame_number].pid;
 }
 
@@ -432,6 +535,7 @@ int get_pid_of_frame(main_memory* main_memory_object,int frame_number)
 PreConditions
 Inputs: {pointer to main memory object, frame number}
 0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+main_memory_object!=NULL
 
 Purpose of the Function: This function is used to just access the OS frame table using the frame number as its index and return the logical page of the process using that frame holds
 
@@ -441,40 +545,47 @@ if the frame is a page table, returns -1
 */
 int get_page_number_of_frame(main_memory* main_memory_object,int frame_number)
 {
+    //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
+
     return main_memory_object->frame_table[frame_number].page_number;
 }
-
-
-/*
-PreConditions
-Inputs: {pointer to main memory object, frame number}
-0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
-
-Purpose of the Function: This function is used to just access the OS frame table using the frame number as its index and return the pointer to the page table which the frame holds, if any.
-
-PostConditions
-Output:{If the frame is a page table, returns pointer to page table. else returns NULL}
-*/
-// page_table* get_page_table_pointer_of_frame(main_memory* main_memory_object, int frame_number)
-// {
-//     return main_memory_object->frame_table[frame_number].pointer_to_stored_page_table;
-// }
-
 
 
 
 /*
 PreConditions
 Inputs: {pointer to main memory object, frame number, pid, page_number, pointer to page table object}
+kernel_object!=NULL
+main_memory_object!=NULL
 0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+0<=pid<maximum number of processes
+0<=page_number<=0x3fffff
 
 Purpose of the Function: This function is used to set the frame table entry indexed by the frame number
 
 PostConditions
 Updated OS frame table
 */
-void update_frame_table_entry(main_memory* main_memory_object,int frame_number,int pid,int page_number)
+void update_frame_table_entry(kernel* kernel_object,main_memory* main_memory_object,int frame_number,int pid,int page_number)
 {
+
+    //check PreConditions
+    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
+
+    assert(page_number>=0x0 && "Page Number out of bounds");
+    assert(page_number<=0x3fffff && "Page Number out of bounds");
+
+    assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
+    assert(pid>=0 && "pid less than 0 not allowed");
+
     main_memory_object->frame_table[frame_number].pid=pid;
     main_memory_object->frame_table[frame_number].page_number=page_number;
     //main_memory_object->frame_table[frame_number].pointer_to_stored_page_table=page_table_object;
@@ -487,7 +598,10 @@ void update_frame_table_entry(main_memory* main_memory_object,int frame_number,i
 /*
 PreConditions
 Inputs: {pointer to main memory object, pid, frame number}
-0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+kernel_object!=NULL
+main_memory_object!=NULL
+0<=pid<maximum number of processes
+
 
 Purpose of the Function: Checks if the pid stored in the frame table entry matches the pid in the argument of the function. If it matches, the frame is owned by that process
 
@@ -496,8 +610,17 @@ Return Value:
 1 if frame is owned by the process whose pid is given in the function argument
 -1, otherwise
 */
-int check_frame_ownership(main_memory* main_memory_object,int pid,int frame_number)
+int check_frame_ownership(kernel* kernel_object,main_memory* main_memory_object,int pid,int frame_number)
 {
+    //check PreConditions
+    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+
+    assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
+    assert(pid>=0 && "pid less than 0 not allowed");
+
+
     if(frame_number<0)
     {
         return -1;
@@ -514,7 +637,10 @@ int check_frame_ownership(main_memory* main_memory_object,int pid,int frame_numb
 /*
 PreConditions
 Inputs: {pointer to kernel object, pointer to main memory object, pid, logical address process is requesting for }
+kernel_object!=NULL
+main_memory_object!=NULL
 0<=logical address< 2^32
+0<=pid<maximum number of processes
 
 Purpose of the Function: Starts from the outermost page table stored in the pcb array entry of the process in the kernel object. Goes through 3 levels of paging. If any page table is missing in the page walk, the function gets a frame for that page table an initializes the page table in that frame. In the end the function gets a frame to store the logical page of the function and stores its enty in the innermost page table.
 
@@ -524,6 +650,18 @@ Frame number assigned to the logical page requested by process
 */
 int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int pid, unsigned long int logical_address)
 {
+
+    //check PreConditions
+    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(logical_address >= 0x0 && "Virtual Address must be >= 0x0");
+    assert(logical_address <= 0xffffffff && "Virtual Address must be <= 0xffffffff");
+
+    assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
+    assert(pid>=0 && "pid less than 0 not allowed");
+
+
     fprintf(output_fd,"Starting page walk of PID: %d | Request: %lx | Request: %ld\n",pid,logical_address,logical_address);
     fflush(output_fd);
     //32 bit Virtual Address split as:  6 | 8 | 8 | 10 . Hence 3 level paging is required
@@ -542,7 +680,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
     //check if you own frame, otherwise load new frame for the outermost page table
 
-    int own_outer_page_table = check_frame_ownership(main_memory_object,pid,outer_page_table_frame_number);
+    int own_outer_page_table = check_frame_ownership(kernel_object,main_memory_object,pid,outer_page_table_frame_number);
 
     fprintf(output_fd,"Outer Page Table Frame Number: %d | Own it: %d\n",outer_page_table_frame_number,own_outer_page_table);
     fflush(output_fd);
@@ -562,7 +700,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         
 
         //update the frame table for the frame we got
-        update_frame_table_entry(main_memory_object,outer_page_table_frame_number,pid,logical_page_number); 
+        update_frame_table_entry(kernel_object,main_memory_object,outer_page_table_frame_number,pid,logical_page_number); 
         
         //add it to the pcb of this process
         kernel_object->pcb_array[pid].outer_page_base_address=outer_page_table_frame_number;
@@ -575,7 +713,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         
     }
 
-    own_outer_page_table = check_frame_ownership(main_memory_object,pid,outer_page_table_frame_number);
+    own_outer_page_table = check_frame_ownership(kernel_object,main_memory_object,pid,outer_page_table_frame_number);
     fprintf(output_fd,"Outer Page Table Frame Number: %d | Own it: %d\n",outer_page_table_frame_number,own_outer_page_table);
     fflush(output_fd);
 
@@ -600,7 +738,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     //increment page accesses 
     number_of_page_accesses++;
 
-    int own_middle_page_table = check_frame_ownership(main_memory_object,pid,middle_page_table_frame_number);
+    int own_middle_page_table = check_frame_ownership(kernel_object,main_memory_object,pid,middle_page_table_frame_number);
 
     fprintf(output_fd,"Middle Page Table Frame Number: %d | Own it: %d\n",middle_page_table_frame_number, own_middle_page_table);
     fflush(output_fd);
@@ -620,7 +758,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
         //update frame table entry
         //update the frame table for the frame we got
-        update_frame_table_entry(main_memory_object,middle_page_table_frame_number,pid,logical_page_number); 
+        update_frame_table_entry(kernel_object,main_memory_object,middle_page_table_frame_number,pid,logical_page_number); 
 
         //link it from outermost page table
         outer_page_table->page_table_entries[outer_page_table_offset].frame_base_address=middle_page_table_frame_number;
@@ -635,7 +773,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
     }
 
-    own_middle_page_table = check_frame_ownership(main_memory_object,pid,middle_page_table_frame_number);
+    own_middle_page_table = check_frame_ownership(kernel_object,main_memory_object,pid,middle_page_table_frame_number);
 
     fprintf(output_fd,"Middle Page Table Frame Number: %d | Own it: %d\n",middle_page_table_frame_number, own_middle_page_table);
     fflush(output_fd);
@@ -660,7 +798,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     //increment number of page accesses
     number_of_page_accesses++;
 
-    int own_inner_page_table = check_frame_ownership(main_memory_object,pid,inner_page_table_frame_number);
+    int own_inner_page_table = check_frame_ownership(kernel_object,main_memory_object,pid,inner_page_table_frame_number);
 
     fprintf(output_fd,"Inner Page Table Frame Number: %d | Own it: %d\n",inner_page_table_frame_number, own_inner_page_table);
     fflush(output_fd);
@@ -680,7 +818,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
         //update frame table entry
         //update the frame table for the frame we got
-        update_frame_table_entry(main_memory_object,inner_page_table_frame_number,pid,logical_page_number); 
+        update_frame_table_entry(kernel_object,main_memory_object,inner_page_table_frame_number,pid,logical_page_number); 
 
         //link it from middle page table
         middle_page_table->page_table_entries[middle_page_table_offset].frame_base_address=inner_page_table_frame_number;
@@ -695,7 +833,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         
     }
 
-    own_inner_page_table = check_frame_ownership(main_memory_object,pid,inner_page_table_frame_number);
+    own_inner_page_table = check_frame_ownership(kernel_object,main_memory_object,pid,inner_page_table_frame_number);
 
     fprintf(output_fd,"Inner Page Table Frame Number: %d | Own it: %d\n",inner_page_table_frame_number, own_inner_page_table);
     fflush(output_fd);
@@ -721,7 +859,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     //increment number of page accesses
     number_of_page_accesses++;
 
-    int own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
+    int own_needed_frame = check_frame_ownership(kernel_object,main_memory_object,pid,needed_frame_number);
 
   
     fprintf(output_fd,"Logical Page Number: %d\n",logical_page_number);
@@ -741,7 +879,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         //inner_page_table->page_table_entries[inner_page_table_offset].referenced=1;
 
         //update frame table
-        update_frame_table_entry(main_memory_object,needed_frame_number,pid,logical_page_number); 
+        update_frame_table_entry(kernel_object,main_memory_object,needed_frame_number,pid,logical_page_number); 
 
         //link it from inner page table
         inner_page_table->page_table_entries[inner_page_table_offset].frame_base_address=needed_frame_number;
@@ -757,7 +895,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         number_of_page_misses++;
     }
 
-    own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
+    own_needed_frame = check_frame_ownership(kernel_object,main_memory_object,pid,needed_frame_number);
     fprintf(output_fd,"Needed Frame Number: %d | Own it: %d\n",needed_frame_number, own_needed_frame);
     fflush(output_fd);
 
@@ -786,6 +924,10 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 /*
 PreConditions
 Inputs: {pointer to kernel object, pointer to main memory object, pid of processes whose page we need to invalidate , the logical page we need to invalidate }
+kernel_object!=NULL
+main_memory_object!=NULL
+0<=logical page<=2^22
+0<=pid<maximum number of processes
 
 Purpose of the Function: Invalidate the page table entry of the given process and logcial page number
 
@@ -794,10 +936,23 @@ In the page table of the process whose pid we got, we have invalidated the entry
 */
 void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory_object, int pid,unsigned long int logical_page)
 {
+
+    //check PreConditions
+    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(logical_page >= 0x0 && "Virtual Address must be >= 0x0");
+    assert(logical_page <= 0x3fffff && "Virtual Address must be <= 0x3fffff");
+
+    assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
+    assert(pid>=0 && "pid less than 0 not allowed");
+
     if(pid<0 || logical_page<0)
     {
         return;
     }
+
+
     int logical_address = logical_page<<10;
     //32 bit Virtual Address split as:  6 | 8 | 8 | 10 . Hence 3 level paging is required
 
@@ -816,7 +971,7 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
 
     //check if you own frame, otherwise load new frame for the outermost page table
 
-    int own_outer_page_table = check_frame_ownership(main_memory_object,pid,outer_page_table_frame_number);
+    int own_outer_page_table = check_frame_ownership(kernel_object,main_memory_object,pid,outer_page_table_frame_number);
 
     if(own_outer_page_table==-1)
     {
@@ -837,7 +992,7 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
     //add time to get this page table entry from main memory to processor
     total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
 
-    int own_middle_page_table = check_frame_ownership(main_memory_object,pid,middle_page_table_frame_number);
+    int own_middle_page_table = check_frame_ownership(kernel_object,main_memory_object,pid,middle_page_table_frame_number);
 
     //we cant reach the next level of paging, hence return
     if(own_middle_page_table==-1 || outer_page_table->page_table_entries[outer_page_table_offset].valid==0)
@@ -862,7 +1017,7 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
     //add time to get this page table entry from main memory to processor
     total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
 
-    int own_inner_page_table = check_frame_ownership(main_memory_object,pid,inner_page_table_frame_number);
+    int own_inner_page_table = check_frame_ownership(kernel_object,main_memory_object,pid,inner_page_table_frame_number);
 
     //we cant reach the next level of paging , hence return
     if(own_inner_page_table==-1 || middle_page_table->page_table_entries[middle_page_table_offset].valid==0)
@@ -886,7 +1041,7 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
     //add time to get this page table entry from main memory to processor
     total_time_taken = total_time_taken + page_table_entry_processor_to_from_main_memory_transfer_time;
 
-    int own_needed_frame = check_frame_ownership(main_memory_object,pid,needed_frame_number);
+    int own_needed_frame = check_frame_ownership(kernel_object,main_memory_object,pid,needed_frame_number);
 
 
     //anyway the entry that we wanted to invalidate, is invalid or the frame it points to is not ours
@@ -907,12 +1062,13 @@ void invalidate_page_table_entry(kernel* kernel_object, main_memory* main_memory
 
 /*
 PreConditions
-Inputs: {main_memory_size in MB, frame_size in KB}
+None
 
 Purpose of the Function: Initialze Main Memory Data Structure and all the components in the Main Memory like the frame table, free frame list, used frame list (with second chance)
 
 PostConditions
 Output: {pointer to intialized main memory}
+main_memory_object!=NULL
 */
 main_memory* initialize_main_memory()
 {
@@ -968,12 +1124,34 @@ main_memory* initialize_main_memory()
         }
         
     }
+
+    //check PostConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
     return main_memory_object;
 }
 
 
+/*
+PreConditions
+Inputs: {pointer to main memory object, frame number which we need to mark as modified}
+main_memory_object!=NULL
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
+
+Purpose of the Function: Initialze Main Memory Data Structure and all the components in the Main Memory like the frame table, free frame list, used frame list (with second chance)
+
+PostConditions
+Output: {pointer to intialized main memory}
+main_memory_object!=NULL
+*/
 void mark_frame_modified(main_memory* main_memory_object, int frame_number)
 {
+    //check PreConditions
+    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
+
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
+
     main_memory_object->frame_table[frame_number].modified=1;
 
     //add time taken for this
@@ -981,6 +1159,8 @@ void mark_frame_modified(main_memory* main_memory_object, int frame_number)
 }
 
 
+
+/*auxillary function to print a page table, useful for debugging*/
 void print_page_table(page_table* page_table_object)
 {
     fprintf(output_fd,"Printing Page Table\n");
@@ -1016,6 +1196,8 @@ void print_frame_table(main_memory* main_memory_object)
     fflush(output_fd);
 }
 
+
+
 /*auxillary function to print the free frame list, useful for debugging*/
 void print_ffl(main_memory *main_memory_object)
 {
@@ -1043,6 +1225,8 @@ void print_ffl(main_memory *main_memory_object)
     fflush(output_fd);
 
 }
+
+
 
 /*auxillary function to print the used frame list, useful for debugging*/
 void print_ufl(main_memory *main_memory_object)
