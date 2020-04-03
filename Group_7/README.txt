@@ -69,3 +69,7 @@ Structure of the program:
     e. If both the caches miss, then we get the data from memory and insert it into the L1 cache. The L1 cache also transfers a block to L2 as the caches are exclusive.
 
 
+
+Completion of Assignment: Have completed all aspects of the question.
+
+Bugs: Tried our level best to hunt for and remove any bugs in the code. The program does not have any bugs that we know of .
