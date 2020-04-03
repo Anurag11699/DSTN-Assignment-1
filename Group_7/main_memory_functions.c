@@ -127,7 +127,7 @@ void add_used_frame(main_memory* main_memory_object, int frame_number)
     new_frame->reference_bit=0;
     new_frame->next=NULL;
     main_memory_object->ufl_dummy_head->number_used_frames++;
-    //head->number_used_frames++;
+    
 
     if(main_memory_object->ufl_dummy_head->next==NULL)
     {
@@ -206,68 +206,9 @@ int remove_used_frame(kernel* kernel_object ,main_memory* main_memory_object)
 }
 
 
-
 /*
 PreConditions
-Inputs:{pointer to kernel object, pointer to main memory object, pid of processes whose frames we want to free, number of frames we need to free}
-kernel_object!=NULL
-main_memory_object!=NULL
-0<=pid<maximum number of processes
-
-Purpose of the Function: 
-This function is used to prevent thrashing. It is called upon when a process exceeds the upper bound of frames.The functions traverses the used frame list starting from the element after the recently used frame and removes the required number of frames from the process and adds them to the free frame list. 
-
-PostConditions
-Updated used frame list
-Updated free frame list
-Updated frame table
-
-void free_process_frames(kernel* kernel_object, main_memory* main_memory_object, int pid, int number_of_frames_to_remove)
-{
-
-    //check PreConditions
-    assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
-    assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
-
-    assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
-    assert(pid>=0 && "pid less than 0 not allowed");
-
-    used_frame* walker = main_memory_object->recently_used_frame;
-
-    //tranverse from last used frame onwards and remove frames of this process
-    while(number_of_frames_to_remove>0)
-    {
-        
-        if(get_pid_of_frame(main_memory_object,walker->next->frame_number)==pid && walker->next!=main_memory_object->recently_used_frame)
-        {
-            //remove this frame from the used frame list
-            used_frame* temp = walker->next;
-            walker->next=walker->next->next;
-            main_memory_object->ufl_dummy_head->number_used_frames--;
-
-            //add this frame to free frame list
-            update_frame_table_entry(kernel_object,main_memory_object,temp->frame_number,-1,-1);
-            add_free_frame(main_memory_object,temp->frame_number);
-
-            kernel_object->pcb_array[pid].number_of_frames_used--;
-            number_of_frames_to_remove--;
-
-            free(temp);
-        }
-        else
-        {
-            walker=walker->next;
-        }
-        
-    }
-
-}
-*/
-
-
-/*
-PreConditions
-Inputs:{pointer to kernel object, pointer to main memory object, pid of processes whose frames we want to free, number of frames we need to free}
+Inputs:{pointer to kernel object, pointer to main memory object, pid of process whose frames we want to free, number of frames we need to free}
 kernel_object!=NULL
 main_memory_object!=NULL
 0<=pid<maximum number of processes
@@ -287,17 +228,10 @@ void transfer_to_free_frame_list(kernel* kernel_object,main_memory* main_memory_
     //check PreConditions
     assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
 
-    while(get_pid_of_frame(main_memory_object,main_memory_object->recently_used_frame->frame_number)==pid)
-    {
-        main_memory_object->recently_used_frame = main_memory_object->recently_used_frame->next;
-    }
-
-    main_memory_object->ufl_dummy_head->next = main_memory_object->recently_used_frame;
-
     used_frame *walker = main_memory_object->ufl_dummy_head->next;
-    used_frame *start = walker;
+    //used_frame *start = walker;
 
-    while(walker!=NULL && walker->next != start && number_of_frames_to_transfer>0)
+    while(number_of_frames_to_transfer>0)
     {
         if(get_pid_of_frame(main_memory_object,walker->next->frame_number)==pid)
         {
@@ -305,6 +239,14 @@ void transfer_to_free_frame_list(kernel* kernel_object,main_memory* main_memory_
             used_frame* temp = walker->next;
             walker->next=walker->next->next;
             main_memory_object->ufl_dummy_head->number_used_frames--;
+
+            if(temp==main_memory_object->recently_used_frame)
+            {
+                main_memory_object->recently_used_frame=walker;
+            }
+
+            // fprintf(output_fd,"Process: %d | Frame Removed: %d\n",pid,temp->frame_number);
+            // fflush(output_fd);
 
             //add this frame to free frame list
             update_frame_table_entry(kernel_object,main_memory_object,temp->frame_number,-1,-1);
@@ -315,8 +257,15 @@ void transfer_to_free_frame_list(kernel* kernel_object,main_memory* main_memory_
 
             free(temp);
         }
-        walker=walker->next;
+        else
+        {
+            walker=walker->next;
+        }
+        
+       
     }
+
+    main_memory_object->ufl_dummy_head->next = main_memory_object->recently_used_frame;
 
 }
 
@@ -409,16 +358,16 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
     {
         int number_of_frames_to_remove_from_process = kernel_object->pcb_array[pid].number_of_frames_used - number_of_frames_per_process_average;
 
-        fprintf(output_fd,"Upper Bound: %d | Number of PID %d Frames: %d| Average Frames: %d\n",number_of_frames_per_process_upper_bound,pid,kernel_object->pcb_array[pid].number_of_frames_used, number_of_frames_per_process_average);
-        fflush(output_fd);
+        // fprintf(output_fd,"Upper Bound: %d | Number of PID %d Frames: %d| Average Frames: %d\n",number_of_frames_per_process_upper_bound,pid,kernel_object->pcb_array[pid].number_of_frames_used, number_of_frames_per_process_average);
+        // fflush(output_fd);
 
         //print_ffl(main_memory_object);
         //print_ufl(main_memory_object);
 
         transfer_to_free_frame_list(kernel_object,main_memory_object,pid,number_of_frames_to_remove_from_process);
 
-        fprintf(output_fd,"Upper Bound: %d | Number of PID %d Frames: %d| Average Frames: %d\n",number_of_frames_per_process_upper_bound,pid,kernel_object->pcb_array[pid].number_of_frames_used, number_of_frames_per_process_average);
-        fflush(output_fd);
+        // fprintf(output_fd,"Upper Bound: %d | Number of PID %d Frames: %d| Average Frames: %d\n",number_of_frames_per_process_upper_bound,pid,kernel_object->pcb_array[pid].number_of_frames_used, number_of_frames_per_process_average);
+        // fflush(output_fd);
 
         //print_ffl(main_memory_object);
         //print_ufl(main_memory_object);
@@ -1263,14 +1212,14 @@ void print_ufl(main_memory *main_memory_object)
 
     while(walker!=NULL && walker->next!=temp)
     {
-        fprintf(output_fd,"{Frame Number: %d, Reference Bit: %d}-->",walker->frame_number, walker->reference_bit);
+        fprintf(output_fd,"{Frame Number: %d, Reference Bit: %d, PID: %d}-->",walker->frame_number, walker->reference_bit,get_pid_of_frame(main_memory_object,walker->frame_number));
         fflush(output_fd);
 
         walker=walker->next;
     }
     if(walker!=NULL)
     {
-        fprintf(output_fd,"{Frame Number: %d, Reference Bit: %d}-->",walker->frame_number, walker->reference_bit);
+        fprintf(output_fd,"{Frame Number: %d, Reference Bit: %d, PID: %d}-->",walker->frame_number, walker->reference_bit,get_pid_of_frame(main_memory_object,walker->frame_number));
         fflush(output_fd);
 
     }

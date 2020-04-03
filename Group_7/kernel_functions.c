@@ -146,19 +146,18 @@ void terminate_process(kernel* kernel_object, main_memory* main_memory_object, i
     assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
     assert(pid>=0 && "pid less than 0 not allowed");
 
-    //int i;
+    // fprintf(output_fd,"Terminating Process: %d | Has %d frames\n",pid, kernel_object->pcb_array[pid].number_of_frames_used);
+    // fflush(output_fd);
 
-    //release all the pages held by the process
-    // for(i=0;i<main_memory_object->number_of_frames;i++)
-    // {
-    //     if(main_memory_object->frame_table[i].pid==pid)
-    //     {
-    //         transfer_to_free_frame_list(main_memory_object,i);
-    //     }
-    // }
+    //print_ufl(main_memory_object);
 
     //transfer all the frames of this process from used frame list to free frame list.
     transfer_to_free_frame_list(kernel_object,main_memory_object,pid,kernel_object->pcb_array[pid].number_of_frames_used);
+
+    // fprintf(output_fd,"After Terminating Process: %d | Has %d frames\n",pid, kernel_object->pcb_array[pid].number_of_frames_used);
+    // fflush(output_fd);
+
+    //print_ufl(main_memory_object);
 
     //add time to transfer the process pages from Virtual Memory to Disk
     total_time_taken = total_time_taken + average_disk_to_from_swap_space_transfer_time_entire_process;
