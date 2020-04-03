@@ -23,7 +23,7 @@
 
 #define frame_size 10 //size is log based 2 of frame size (2^10 = 1K is frame size)
 
-#define main_memory_size 25 //size is log based 2 of frame size (2^25 = 32MB is main memory size)
+#define main_memory_size 18 //size is log based 2 of frame size (2^25 = 32MB is main memory size)
 
 #define max(x,y) ((x>y)?x:y)
 

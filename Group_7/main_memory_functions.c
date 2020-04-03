@@ -221,7 +221,7 @@ PostConditions
 Updated used frame list
 Updated free frame list
 Updated frame table
-*/
+
 void free_process_frames(kernel* kernel_object, main_memory* main_memory_object, int pid, int number_of_frames_to_remove)
 {
 
@@ -262,43 +262,58 @@ void free_process_frames(kernel* kernel_object, main_memory* main_memory_object,
     }
 
 }
+*/
 
 
 /*
 PreConditions
-Inputs:{pointer to main memory object, frame number which we needs to be transfered from used frame list to free frame list}
+Inputs:{pointer to kernel object, pointer to main memory object, pid of processes whose frames we want to free, number of frames we need to free}
+kernel_object!=NULL
 main_memory_object!=NULL
-0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
-frame number entry is present in used frame list
+0<=pid<maximum number of processes
 
-Purpose of the Function: Traverse the used frame list and remove the entry corresponding to frame_number. Also add this frame_number to the free frame list.
+Purpose of the Function: 
+This function is used to prevent thrashing. It is called upon when a process exceeds the upper bound of frames.The functions traverses the used frame list starting from the element after the recently used frame and removes the required number of frames from the process and adds them to the free frame list. 
+This function is also used to remove all process frames upon termination.
 
 PostConditions
-Updated used frame list and free frame list
+Updated used frame list
+Updated free frame list
+Updated frame table
 */
-void transfer_to_free_frame_list(main_memory* main_memory_object, int frame_number)
+void transfer_to_free_frame_list(kernel* kernel_object,main_memory* main_memory_object, int pid, int number_of_frames_to_transfer)
 {
 
     //check PreConditions
     assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
 
-    assert(frame_number>=0 && "Frame Number out of bounds");
-    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
+    while(get_pid_of_frame(main_memory_object,main_memory_object->recently_used_frame->frame_number)==pid)
+    {
+        main_memory_object->recently_used_frame = main_memory_object->recently_used_frame->next;
+    }
 
+    main_memory_object->ufl_dummy_head->next = main_memory_object->recently_used_frame;
 
     used_frame *walker = main_memory_object->ufl_dummy_head->next;
     used_frame *start = walker;
 
-    while(walker!=NULL && walker->next != start)
+    while(walker!=NULL && walker->next != start && number_of_frames_to_transfer>0)
     {
-        if(walker->next->frame_number==frame_number)
+        if(get_pid_of_frame(main_memory_object,walker->next->frame_number)==pid)
         {
+            //remove this frame from the used frame list
             used_frame* temp = walker->next;
-            walker->next = walker->next->next;
-            free(temp);
+            walker->next=walker->next->next;
             main_memory_object->ufl_dummy_head->number_used_frames--;
 
-            add_free_frame(main_memory_object,frame_number);
+            //add this frame to free frame list
+            update_frame_table_entry(kernel_object,main_memory_object,temp->frame_number,-1,-1);
+            add_free_frame(main_memory_object,temp->frame_number);
+
+            kernel_object->pcb_array[pid].number_of_frames_used--;
+            number_of_frames_to_transfer--;
+
+            free(temp);
         }
         walker=walker->next;
     }
@@ -400,7 +415,7 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
         //print_ffl(main_memory_object);
         //print_ufl(main_memory_object);
 
-        free_process_frames(kernel_object,main_memory_object,pid,number_of_frames_to_remove_from_process);
+        transfer_to_free_frame_list(kernel_object,main_memory_object,pid,number_of_frames_to_remove_from_process);
 
         fprintf(output_fd,"Upper Bound: %d | Number of PID %d Frames: %d| Average Frames: %d\n",number_of_frames_per_process_upper_bound,pid,kernel_object->pcb_array[pid].number_of_frames_used, number_of_frames_per_process_average);
         fflush(output_fd);
@@ -442,7 +457,9 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
 
     //invalidate the frame table entry for this frame
     main_memory_object->frame_table[frame_number].pid=-1;
-    //main_memory_object->frame_table[frame_number].pointer_to_stored_page_table=NULL;
+    
+    //decrement the number number of frames used by the process
+    kernel_object->pcb_array[current_pid_of_frame].number_of_frames_used--;
 
     //invalidate the page table entry for the pid and logical page we just got
 
@@ -562,8 +579,8 @@ Inputs: {pointer to main memory object, frame number, pid, page_number, pointer 
 kernel_object!=NULL
 main_memory_object!=NULL
 0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
-0<=pid<maximum number of processes
-0<=page_number<=0x3fffff
+0<=pid<maximum number of processes | -1 if doesnt belong to any process
+0<=page_number<=0x3fffff | -1 if frame doesnt contain a logical page
 
 Purpose of the Function: This function is used to set the frame table entry indexed by the frame number
 
@@ -580,11 +597,6 @@ void update_frame_table_entry(kernel* kernel_object,main_memory* main_memory_obj
     assert(frame_number>=0 && "Frame Number out of bounds");
     assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
 
-    assert(page_number>=0x0 && "Page Number out of bounds");
-    assert(page_number<=0x3fffff && "Page Number out of bounds");
-
-    assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
-    assert(pid>=0 && "pid less than 0 not allowed");
 
     main_memory_object->frame_table[frame_number].pid=pid;
     main_memory_object->frame_table[frame_number].page_number=page_number;
