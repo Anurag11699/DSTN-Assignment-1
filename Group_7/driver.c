@@ -217,29 +217,29 @@ int main()
    fprintf(stderr,"\n\nTotal Time Taken: %Lf\nNumber of Requests Processed: %ld\nEMAT: %Lf ns\n",total_time_taken,number_of_requests_processed,total_time_taken/number_of_requests_processed);
 
    tlb_hit_rate=number_of_tlb_hits/total_tlb_accesses;
-   fprintf(output_fd,"TLB Hit Rate: %Lf\n",tlb_hit_rate);
+   fprintf(output_fd,"TLB Hit Rate: %Lf%%\n",tlb_hit_rate*100);
    fflush(output_fd);
-   fprintf(stderr,"TLB Hit Rate: %Lf\n",tlb_hit_rate);
+   fprintf(stderr,"TLB Hit Rate: %Lf%%\n",tlb_hit_rate*100);
 
    L1_cache_hit_rate=number_of_L1_cache_hits/total_L1_cache_accesses;
-   fprintf(output_fd,"L1 Cache Hit Rate: %Lf\n",L1_cache_hit_rate);
+   fprintf(output_fd,"L1 Cache Hit Rate: %Lf%%\n",L1_cache_hit_rate*100);
    fflush(output_fd);
-   fprintf(stderr,"L1 Cache Hit Rate: %Lf\n",L1_cache_hit_rate);
+   fprintf(stderr,"L1 Cache Hit Rate: %Lf%%\n",L1_cache_hit_rate*100);
 
    L2_cache_hit_rate=number_of_L2_cache_hits/total_L2_cache_accesses;
-   fprintf(output_fd,"L2 Cache Hit Rate: %Lf\n",L2_cache_hit_rate);
+   fprintf(output_fd,"L2 Cache Hit Rate: %Lf%%\n",L2_cache_hit_rate*100);
    fflush(output_fd);
-   fprintf(stderr,"L2 Cache Hit Rate: %Lf\n",L2_cache_hit_rate);
+   fprintf(stderr,"L2 Cache Hit Rate: %Lf%%\n",L2_cache_hit_rate*100);
 
    cache_hit_rate = 1 - (number_of_cache_misses/total_cache_accesses);
-   fprintf(output_fd,"Overall Cache Hit Rate: %Lf\n",cache_hit_rate);
+   fprintf(output_fd,"Overall Cache Hit Rate: %Lf%%\n",cache_hit_rate*100);
    fflush(output_fd);
-   fprintf(stderr,"Overall Cache Hit Rate: %Lf\n",cache_hit_rate);
+   fprintf(stderr,"Overall Cache Hit Rate: %Lf%%\n",cache_hit_rate*100);
 
    page_fault_rate=number_of_page_misses/number_of_page_accesses;
-   fprintf(output_fd,"Page Fault Rate: %Lf\n",page_fault_rate);
+   fprintf(output_fd,"Page Fault Rate: %Lf%%\n",page_fault_rate*100);
    fflush(output_fd);
-   fprintf(stderr,"Page Fault Rate: %Lf\n",page_fault_rate);
+   fprintf(stderr,"Page Fault Rate: %Lf%%\n",page_fault_rate*100);
    
    fclose(output_fd);
    

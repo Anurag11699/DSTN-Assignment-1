@@ -180,7 +180,7 @@ int remove_used_frame(kernel* kernel_object ,main_memory* main_memory_object)
    
     //first condition takes care of the refernce bit condition. If reference bit of the frame is 1, then set it to 0 and continue
     //second condition takes care of trashing. If the frame belongs to a process who holds less number of frames than the lower bound then we must not take from that process
-    while(main_memory_object->recently_used_frame->next->reference_bit!=0 || kernel_object->pcb_array[get_pid_of_frame(main_memory_object,main_memory_object->recently_used_frame->frame_number)].number_of_frames_used<number_of_frames_per_process_lower_bound)
+    while(main_memory_object->recently_used_frame->next->reference_bit!=0 || kernel_object->pcb_array[get_pid_of_frame(main_memory_object,main_memory_object->recently_used_frame->next->frame_number)].number_of_frames_used<number_of_frames_per_process_lower_bound)
     {
         main_memory_object->recently_used_frame->next->reference_bit=0;
         main_memory_object->recently_used_frame=main_memory_object->recently_used_frame->next;
