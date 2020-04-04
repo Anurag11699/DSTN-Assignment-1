@@ -624,7 +624,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
     assert(pid>=0 && "pid less than 0 not allowed");
 
 
-    fprintf(output_fd,"Starting page walk of PID: %d | Request: %lx | Request: %ld\n",pid,logical_address,logical_address);
+    fprintf(output_fd,"Starting page walk of PID: %d | Request: %lx (hexadecimal) | Request: %ld (decimal)\n",pid,logical_address,logical_address);
     fflush(output_fd);
     //32 bit Virtual Address split as:  6 | 8 | 8 | 10 . Hence 3 level paging is required
 

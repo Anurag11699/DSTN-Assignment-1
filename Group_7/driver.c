@@ -110,9 +110,12 @@ int main()
    long int number_of_requests_processed=0;
    unsigned int process_request;
    int executing_pid_index=1;
-   int process_switch_instruction_count=2000;
    int number_of_processes_ready=0;
    int pid_array[max_number_of_processes];
+
+
+   int process_switch_instruction_count;
+   fscanf(input_fd,"%d",&process_switch_instruction_count);
    
    //return 0;
 

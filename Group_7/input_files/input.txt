@@ -1,4 +1,5 @@
-10
+15
+2000
 ./input_files/APSI.txt
 ./input_files/CC1.txt
 ./input_files/LI.txt
@@ -9,9 +10,15 @@
 ./input_files/LI2.txt
 ./input_files/M88KSIM2.txt
 ./input_files/VORTEX2.txt
+./input_files/APSI3.txt
+./input_files/CC13.txt
+./input_files/LI3.txt
+./input_files/M88KSIM3.txt
+./input_files/VORTEX3.txt
 
 ---------------------------------------------------------------------------------------------
 input file format
 
 number of processes - x(int)
+after how many requests should the process would context switch(int)
 x filenames, one for each processes inputs. Each file on a new line
