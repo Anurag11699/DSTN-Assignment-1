@@ -37,10 +37,13 @@ cache_functions.c: Contais all the functions related to the working of the L1 an
 main_memory_functions.c: Contains all the functions related to the working of the main memory.
 kernel_functions.c: Contains all the functions related to the working of the kernel. This binds all the memory level together and is used to call the needed functions based on the situation.
 
-.txt files:
+subdirectory: input_files.txt
 input.txt: Contains number of processes and the input file name corresponding to the requests of each process.
-OUTPUT.txt: Upon simulation, will contain the output of the program.
 time_values.txt: Contains the time values for each aspect of the effective memory access time calculation.
+(This subdirectory also contains the process requests file for each process.)
+
+subdirectory: output_files.txt
+OUTPUT.txt: Upon simulation, will contain the output of the program.
 
 makefile: used to compile the code
 

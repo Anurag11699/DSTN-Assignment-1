@@ -108,14 +108,14 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int 
     //prepage 2 pages for the first 2 logical addresses the process requests
     //do page table walk for request1 and request2 to load these pages
 
-    fprintf(output_fd,"PID: %d | Request: %lx or %ld\n\n",pid,request_1,request_1);
+    fprintf(output_fd,"PID: %d | Request: %lx (hexadecimal) or %ld (decimal)\n\n",pid,request_1,request_1);
     fflush(output_fd);
 
     //fprintf(stderr,"CHECK IN LOAD_NEW_PROCESS\n");
     //int frame_number_1;
     page_table_walk(kernel_object,main_memory_object,pid,request_1);
 
-    fprintf(output_fd,"PID: %d | Request: %lx or %ld\n\n",pid,request_2,request_2);
+    fprintf(output_fd,"PID: %d | Request: %lx (hexadecimal) or %ld (decimal)\n\n",pid,request_2,request_2);
     fflush(output_fd);
     //int frame_number_2;
     page_table_walk(kernel_object,main_memory_object,pid,request_2);
@@ -285,13 +285,13 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
     assert(pid>=0 && "pid less than 0 not allowed");
 
 
-    fprintf(output_fd,"\n\nExecuting Process Request for PID: %d | Logical Address: %lx or %ld\n",pid,virtual_address,virtual_address);
+    fprintf(output_fd,"\n\nExecuting Process Request for PID: %d | Logical Address: %lx (hexadecimal) or %ld (decimal)\n",pid,virtual_address,virtual_address);
     fflush(output_fd);
 
     //request type = 0 if instruction, request type = 1 if data
     int request_type=get_request_type(virtual_address);
-    fprintf(output_fd,"Request Type %d\n",request_type);
-    fflush(output_fd);
+    // fprintf(output_fd,"Request Type %d\n",request_type);
+    // fflush(output_fd);
 
     //we can get index and offest for L1 and L2 cache from the virtual address and use it for virtually tagged, physically offset. this is because (index + offset = page size)
 
@@ -319,7 +319,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
     //tlb hit, get direct physical frame number
     unsigned int physical_address;
-    fprintf(output_fd,"Logical Page Number: %x or %d\n",logical_page_number,logical_page_number);
+    fprintf(output_fd,"Logical Page Number: %x (hexdecimal) or %d (decimal) \n",logical_page_number,logical_page_number);
     fflush(output_fd);
     // fprintf(output_fd,"Printing L1 tlb\n");
     //fflush(output_fd);
@@ -336,7 +336,7 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
 
         physical_address= get_physical_address(physical_frame_number,virtual_address);
 
-        fprintf(output_fd,"Physical Frame Number: %d | Frame Offset: %ld | Physical Address: %d\n",physical_frame_number,(virtual_address&get_frame_offset),physical_address);
+        fprintf(output_fd,"Physical Frame Number: %d (decimal) | Frame Offset: %ld (decimal) | Physical Address: %d (decimal)\n",physical_frame_number,(virtual_address&get_frame_offset),physical_address);
         fflush(output_fd);
 
         //search in cache
