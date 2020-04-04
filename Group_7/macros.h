@@ -60,11 +60,11 @@
 
 #define right_shift_L2_cache_counter 64
 
-#define output_file "OUTPUT.txt"
+#define output_file "./output_files/OUTPUT.txt"
 
-#define input_file "input.txt"
+#define input_file "./input_files/input.txt"
 
-#define time_parameter_file "time_values.txt"
+#define time_parameter_file "./input_files/time_values.txt"
 
 #define number_of_time_parameters 28
 

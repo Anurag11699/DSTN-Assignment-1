@@ -1,0 +1,61 @@
+3
+6
+2
+2
+8
+10
+6
+10
+20
+40
+30
+150
+100
+700
+1000
+300
+500
+1000
+1500
+2500
+3500
+3000
+1000000
+20000
+20000
+300
+700
+100
+
+
+-----------------------------------------------------------------
+time_values file format. All times are in nanoseconds
+
+Line 1: unsigned long int L1_tlb_search_time;
+Line 2: unsigned long int L2_tlb_search_time;
+Line 3: unsigned long int L1_tlb_miss_OS_overhead;
+Line 4: unsigned long int L2_tlb_miss_OS_overhead;
+Line 5: unsigned long int processor_to_from_L1_tlb_transfer_time;
+Line 6: unsigned long int processor_to_from_L2_tlb_transfer_time;
+Line 7: unsigned long int L1_tlb_to_from_L2_tlb_transfer_time;
+Line 8: unsigned long int L1_cache_indexing_time;
+Line 9: unsigned long int L1_cache_tag_comparison_time; 
+Line 10: unsigned long int L2_cache_search_time;
+Line 11: unsigned long int processor_to_from_L1_cache_transfer_time;
+Line 12: unsigned long int processor_to_from_L2_cache_transfer_time;
+Line 13: unsigned long int L1_cache_to_from_L2_cache_transfer_time;
+Line 14: unsigned long int L1_cache_to_from_main_memory_transfer_time;
+Line 15: unsigned long int L2_cache_to_from_main_memory_transfer_time;
+Line 16: unsigned long int L2_cache_write_buffer_search_time;
+Line 17: unsigned long int L2_cache_to_L2_cache_write_buffer_transfer_time;
+Line 18: unsigned long int L2_cache_write_buffer_to_main_memory_transfer_time;
+Line 19: unsigned long int update_bit_in_main_memory_time;
+Line 20: unsigned long int pcb_data_processor_to_from_main_memory_transfer_time;
+Line 21: unsigned long int page_table_entry_processor_to_from_main_memory_transfer_time;
+Line 22: unsigned long int update_frame_table_entry_time;
+Line 23: unsigned long int average_disk_to_from_swap_space_transfer_time_entire_process;
+Line 24: unsigned long int main_memory_to_swap_space_transer_time;
+Line 25: unsigned long int swap_space_to_main_memory_transfer_time;
+Line 26: unsigned long int page_fault_overhead_time;
+Line 27: unsigned long int restart_overhead_time;
+Line 28: unsigned long int context_switch_time;

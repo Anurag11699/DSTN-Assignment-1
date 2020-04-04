@@ -26,4 +26,4 @@ main_memory_functions.o: main_memory_functions.c
 	$(CC) $(flags) main_memory_functions.c 
 
 clean:
-	rm -f *.o $(executableName) OUTPUT.txt
+	rm -f *.o $(executableName) ./output_files/OUTPUT.txt
