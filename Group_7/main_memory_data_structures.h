@@ -8,17 +8,23 @@ struct page_table;
 typedef struct page_table page_table;
 
 
+/*
+    ADT for Page Table Entry
 
+    page_table* pointer_to_page_table; -> pointer to next level page table
+    int frame_base_address; -> the frame of the next level page table or the actual frame needed by process. This field is 15 bits in length for a 32MB with 1KB frame size memory. Not given 15 bits incase we increase memory size
+    int initialized_before:1;-> has the page table which it points to been initialized before
+    unsigned int valid:1;-> is the entry valid
+    
+*/
 struct page_table_entry
 {
     //assume each page table entry is 4 bytes
     
     page_table* pointer_to_page_table;
-    int frame_base_address:15; //frame which is occupied by the page table pointed to by this entry
-    int initialized_before:1;
-    //unsigned int modified:1;
+    int frame_base_address; //frame which is occupied by the page table pointed to by this entry
+    unsigned int initialized_before:1;
     unsigned int valid:1;
-    int swapped_out_before:1;
 };
 
 
@@ -38,7 +44,7 @@ struct page_table
 /*
     ADT for Frame Table Entry
 
-    int page_number:22; -> Logical page number of the process that is stored in this frame
+    int page_number; -> Logical page number of the process that is stored in this frame. This is 22 bits in size for our 32 bit VA address. Not allocated just 22 bits to make the simulation expandable
 
     int pid; -> pid of the process that is using this frame. If nobody is using this frame then pid is -1
 
@@ -47,7 +53,7 @@ struct page_table
 typedef struct frame_table_entry
 {
     //unsigned int valid:1;
-    int page_number:22;
+    int page_number;
     int pid;
     unsigned int modified:1;
     //page_table* pointer_to_stored_page_table; //if the frame is a page table, then this is the pointer to that page table
@@ -63,7 +69,7 @@ typedef struct frame_table_entry
 */
 struct free_frame_list
 {
-	unsigned int frame_number:15;
+	unsigned int frame_number;
 	struct free_frame_list *next;
 };
 
@@ -92,7 +98,7 @@ typedef struct free_frame_list_dummy_head
 */
 struct used_frame_list
 {
-	unsigned int frame_number:15;
+	unsigned int frame_number;
     unsigned int reference_bit:1;
     //unsigned int pid;
 	struct used_frame_list *next;

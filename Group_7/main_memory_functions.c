@@ -465,7 +465,6 @@ page_table* initialize_page_table(int frame_number_occupied)
         //page_table_object->page_table_entries[i].modified=0;
         page_table_object->page_table_entries[i].valid=0;
         page_table_object->page_table_entries[i].pointer_to_page_table=NULL;
-        page_table_object->page_table_entries[i].swapped_out_before=0;
     }
 
     return page_table_object;

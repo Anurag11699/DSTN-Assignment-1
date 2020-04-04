@@ -160,7 +160,7 @@ int L1_search(main_memory* main_memory_object,L1_cache* L1_cache_object, int ind
     assert(index<32 && "L1 Cache Block Index must be < 32d");
     assert(index>=0 && "L1 Cache Block Index must be >= 0d");
 
-    assert(tag<0x7fff && "L1 Cache Block Tag must be < 0x7fff");
+    assert(tag<=0x7fff && "L1 Cache Block Tag must be <= 0x7fff");
     assert(tag>=0 && "L1 Cache Block Tag must be >= 0d");
     
     
@@ -253,7 +253,7 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
     assert(index<64 && "L2 Cache Block Index must be < 64d");
     assert(index>=0 && "L2 Cache Block Index must be >= 0d");
 
-    assert(tag<0x3fff && "L2 Cache Block Tag must be < 0x3fff");
+    assert(tag<=0x3fff && "L2 Cache Block Tag must be <= 0x3fff");
     assert(tag>=0 && "L2 Cache Block Tag must be >= 0d");
 
 
@@ -407,7 +407,7 @@ void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int o
     assert(index<64 && "L2 Cache Block Index must be < 64d");
     assert(index>=0 && "L2 Cache Block Index must be >= 0d");
 
-    assert(tag<0x3fff && "L2 Cache Block Tag must be < 0x3fff");
+    assert(tag<=0x3fff && "L2 Cache Block Tag must be <= 0x3fff");
     assert(tag>=0 && "L2 Cache Block Tag must be >= 0d");
 
 
@@ -483,7 +483,7 @@ void remove_L2_cache_block(L2_cache* L2_cache_object, int index, int tag, int of
     assert(index<64 && "L2 Cache Block Index must be < 64d");
     assert(index>=0 && "L2 Cache Block Index must be >= 0d");
 
-    assert(tag<0x3fff && "L2 Cache Block Tag must be < 0x3fff");
+    assert(tag<=0x3fff && "L2 Cache Block Tag must be <= 0x3fff");
     assert(tag>=0 && "L2 Cache Block Tag must be >= 0d");
 
 
@@ -530,7 +530,7 @@ void replace_L1_cache_entry(L1_cache* L1_cache_object, L2_cache* L2_cache_object
     assert(index<32 && "L1 Cache Block Index must be < 32d");
     assert(index>=0 && "L1 Cache Block Index must be >= 0d");
 
-    assert(tag<0x7fff && "L1 Cache Block Tag must be < 0x7fff");
+    assert(tag<=0x7fff && "L1 Cache Block Tag must be <= 0x7fff");
     assert(tag>=0 && "L1 Cache Block Tag must be >= 0d");
 
 
