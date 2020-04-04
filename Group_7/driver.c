@@ -109,7 +109,7 @@ int main()
 
    long int number_of_requests_processed=0;
    unsigned int process_request;
-   int executing_pid_index=1;
+   int executing_pid_index=0;
    int number_of_processes_ready=0;
    int pid_array[max_number_of_processes];
 
@@ -131,6 +131,10 @@ int main()
       fprintf(stderr,"Data from the file: %s\n", filename);
 
       load_new_process(kernel_object, main_memory_32MB,j,filename);
+
+      fprintf(output_fd,"--------------------------------------------------------------------------------------\n");
+      fflush(output_fd);
+
       fseek(kernel_object->pcb_array[j].fd,j,SEEK_SET);
       pid_array[j]=j;
       number_of_processes_ready++;
@@ -142,19 +146,19 @@ int main()
    int is_eof;
    int read_write;
    
-   int oldpid;
+   //int oldpid;
    int newpid;
 
    while(1)
    {
       if(number_of_requests_processed%process_switch_instruction_count==0)
       {
-         oldpid=pid_array[executing_pid_index];
+         //oldpid=pid_array[executing_pid_index];
          executing_pid_index=(executing_pid_index+1)%(number_of_processes_ready);
          newpid=pid_array[executing_pid_index];
 
          //context switch after every "process_switch_instruction_count" number of accesses
-         context_switch(kernel_object,L1_tlb,L2_tlb,oldpid,newpid);
+         context_switch(kernel_object,L1_tlb,L2_tlb,newpid);
       }
 
       is_eof=fscanf(kernel_object->pcb_array[pid_array[executing_pid_index]].fd,"%x",&process_request);
@@ -162,7 +166,7 @@ int main()
       //if we reach eof then process must be terminated
       if(is_eof==EOF)
       {
-         oldpid=pid_array[executing_pid_index];
+         //oldpid=pid_array[executing_pid_index];
          //terminate the process who has no more requests to process
          terminate_process(kernel_object,main_memory_32MB,pid_array[executing_pid_index]);
 
@@ -170,8 +174,10 @@ int main()
          fprintf(stderr,"Process %d Terminated\n",pid_array[executing_pid_index]);
          fprintf(output_fd,"Process %d Terminated\n",pid_array[executing_pid_index]);
          fflush(output_fd);
+         fprintf(output_fd,"\n--------------------------------------------------------------------------------------\n");
+         fflush(output_fd);
          
-         sleep(1);
+         
          for(j=executing_pid_index;j<number_of_processes_ready-1;j++)
          {
             pid_array[j]=pid_array[j+1];
@@ -190,7 +196,7 @@ int main()
          }
 
          newpid=pid_array[executing_pid_index];
-         context_switch(kernel_object,L1_tlb,L2_tlb,oldpid,newpid);
+         context_switch(kernel_object,L1_tlb,L2_tlb,newpid);
          continue;
         
       }
@@ -208,6 +214,9 @@ int main()
       //fprintf(stderr,"Executing request of PID: %d\n",pid_array[executing_pid_index]);
 
       execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,pid_array[executing_pid_index],process_request,read_write);
+
+      fprintf(output_fd,"\n--------------------------------------------------------------------------------------\n");
+      fflush(output_fd);
 
       number_of_requests_processed++;
    }
