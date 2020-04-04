@@ -9,6 +9,7 @@ driver=driver
 
 all: $(driver).o kernel_functions.o tlb_functions.o cache_functions.o main_memory_functions.o
 	$(CC)  $(driver).o kernel_functions.o tlb_functions.o cache_functions.o main_memory_functions.o -o $(executableName)
+	@echo "Executable generated -> test"
 
 $(driver).o: $(driver).c
 	$(CC) $(flags) $(driver).c

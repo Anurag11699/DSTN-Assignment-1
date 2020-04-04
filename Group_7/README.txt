@@ -122,6 +122,8 @@ L2 Cache Hit Rate
 Overall Cache Hit Rate
 Page Fault Rate
 
+(the program takes a while to run, especially if the input size is large. There are no documented infinite loops or seg faults)
+
 
 Completion of Assignment: Have completed all aspects of the question.
 
