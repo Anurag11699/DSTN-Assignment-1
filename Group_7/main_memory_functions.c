@@ -249,7 +249,7 @@ void transfer_to_free_frame_list(kernel* kernel_object,main_memory* main_memory_
             // fflush(output_fd);
 
             //add this frame to free frame list
-            update_frame_table_entry(kernel_object,main_memory_object,temp->frame_number,-1,-1);
+            update_frame_table_entry(kernel_object,main_memory_object,temp->frame_number,-1,0);
             add_free_frame(main_memory_object,temp->frame_number);
 
             kernel_object->pcb_array[pid].number_of_frames_used--;
@@ -458,11 +458,8 @@ page_table* initialize_page_table(int frame_number_occupied)
 
     for(i=0;i<256;i++)
     {
-        //page_table_object->page_table_entries[i].cache_disabled=1;
-        page_table_object->page_table_entries[i].frame_base_address=-1;
+        page_table_object->page_table_entries[i].frame_base_address=3000; //initializing random value doesnt matter as valid =0
         page_table_object->page_table_entries[i].initialized_before=0;
-        //page_table_object->page_table_entries[i].referenced=0;
-        //page_table_object->page_table_entries[i].modified=0;
         page_table_object->page_table_entries[i].valid=0;
         page_table_object->page_table_entries[i].pointer_to_page_table=NULL;
     }

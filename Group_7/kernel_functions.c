@@ -34,7 +34,7 @@ kernel* initialize_kernel(int max_number_of_processes)
     {
         kernel_object->pcb_array[i].state=0;
         kernel_object->pcb_array[i].fd=NULL;
-        kernel_object->pcb_array[i].outer_page_base_address=-1;
+        kernel_object->pcb_array[i].outer_page_base_address=0;
         kernel_object->pcb_array[i].outer_page_base_address_initialized_before=0;
         kernel_object->pcb_array[i].outer_page_table=NULL;
         kernel_object->pcb_array[i].number_of_frames_used=0;
