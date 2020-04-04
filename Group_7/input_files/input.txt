@@ -1,5 +1,5 @@
-15
-2000
+25
+200
 ./input_files/APSI.txt
 ./input_files/CC1.txt
 ./input_files/LI.txt
@@ -15,6 +15,16 @@
 ./input_files/LI3.txt
 ./input_files/M88KSIM3.txt
 ./input_files/VORTEX3.txt
+./input_files/APSI4.txt
+./input_files/CC14.txt
+./input_files/LI4.txt
+./input_files/M88KSIM4.txt
+./input_files/VORTEX4.txt
+./input_files/APSI5.txt
+./input_files/CC15.txt
+./input_files/LI5.txt
+./input_files/M88KSIM5.txt
+./input_files/VORTEX5.txt
 
 ---------------------------------------------------------------------------------------------
 input file format

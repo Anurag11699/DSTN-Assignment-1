@@ -128,7 +128,7 @@ int main()
    {  
       fscanf(input_fd,"%c",&x);
       fscanf(input_fd,"%[^\n]",filename);
-      printf("Data from the file: %s\n", filename);
+      fprintf(stderr,"Data from the file: %s\n", filename);
 
       load_new_process(kernel_object, main_memory_32MB,j,filename);
       fseek(kernel_object->pcb_array[j].fd,j,SEEK_SET);
@@ -167,7 +167,7 @@ int main()
          terminate_process(kernel_object,main_memory_32MB,pid_array[executing_pid_index]);
 
          //remove element of array pointed to by executing_pid_index
-         fprintf(stderr,"Process %d Over\n",pid_array[executing_pid_index]);
+         fprintf(stderr,"Process %d Terminated\n",pid_array[executing_pid_index]);
          
          sleep(1);
          for(j=executing_pid_index;j<number_of_processes_ready-1;j++)
@@ -202,7 +202,7 @@ int main()
          read_write=abs(1-rand75()); //this will produce 75% data requests as read and 25% data requests as write
       }
       
-      fprintf(stderr,"Executing PID: %d\n",pid_array[executing_pid_index]);
+      fprintf(stderr,"Executing request of PID: %d\n",pid_array[executing_pid_index]);
 
       execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,pid_array[executing_pid_index],process_request,read_write);
 

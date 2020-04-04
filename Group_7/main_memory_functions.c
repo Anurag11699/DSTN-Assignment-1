@@ -672,6 +672,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
         //increment page misses
         number_of_page_misses++;
+
+        fprintf(output_fd,"Acquiring a Frame\n");
+        fflush(output_fd);
         
     }
 
@@ -733,6 +736,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         //increment page misses
         number_of_page_misses++;
 
+        fprintf(output_fd,"Acquiring a Frame\n");
+        fflush(output_fd);
+
     }
 
     own_middle_page_table = check_frame_ownership(kernel_object,main_memory_object,pid,middle_page_table_frame_number);
@@ -792,6 +798,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
         //increment number of page misses
         number_of_page_misses++;
+
+        fprintf(output_fd,"Acquiring a Frame\n");
+        fflush(output_fd);
         
     }
 
@@ -855,6 +864,9 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
 
         //increment number of page misses
         number_of_page_misses++;
+
+        fprintf(output_fd,"Acquiring a Frame\n");
+        fflush(output_fd);
     }
 
     own_needed_frame = check_frame_ownership(kernel_object,main_memory_object,pid,needed_frame_number);

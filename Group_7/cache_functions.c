@@ -290,7 +290,7 @@ int L2_search(main_memory* main_memory_object,L2_cache* L2_cache_object,L2_cache
                 // fprintf(output_fd,"L2 Tag: %d | Index: %d\n",index,tag);
                 // fflush(output_fd);
 
-                // print_L2_buffer_cache(L2_cache_write_buffer_object);
+                //print_L2_buffer_cache(L2_cache_write_buffer_object);
 
                 
 
