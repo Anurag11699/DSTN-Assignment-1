@@ -168,6 +168,8 @@ int main()
 
          //remove element of array pointed to by executing_pid_index
          fprintf(stderr,"Process %d Terminated\n",pid_array[executing_pid_index]);
+         fprintf(output_fd,"Process %d Terminated\n",pid_array[executing_pid_index]);
+         fflush(output_fd);
          
          sleep(1);
          for(j=executing_pid_index;j<number_of_processes_ready-1;j++)
@@ -181,7 +183,8 @@ int main()
          if(number_of_processes_ready==0)
          {
             fprintf(stderr,"Simulation Over\n");
-            
+            fprintf(output_fd,"Simulation Over\n");
+            fflush(output_fd);
             
             break;
          }
@@ -202,7 +205,7 @@ int main()
          read_write=abs(1-rand75()); //this will produce 75% data requests as read and 25% data requests as write
       }
       
-      fprintf(stderr,"Executing request of PID: %d\n",pid_array[executing_pid_index]);
+      //fprintf(stderr,"Executing request of PID: %d\n",pid_array[executing_pid_index]);
 
       execute_process_request(kernel_object,L1_tlb,L2_tlb,L1_instruction_cache_4KB,L1_data_cache_4KB,L2_cache_32KB,L2_cache_write_buffer_8,main_memory_32MB,pid_array[executing_pid_index],process_request,read_write);
 

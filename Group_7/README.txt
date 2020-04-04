@@ -94,7 +94,23 @@ Structure of the program:
     d. If L1 cache hit we get the requested data or write to the data based on read or write request. The request to the L2 cache is cancelled. As this policy is write through, if it is as write request the data is immediately written back to main memory and the frame is marked as dirty.
     e. If L2 cache hit we get the data if read. If write, the block is written to the write buffer to be written back to main memory once write buffer is full. The block is then transfered to L1 cache. The L1 cache also transfers a block to L2 as the caches are exclusive.
     f. If both the caches miss, then we get the data from memory and insert it into the L1 cache. The L1 cache also transfers a block to L2 as the caches are exclusive.
-5. We are taking care of thrasing also. We set the lower and upper bounds of number of frames a process can have. 
+5. We are taking care of thrasing also. We set the lower and upper bounds of number of frames a process can have. If a process exceeds its upper bound, we release its frames until it has frames equal to the avg frames per process. Also, we do not take frames from a process which has number of frames less than the lower bound.
+6. There is a separate L1 data and L1 instruction cache maintained.
+
+
+Output of the Code:
+
+Output is stored in OUTPUT.txt in the subdirectory output_files
+
+for each process request the output displays:
+PID of process
+Logical Address
+TLB hit/miss
+If TLB miss, then page walk and Instruction restarts
+If TLB hit, Physical frame number and Offset
+IF L1 or L2 cache hit
+IF both cache miss then getting data from MM and putting into L1 cache
+L1 cache hit after searching in L1 cache
 
 
 

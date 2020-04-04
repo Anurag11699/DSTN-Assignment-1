@@ -64,6 +64,7 @@ Return Value:
 */
 int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int pid, char* filename)
 {
+
     //check PreConditions
     assert(kernel_object!=NULL && "pointer to kernel cannot be NULL");
     assert(main_memory_object!=NULL && "pointer to main memory cannot be NULL");
@@ -71,6 +72,9 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int 
 
     assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
     assert(pid>=0 && "pid less than 0 not allowed");
+
+    fprintf(output_fd,"Loading New Process with PID: %d\n\n",pid);
+    fflush(output_fd);
 
     
     //process limit reached, this process cannot be loaded yet 
@@ -510,6 +514,10 @@ void execute_process_request(kernel* kernel_object, tlb* L1_tlb, tlb* L2_tlb, L1
         {
             fprintf(output_fd,"L1 Cache HIT\n");
             //fflush(output_fd);
+
+            total_time_taken = total_time_taken + L1_cache_indexing_time + L1_cache_tag_comparison_time;
+
+            total_time_taken = total_time_taken + L1_cache_hit;
 
             number_of_L1_cache_hits++;
         }

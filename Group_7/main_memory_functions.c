@@ -1053,7 +1053,7 @@ main_memory* initialize_main_memory()
     
     int number_of_frames=power(2,(main_memory_size - frame_size));
 
-    fprintf(output_fd,"Number of Frames: %d\n",number_of_frames);
+    fprintf(output_fd,"Number of Frames: %d\n\n",number_of_frames);
     fflush(output_fd);
 
     main_memory* main_memory_object = (main_memory *)malloc(sizeof(main_memory));
