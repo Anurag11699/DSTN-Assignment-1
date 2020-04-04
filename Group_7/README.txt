@@ -112,6 +112,15 @@ IF L1 or L2 cache hit
 IF both cache miss then getting data from MM and putting into L1 cache
 L1 cache hit after searching in L1 cache
 
+At the end of the file (and also the console output) the following memory statistics are displayed:
+Total Time Taken
+Number of Requests Processed
+Effective Memory Access Time
+TLB Hit Rate
+L1 Cache Hit Rate
+L2 Cache Hit Rate
+Overall Cache Hit Rate
+Page Fault Rate
 
 
 Completion of Assignment: Have completed all aspects of the question.
