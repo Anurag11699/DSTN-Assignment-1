@@ -316,7 +316,7 @@ void insert_new_tlb_entry(tlb* tlb_object, int logical_page_number, int physical
     tlb_entry tlb_entry_to_add;
     tlb_entry_to_add.logical_page_number=logical_page_number;
     tlb_entry_to_add.physical_frame_number=physical_frame_number;
-    tlb_entry_to_add.LRU_counter=0;
+    tlb_entry_to_add.LRU_counter=0x80; // as recently added, might be used in the future, MSB is set to 1.
     tlb_entry_to_add.valid=1;
 
     int i;
