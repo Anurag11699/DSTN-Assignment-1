@@ -566,7 +566,7 @@ Inputs: {pointer to main memory object, pid, frame number}
 kernel_object!=NULL
 main_memory_object!=NULL
 0<=pid<maximum number of processes
-
+0<=frame number<number of frames in main memory{32,768 for 32MB main memory and 1KB frame size}
 
 Purpose of the Function: Checks if the pid stored in the frame table entry matches the pid in the argument of the function. If it matches, the frame is owned by that process
 
@@ -584,6 +584,9 @@ int check_frame_ownership(kernel* kernel_object,main_memory* main_memory_object,
 
     assert(pid<kernel_object->max_number_of_processes && "pid exceeded bounds");
     assert(pid>=0 && "pid less than 0 not allowed");
+
+    assert(frame_number>=0 && "Frame Number out of bounds");
+    assert(frame_number<main_memory_object->number_of_frames && "Frame Number out of bounds");
 
 
     if(frame_number<0)
