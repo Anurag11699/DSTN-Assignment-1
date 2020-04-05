@@ -452,7 +452,7 @@ void replace_L2_cache_entry(L2_cache* L2_cache_object, int index, int tag, int o
 
     L2_cache_object->L2_cache_entries[index].way[i].valid=1;
     L2_cache_object->L2_cache_entries[index].way[i].tag=tag;
-    L2_cache_object->L2_cache_entries[index].way[i].LFU_counter=0;
+    L2_cache_object->L2_cache_entries[index].way[i].LFU_counter=255/2; //give the counter a value so that the block doesnt get replaced as soon as it arrives
 
 }
 
