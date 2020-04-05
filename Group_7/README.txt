@@ -16,7 +16,7 @@ Contribution by Each Member:
 Anurag Madnawat(40%): Main Memory, Kernel, driver, debugging and integrating code, EMAT calculation, contributing with ideas for code structure, planning the code    
 Chinmay Gupta(20%): L2 cache, debugging, contributing with ideas for code structure, planning the code
 Suryateja Ratakumtla(20%): L1 cache, debugging, contributing with ideas for code structure, planning the code
-Madhav Sasikumar(20%): TLB,debugging, contributing with ideas for code structure, planning the code
+Madhav Sasikumar(20%): TLB, debugging, contributing with ideas for code structure, planning the code
 
 Problem Description:
 
@@ -36,9 +36,9 @@ Technical Details:
 
 Virtual Address - 32 bits, Physical Address - 25 bits. One page size = 1 KB. 
 L1 TLB - Number of entries = 12. Page no = 22 bits, frame no = 15 bits.
-L2 TLB - Number of entries = 12. Page no = 22 bits, frame no = 15 bits.
+L2 TLB - Number of entries = 24. Page no = 22 bits, frame no = 15 bits.
 L1 cache - Block Size = 32 bytes. Number of entries = 32. Number of ways = 4. Tag = 15, Index = 5, Offset = 5.
-L2 cache - Block Size = 32 bytes. Number of entries = 64. Number of ways = 16. Tag = 13, Index = 6, Offset = 5.
+L2 cache - Block Size = 32 bytes. Number of entries = 64. Number of ways = 16. Tag = 14, Index = 6, Offset = 5.
 Main memory - Number of frames = 32768. Hierarchical paging with three level page tables. Number of entries in page table = 256. Size of one page table entry = 4B.
 
 
