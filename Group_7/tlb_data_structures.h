@@ -34,7 +34,7 @@ typedef struct tlb_entry
 */
 typedef struct tlb
 {
-    int number_of_entries;
+    unsigned int number_of_entries;
     tlb_entry *tlb_entries;
 }tlb;
 

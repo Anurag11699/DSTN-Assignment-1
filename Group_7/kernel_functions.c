@@ -76,6 +76,8 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int 
     fprintf(output_fd,"Loading New Process with PID: %d\n\n",pid);
     fflush(output_fd);
 
+    fprintf(stderr,"Loading New Process with PID: %d\n\n",pid);
+
     
     //process limit reached, this process cannot be loaded yet 
     if(kernel_object->number_of_processes>=kernel_object->max_number_of_processes)
@@ -115,13 +117,12 @@ int load_new_process(kernel* kernel_object,main_memory* main_memory_object, int 
     fprintf(output_fd,"PID: %d | Request: %lx (hexadecimal) or %ld (decimal)\n\n",pid,request_1,request_1);
     fflush(output_fd);
 
-    //fprintf(stderr,"CHECK IN LOAD_NEW_PROCESS\n");
-    //int frame_number_1;
+
     page_table_walk(kernel_object,main_memory_object,pid,request_1);
 
     fprintf(output_fd,"PID: %d | Request: %lx (hexadecimal) or %ld (decimal)\n\n",pid,request_2,request_2);
     fflush(output_fd);
-    //int frame_number_2;
+    
     page_table_walk(kernel_object,main_memory_object,pid,request_2);
 
     

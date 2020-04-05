@@ -248,6 +248,14 @@ void transfer_to_free_frame_list(kernel* kernel_object,main_memory* main_memory_
             // fprintf(output_fd,"Process: %d | Frame Removed: %d\n",pid,temp->frame_number);
             // fflush(output_fd);
 
+            //if the frame that we got was modified, it must be swapped out
+            if(main_memory_object->frame_table[temp->frame_number].modified==1)
+            {
+                total_time_taken=total_time_taken+main_memory_to_swap_space_transer_time;
+
+                main_memory_object->frame_table[temp->frame_number].modified=0;
+            }
+
             //add this frame to free frame list
             update_frame_table_entry(kernel_object,main_memory_object,temp->frame_number,-1,0);
             add_free_frame(main_memory_object,temp->frame_number);
@@ -458,7 +466,7 @@ page_table* initialize_page_table(int frame_number_occupied)
 
     for(i=0;i<256;i++)
     {
-        page_table_object->page_table_entries[i].frame_base_address=3000; //initializing random value doesnt matter as valid =0
+        page_table_object->page_table_entries[i].frame_base_address=0x7fff; //initializing random value doesnt matter as valid =0
         page_table_object->page_table_entries[i].initialized_before=0;
         page_table_object->page_table_entries[i].valid=0;
         page_table_object->page_table_entries[i].pointer_to_page_table=NULL;

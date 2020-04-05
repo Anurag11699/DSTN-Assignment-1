@@ -21,7 +21,7 @@
 */
 typedef struct pcb
 {   
-    unsigned int pid;
+    int pid;
     unsigned int outer_page_base_address:15;
     page_table* outer_page_table;
     unsigned int outer_page_base_address_initialized_before:1;
