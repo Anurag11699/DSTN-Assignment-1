@@ -33,7 +33,7 @@ extern void update_frame_table_entry(kernel*,main_memory*,int,int,int);
 extern int get_pid_of_frame(main_memory*,int);
 extern int get_page_number_of_frame(main_memory*, int);
 extern int check_frame_ownership(kernel*,main_memory*,int,int);
-extern page_table* initialize_page_table(int);
+extern page_table* initialize_page_table();
 extern int page_table_walk(kernel* ,main_memory*,int,unsigned long int);
 extern void invalidate_page_table_entry(kernel*, main_memory*, int, unsigned long int);
 extern void mark_frame_modified(main_memory*, int);

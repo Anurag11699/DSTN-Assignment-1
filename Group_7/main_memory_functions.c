@@ -456,12 +456,11 @@ Purpose of the Function: This function intializes a page table
 PostConditions
 Output: {pointer to intialized page table}
 */
-page_table* initialize_page_table(int frame_number_occupied)
+page_table* initialize_page_table()
 {
 
     int i;
     page_table* page_table_object = (page_table*)malloc(sizeof(page_table));
-    //page_table_object->frame_occupied=frame_number_occupied;
     page_table_object->page_table_entries = (page_table_entry*)malloc(sizeof(page_table_entry)*256); //there are 2^8 entries in each page table
 
     for(i=0;i<256;i++)
@@ -662,7 +661,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         
         if(kernel_object->pcb_array[pid].outer_page_base_address_initialized_before==0)
         {
-            page_table *outermost_page_table = initialize_page_table(outer_page_table_frame_number);
+            page_table *outermost_page_table = initialize_page_table();
             kernel_object->pcb_array[pid].outer_page_table=outermost_page_table;
             kernel_object->pcb_array[pid].outer_page_base_address_initialized_before=1;
         }
@@ -722,7 +721,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         //make this frame the middle page table
         if(outer_page_table->page_table_entries[outer_page_table_offset].initialized_before==0)
         {
-            page_table* middle_page_table = initialize_page_table(middle_page_table_frame_number);
+            page_table* middle_page_table = initialize_page_table();
             outer_page_table->page_table_entries[outer_page_table_offset].pointer_to_page_table=middle_page_table;
             outer_page_table->page_table_entries[outer_page_table_offset].initialized_before=1;
         }
@@ -785,7 +784,7 @@ int page_table_walk(kernel* kernel_object, main_memory* main_memory_object, int 
         //make this frame the inner page table
         if(middle_page_table->page_table_entries[middle_page_table_offset].initialized_before==0)
         {   
-            page_table* inner_page_table = initialize_page_table(inner_page_table_frame_number);
+            page_table* inner_page_table = initialize_page_table();
             middle_page_table->page_table_entries[middle_page_table_offset].pointer_to_page_table=inner_page_table;
             middle_page_table->page_table_entries[middle_page_table_offset].initialized_before=1;
         }
