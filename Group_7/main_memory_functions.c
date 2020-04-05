@@ -328,7 +328,7 @@ PostConditions
 Return Value: 
 frame number of the removed frame. {0<=frame number<number of frames in main memory}
 */
-int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int is_page_table, int brought_in_before)
+int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int is_page_table, int initialized_before)
 {
 
     //check PreConditions
@@ -345,11 +345,11 @@ int get_frame(kernel* kernel_object,main_memory *main_memory_object,int pid,int 
     if(is_page_table==1)
     {
         //as it is an in memory DS 
-        if(brought_in_before==0)
+        if(initialized_before==0)
         {
-            total_time_taken=total_time_taken; //we initialize the page table, dont swap it
+            //total_time_taken=total_time_taken; //we initialize the page table, dont swap it in from swap space, hence no time added
         }
-        else if(brought_in_before==1)
+        else if(initialized_before==1)
         {
             total_time_taken=total_time_taken+swap_space_to_main_memory_transfer_time; //swap in the page
         }
