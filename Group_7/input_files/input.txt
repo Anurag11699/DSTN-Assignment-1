@@ -1,4 +1,4 @@
-5
+25
 700
 ./input_files/APSI.txt
 ./input_files/CC1.txt
