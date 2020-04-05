@@ -135,7 +135,7 @@ int main()
       fprintf(output_fd,"--------------------------------------------------------------------------------------\n");
       fflush(output_fd);
 
-      fseek(kernel_object->pcb_array[j].fd,j,SEEK_SET);
+      fseek(kernel_object->pcb_array[j].fd,0,SEEK_SET);
       pid_array[j]=j;
       number_of_processes_ready++;
 
