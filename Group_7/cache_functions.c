@@ -23,7 +23,7 @@ L1_cache* initialize_L1_cache()
 {
     //L1 cache has 2^5 indexes
     L1_cache *L1_cache_object = (L1_cache *)malloc(sizeof(L1_cache));
-    L1_cache_object->L1_cache_entries = (L1_cache_index_entry *)malloc(sizeof(L1_cache_index_entry)*64);
+    L1_cache_object->L1_cache_entries = (L1_cache_index_entry *)malloc(sizeof(L1_cache_index_entry)*32);
 
     int i,j,k;
     for(i=0;i<32;i++)
